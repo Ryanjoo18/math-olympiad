@@ -1,0 +1,72 @@
+\documentclass[10pt,a4paper]{extreport}
+\usepackage[top=1.0in, bottom=1.0in, left=1.0in, right=1.0in, heightrounded]{geometry}
+\usepackage{ryan}
+\usepackage[bottom]{footmisc}
+\usepackage{pdfpages}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}%\slshape
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=anyt
+]{biblatex}
+\addbibresource{biblio.bib}
+
+\makeglossaries
+
+\newacronym{smo}{SMO}{Singapore Mathematics Olympiad}
+\newacronym{h3math}{H3M}{H3 Mathematics}
+\newacronym{h2fmath}{H2FM}{H2 Further Mathematics}
+\newacronym{mat}{MAT}{Oxford Maths Admissions Test}
+\newacronym{putnam}{Putnam}{William Lowell Putnam Mathematics Competition}
+\newacronym{imo}{IMO}{International Mathematics Olympiad}
+\newacronym{usamo}{USAMO}{United States of America Mathematical Olympiad}
+\newacronym{apmo}{APMO}{Asian Pacific Mathematics Olympiad}
+\newacronym{australia}{Australia}{Australian Mathematical Olympiad}
+\newacronym{cmo}{China}{China Mathematical Olympiad}
+\newacronym{canada}{Canada}{Canadian Mathematical Olympiad}
+\newacronym{italy}{Italy}{Italian Mathematical Olympiad}
+\newacronym{vietnam}{Vietnam}{Vietnam Mathematical Olympiad}
+\newacronym{tstst}{USA TSTST}{United States of America Team Selection Test Selection Test}
+\newacronym{arml}{ARML}{American Regions Mathematics League}
+\newacronym{tripos}{Tripos}{Mathematical Tripos}
+
+\begin{document}
+\input{tex/frontmatter/title-page.tex}
+\pagebreak
+
+\pagenumbering{roman}
+\input{tex/frontmatter/copyright.tex}
+\pagebreak
+
+\setcounter{page}{1}
+\input{tex/frontmatter/author.tex}
+\pagebreak
+
+\input{tex/frontmatter/preface.tex}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\listoftheorems[ignoreall,
+onlynamed={theorem}]
+\pagebreak
+
+\printglossary[type=\acronymtype]
+\pagebreak
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\input{tex/nt/NumberTheory.tex}
+\input{tex/algebra/Algebra.tex}
+\input{tex/geo/Geometry.tex}
+\input{tex/combi/Combinatorics.tex}
+\input{tex/misc/Others.tex}
+\end{document}

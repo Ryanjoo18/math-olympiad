@@ -1,0 +1,1479 @@
+\part{Combinatorics}
+\chapter{Combinatorics}
+%https://rainymathboy.files.wordpress.com/2011/01/102-combinatorial-problems.pdf}{102 Combinatorial Problems From The Training of The USA IMO Team}
+
+\section{Basic Identities}
+\begin{definition}
+A \vocab{permutation} is an arrangement of objects in a specific order. The number of ways to permute $k$ of $n$ distinct items is given by
+\begin{equation}
+\per{n}{k}=\frac{n!}{(n-k)!}.
+\end{equation}
+\end{definition}
+
+\begin{definition}
+A \vocab{combination} is a selection of objects without regard to the order. The number of ways to choose $k$ of $n$ distinct items is given by
+\begin{equation}
+\com{n}{k}=\binom{n}{k}=\frac{n!}{k!(n-k)!}.
+\end{equation}
+\end{definition}
+
+\subsection{Pascal's Triangle}
+\begin{proposition}
+\begin{equation}
+\binom{n}{k}=\binom{n}{n-k}
+\end{equation}
+\end{proposition}
+\begin{proof}
+This is evident by means of expansion.
+\end{proof}
+
+Each number in the Pascal's triangle is a binomial coefficient.
+\begin{proposition}[Pascal's and hockey-stick identities]
+\begin{equation} 
+\binom{n}{k} + \binom{n}{k+1} = \binom{n+1}{k+1} 
+\end{equation}
+\begin{equation}
+\sum_{r=k}^{n} \binom{r}{k} = \binom{n+1}{k+1}
+\end{equation}
+\begin{equation}
+\sum_{r=0}^{n} \binom{k+r}{r} = \binom{n+k+1}{n}
+\end{equation}
+\end{proposition}
+\begin{proof}
+These can be easily proven through observation of Pascal's triangle.
+\end{proof}
+
+\begin{proposition}
+\begin{equation}
+\binom{n}{k}\binom{k}{m}=\binom{n}{m}\binom{n-m}{k-m}
+\end{equation}
+\end{proposition}
+\begin{proof}
+This can be easily proven via expansion.
+\end{proof}
+
+\begin{lemma}[Vandermonde's Identity]
+\begin{equation}
+\sum_{r=0}^{k} \binom{m}{r} \binom{n}{k-r} = \binom{m+n}{k}
+\end{equation}
+\end{lemma}
+
+\subsection{Binomial Theorem}
+\begin{theorem}[Binomial Theorem] 
+For $n \in \ZZ^{+}$ and $a,b\in\RR$, 
+\begin{equation}
+\begin{split}
+(a+b)^n &= \sum_{k=0}^n\binom{n}{k}a^{n-k}b^k\\
+&= \binom{n}{0}a^n + \binom{n}{1}a^{n-1}b + \cdots + \binom{n}{n}b^n
+\end{split}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+This can be proven using mathematical induction.
+\end{proof}
+
+\begin{corollary}
+For all $n\in\ZZ^{+}$, the following equality holds:
+\begin{equation}
+2^n = \sum_{k=0}^{n} \binom{n}{k} = \binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}
+\end{equation}
+\end{corollary}
+\begin{proof}
+The above identity simply follows by $a=b=1$.
+\end{proof}
+
+We give an alternate proof below that relates this identity to the set of subsets of a set.
+
+\begin{proof}
+Let $A$ be a set with $n$ elements, and let $A_k$ denote the subset of the power set $2^A$ containing the subsets of $A$ of size $k$. Then the sets $A_0,A_1,\dots,A_n$ partition $2^A$, which means the following
+equalities hold:
+\begin{align*}
+2^n=|2^A| &= |A_0|+|A_1|+\cdots+|A_n| \\
+&= \binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n} = \sum_{k=0}^{n} \binom{n}{k}
+\end{align*}
+In other words, every subset of $A$ has a size in $\{0,1,\dots,n\}$, so to count the number of subsets of $A$, we can count the number of subsets of each size over all possible sizes.
+\end{proof}
+
+\begin{proposition}
+\begin{equation}
+\sum_{k=0}^{n} k \binom{n}{k} = n 2^{n-1}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Writing the sum backwards yields
+\[S=n\binom{n}{n}+(n-1)\binom{n}{n-1}+(n-2)\binom{n}{n-2}+\cdots+\binom{n}{1},\]
+which after applying the identity $\binom{n}{k}=\binom{n}{n-k}$ to each term in the sum becomes
+\[S=n\binom{n}{0}+(n-1)\binom{n}{1}+(n-2)\binom{n}{2}+\cdots+\binom{n}{n-1}.\]
+We add this to the original series to get
+\[2S=n\binom{n}{0}+n\binom{n}{1}+n\binom{n}{2}+\cdots+n\binom{n}{n-1}+n\binom{n}{n}=n2^n.\]
+Thus $S=n2^{n-1}$.
+\end{proof}
+
+\begin{equation}
+\sum_{k=0}^{n} k^2 \binom{n}{k} = n(n+1) 2^{n-2}
+\end{equation}
+\pagebreak
+
+\section{Counting Problems}
+\subsection{Addition and Multiplication Principles}
+% https://courses.cs.duke.edu/spring19/compsci230/Notes/lecture22.pdf
+
+\begin{example} \
+\begin{itemize}
+\item Counting number of rectangles:
+
+For a $m \times n$ grid, to form a rectangle, choose $2$ points from the $m+1$ points along the column, and choose $2$ points from the $n+1$ points along the row. Hence the number of rectangles we can form is ${m+1 \choose 2}{n+1 \choose 2}$.
+
+\item Number of subsets of a set with $n$ elements is $2^n$.
+
+\item Number of ways to choose $k$ objects from $n$ objects, if repetition is allowed, is $\binom{n+k-1}{k}$.
+
+\item Number of paths from $(0,0)$ to $(m,n)$ going 1 unit rightwards or upwards is $\binom{m+n}{n}$.
+
+\item Number of $k$-tuples of positive integers which sum equals $n$ is $\binom{n-1}{k-1}$.
+
+\item Number of $k$-tuples of non-negative integers which sum equals $n$ is $\binom{n+k-1}{k-1}$.
+\end{itemize}
+\end{example}
+
+\subsection{Some Techniques}
+\textbf{Complementary counting}: count what you don't what, then subtract that from the total number of possibilities. 
+
+If $B$ is a subset of $A$,
+\[ |B|=|A|-|B^c| \]
+where $B^c$ is the complement of $B$.
+
+\textbf{Constructive counting}: count the total possibilities of each case/step, then assemble there to enumerate the full set
+
+\subsection{Bijection Principle}
+A mapping $f$ from $A$ to $B$, denoted by $f:A\to B$, is a rule which assigns each element $a\in A$ to a unique element $f(a)\in B$. $f(a)$ is called the image of $a$; $a$ is the preimage of $f(a)$.
+
+\begin{remark}
+The codomain $B$ need not be the range of $f$; in fact the range is a subset of $B$.
+\end{remark}
+
+We say that a mapping is injective (or one to one) if
+\[ \forall x,y\in A, \quad f(x)=f(y)\implies x=y \]
+where each element in $A$ corresponds to a distinct image in $B$.
+
+We say that a mapping is surjective (or onto) if
+\[ \forall b\in B, \exists a\in A\suchthat f(a)=b \]
+where all elements in the codomain have a pre-image.
+
+Let $A$ and $B$ be finite sets. Note that if there exists an injective mapping from $A$ to $B$, clearly $|A|\le|B|$; if there exists a surjective mapping from $A$ to $B$, then $|A|\ge|B|$.
+
+A bijective mapping is both injective and surjective. Thus we have
+
+\begin{theorem}[Bijection Principle]
+Let $A$ and $B$ be finite sets. If there exists a bijection $f:A\to B$ then
+\[ |A|=|B|. \]
+\end{theorem}
+
+By establishing a bijection, we can enumerate $B$ (easier to count) in order to enumerate $A$ (difficult to count).
+
+Employing the Bijection Principle:
+\begin{enumerate}
+\item State two sets $A$ and $B$, one of which should be the set that you are trying to enumerate in original problem.
+\item Define a mapping from $A$ to $B$, i.e. describe how a general element in $A$ is mapped to an element in $B$.
+\item Show that the mapping defined is bijective.
+\item Apply the Bijection Principle, i.e. $|A|=|B|$.
+\end{enumerate}
+
+\begin{exercise}
+In a $5\times3$ grid, points $P$ and $Q$ are located at the bottom left corner and top right corner respectively.
+
+An ant wants to crawl from $P$ to $Q$. If it can only crawl along the segments of the grid, how many shortest routes does it have to get from $P$ to $Q$?
+\end{exercise}
+
+\begin{solution}
+Let $A$ be the set of all possible shortest $P-Q$ routes and $B$ be the set of all 8-digit binary sequences with three 1's. We define a mapping $f:A\to B$ as follows:
+
+for each shortest $P-Q$ route $\alpha\in A$,
+\[ f(\alpha)=a_1a_2\cdots a_8 \]
+where
+\[ a_i=\begin{cases}
+0 & \text{if }i\text{-th step is rightward}\\
+1 & \text{if }i\text{-th step is upward}
+\end{cases}. \]
+Since $f:A\to B$ is a bijection, thus by the Bijection Principle,
+\[ \text{number of shortest }P-Q\text{ routes}=|A|=|B|=\binom{8}{3}=56. \]
+
+Also note that
+\begin{itemize}
+\item since each distinct shortest $P-Q$ is mapped by $f$ to a distinct 8-digit binary sequence with three 1's, $f$ is injective;
+\item for each 8-digit binary sequence with three 1's, there is a corresponding shortest $P-Q$ route so $f$ is surjective.
+\end{itemize}
+\end{solution}
+
+\begin{exercise}
+Find the number of divisors of $12600$.
+\end{exercise}
+
+\begin{solution}
+To solve this problem of counting, we make use of the Fundamental Theorem of Arithmetic:
+\begin{quote}
+Every natural number $n\ge2$ can be factorised as $n=p_1^{m_1}p_2^{m_2}\cdots p_k^{m_k}$ for some $p_1,p_2,\dots,p_k$ and for some natural numbers $m_1,m_2,\dots,m_k$. Such a factorisation is unique if the order of primes is disregarded.
+\end{quote}
+Prime decomposition of $12600$ gives $12600=2^3\times3^2\times5^2\times7^1$.
+
+Thus a number $d$ divides $12600$ if and only if it can be expressed as
+\[ d=2^p\times3^q\times5^r\times7^s \]
+where $p,q,r,s$ are positive integers such that $0\le p\le 3$, $0\le q\le 2$, $0\le r\le 2$, $0\le s\le 1$.
+
+Let $A=\{\text{divisors of }12600\}$ and $B=\{(p,q,r,s)\mid 0\le p\le 3, 0\le q\le 2, 0\le r\le 2, 0\le s\le 1\}$. We define a mapping $f:A\to B$ as follows: $\forall d\in A,d=2^p\times3^q\times5^r\times7^s$,
+\[ f(d)=(p,q,r,s). \]
+Since $f:A\to B$ is a bijection, thus by the Bijection Principle,
+\[ |A|=|B|=4\times3\times3\times2=72. \]
+\end{solution}
+
+\begin{exercise}
+Consider $5$ distinct points lying on the circumference of a circle, where any three chords formed by connecting two points are not concurrent.
+
+How many points of intersections of chords are there within the circle?
+\end{exercise}
+
+\begin{solution}
+Let $C$ be the set of such points of intersection, $D$ be the set of 4-element subsets of $\{1,2,3,4,5\}$.
+
+For each point $\beta\in C$, define $g(\beta)=\{p,q,r,s\}$, where $p,q,r,s$ are points on the circumference such that they are the endpoints of the two chords that intersect to give $\beta$. Hence $g$ is a mapping from $C$ to $D$.
+
+Every pair of chords, with endpoints $p,q,r,s$, that intersect will result in one point of intersection, thus $g$ is surjective. Also, 2 distinct points of intersection will not have the same pair of chords, so $g$ is injective. Hence $g:C\to D$ is a bijection.
+
+Once we have done that, we know $|C|=|D|$. Hence $|C|=|D|=\binom{5}{4}=5$.
+\end{solution}
+
+\subsection{Principle of Inclusion--Exclusion}
+The \vocab{Principle of Inclusion--Exclusion} (PIE) is a counting technique that computes the number of elements that satisfy at least one of several properties while guaranteeing that elements satisfying more than one property are not counted twice.
+
+The idea behind this principle is that summing the number of elements that satisfy at least one of two categories and subtracting the overlap prevents double counting.
+
+For two sets, 
+\[ |A \cup B| = |A| + |B| - |A \cap B| \] 
+where $|S|$ denotes the cardinality (i.e. number of elements) of set $S$.
+
+For three sets,  \[ |A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|B\cap C|-|C\cap A|+|A\cap B\cap C|. \]
+
+More generally, if $A_i$ are finite sets, then
+\begin{theorem}[Principle of Inclusion--Exclusion]
+\begin{equation} 
+\begin{aligned} \absolute{\bigcup_{i=1}^{n} A_i}=&\sum_{i=1}^{n}|A_i|-\sum_{1 \le i \le j \le n}|A_i \cap A_j|+\sum_{1 \le i \le j \le k \le n}|A_i\cap A_j\cap A_k|\\
+&-\cdots+(-1)^{n-1}|A_1\cap\cdots\cap A_n|. 
+\end{aligned} 
+\end{equation}
+\end{theorem}
+
+\begin{exercise}
+Find the number of integers from the set $\{1,2,\dots,1000\}$ which are divisible by 3 or 5.
+\end{exercise}
+
+\begin{solution}
+Let
+\begin{align*}
+S &= \{1,2,\dots,1000\} \\
+A &= \{x\in S\:|\:x\text{ is divisible by 3}\} \\
+B &= \{x\in S\:|\:x\text{ is divisible by 5}\}
+\end{align*}
+It follows that \[ A\cap B = \{x\in S\:|\:x\text{ is divisible by 15}\} \]
+Observe that for any two natural numbers $n$ and $k$ with $n\ge k$, the number of integers in the set $\{1,2,\dots,n\}$ which are divisible by $k$ is $\floor{\dfrac{n}{k}}$.
+
+Hence we have 
+\begin{align*}
+|A\cup B| &= |A| + |B| - |A\cap B| \\
+&= \floor{\frac{1000}{3}} + \floor{\frac{1000}{5}} - \floor{\frac{1000}{15}} \\
+&= 333 + 200 - 66 = \boxed{467}
+\end{align*}
+\end{solution}
+
+\begin{exercise}
+By using the Principle of Inclusion and Exclusion, show that the number of ways to distribute $r$ distinct objects into $n$ distinct boxes, where $r\ge n$, where no boxes are empty, is given by
+\[ \sum_{i=0}^n(-1)^i\binom{n}{i}(n-i)^r. \]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}
+Using the Principle of Inclusion and Exclusion, show that the number of non-surjective mappings from $\NN_n$ to $\NN_m$ where $n\ge m\ge2$ is given by
+\[\sum_{k=p}^{q}(-1)^{k+1}\binom{m}{k}(m-k)^n\]
+for some constants $p$ and $q$ to be determined, where $\NN_k=\{1,2,\dots,k\}$.
+
+\
+
+A quarternary sequence is a sequence containing only the digits `0', `1', `2' and `3'. Hence use the Bijection Principle to find the number of six-digit quarternary sequences that do not contain at least one of the digits `0', `1', `2' and `3'.
+\end{exercise}
+
+\begin{solution}
+Let $A_i$ be the set of mappings from $\NN_n$ to $\NN_m\setminus\{i\}$.
+
+We want to find $\displaystyle\absolute{\bigcup_{i=1}^{m}A_i}$.
+
+Note that
+\[\sum_{i=1}^{m}|A_i|=\binom{m}{1}(m-1)^n,\quad\sum_{i<j}|A_i\cap A_j|=\binom{m}{2}(m-2)^n,\quad\cdots\]
+In general,
+\[\sum_{i_1<i_2<\cdots<i_k}|A_{i_1}\cap A_{i_2}\cap\cdots\cap A_{i_k}|=\binom{m}{k}(m-k)^n.\]
+Hence
+\begin{align*}
+\absolute{\bigcup_{i=1}^{m}A_i}
+&=\sum_{i=1}^m |A_i|-\sum_{i<j}|A_i\cap A_j|+\cdots+(-1)^{k+1}\sum_{i_1<i_2<\cdots<i_k}|A_{i_1}\cap A_{i_2}\cap\cdots\cap A_{i_k}|+\cdots\\
+&=\binom{m}{1}(m-1)^n-\binom{m}{2}(m-2)^n+\cdots+(-1)^{k+1}\binom{m}{k}(m-k)^n+\cdots\\
+&=\sum_{k=1}^{m-1}(-1)^{k+1}\binom{m}{k}(m-k)^n.
+\end{align*}
+
+\
+
+Let $A$ be the set of all non-surjective mappings from $\NN_6$ to $\NN_4$.
+
+Let $B$ be the set of all 6-digit quarternary sequences that do not contain at least one of the digits `0', `1', `2' and `3'.
+
+We define a mapping $f:A\to B$ as follows: for each non-surjective mapping $\alpha\in A$,
+\[f(\alpha)=a_1a_2a_3a_4a_5a_6,\quad\text{where }a_i=\alpha(i)-1.\]
+Proof of injectivity: Since each \textbf{distinct} non-surjective mapping from $\NN_6$ to $\NN_4$ is mapped to a \textbf{distinct} 6-digit quarternary sequence that does not contain at least one of the digits `0', `1', `2' and `3', $f$ is injective.
+
+Proof of surjectivity: \textbf{For each quarternary sequence} that does not contain at least one of the digits `0', `1', `2' and `3', there is a \textbf{corresponding non-surjective mapping} $\NN_6$ to $\NN_4$ mapped to it under $f$, hence $f$ is surjective.
+
+Therefore $f$ is bijective. By the Bijection Principle,
+\begin{align*}
+&\text{number of 6-digit quarternary sequences that do not contain at least one of the digits}\\
+&\text{`0', `1', `2' and `3'}\\
+&=|B|=|A|\\
+&=\sum_{k=1}^3(-1)^{k+1}\binom{4}{k}(4-k)^6\\
+&=\binom{4}{1}3^6-\binom{4}{2}2^6+\binom{4}{3}1^6\\
+&=\boxed{2536}
+\end{align*}
+\end{solution}
+
+\subsection{Pigeonhole Principle}
+\begin{theorem}[Pigeonhole Principle]
+If $k+1$ objects are placed into $k$ boxes, then at least one box contains two or more objects. 
+\end{theorem}
+
+\begin{proof}
+We use a proof by contraposition.
+
+Suppose none of the $k$ boxes has more than one object. Then the total number of objects would be at most $k$. This contradicts the statement that we have $k+1$ objects.
+\end{proof}
+
+\begin{theorem}[Generalised Pigeonhole Principle] 
+If $n$ objects are placed into $k$ boxes, then there is at least one box containing at least $\ceiling{\frac{n}{k}}$ objects. 
+\end{theorem}
+
+\begin{proof}
+We use a proof by contradiction.
+
+Suppose that none of the boxes contains more than $\ceiling{\dfrac{n}{k}} - 1$ objects.
+
+Then the total number of objects is \[k\brac{\ceiling{\frac{n}{k}}-1}\] but \[ k\brac{\ceiling{\frac{n}{k}} - 1} < k \sqbrac{\brac{\frac{n}{k} + 1} - 1} = n \]
+where the inequality $\ceiling{\dfrac{n}{k}} < \dfrac{n}{k}+1$ was used.
+
+This is a contradiction, because there are a total of $n$ objects.
+\end{proof}
+\pagebreak
+
+\section{Distribution Problems}
+In this section, we are going to study a common class of combinatorial problems: \vocab{distribution problems}, which deal with the counting of ways of distributing $r$ objects into $n$ boxes.
+
+In distribution problems, objects can be distinguishable or indistinguishable, and boxes can be distinguishable or indistinguishable.
+
+\subsection{Distinguishable objects into distinguishable boxes}
+
+\subsection{Indistinguishable objects into distinguishable boxes}
+This type of problem is also known as ``Stars and Bars''. 
+
+The setup is the following: distribute 10 indistinguishable balls into 3 distinguishable boxes. For example, one possible distribution is $(4,3,3)$, where there are 4 balls in box 1, 3 balls in box 2, and 3 balls in box 3.
+
+The key observation is the following: we can distribute the balls by arranging them in a line, and then placing two ``vertical bars'' to partition the balls. For example, the $(4,3,3)$ described above can be modeled by the following:
+\[ \ast\ast\ast\ast | \ast\ast\ast | \ast\ast\ast \]
+where each $\ast$ represents a ball, and the two location of the two bars determines the distribution of the candies. In general, box 1 contains balls left of the first bar, box 2 contains balls between the two bars, and box 3 contains balls right of the second bar.
+
+So we can see that distributing candies is identical to choosing the location of the two bars to place in $10+2=12$ empty slots, hence $\binom{12}{2}$ ways.
+
+In general, we have
+\begin{theorem}
+The number of ways to distribute $r$ indistinguishable balls into $n$ distinguishable boxes is given by
+\begin{equation}
+\binom{n+r-1}{r-1}.
+\end{equation}
+\end{theorem}
+
+\begin{exercise}
+The owner of a newly set-up bird shop made 20 huge bird cages numbered 1 to 20 and imported 15 indistinguishable parrot dummies. Find the number of ways for him to distribute these dummies into the bird cages in each of the following cases:
+\begin{enumerate}[label=(\alph*)]
+\item Cage 8 must hold at least 3 dummies.\hfill [2]
+\item the total number of dummies in Cage 2 and Cage 3 is 5.\hfill [3]
+\end{enumerate}
+Suppose now that the bird shop owner tagged 5 of the dummies with a different serial number each, how many ways are there for him to distribute these 5 dummies into indistinguishable box(es) such that each box must contain at least 1 dummy?\hfill [2]
+\end{exercise}
+
+\begin{solution} \
+\begin{enumerate}[label=(\alph*)]
+\item Distribution problem:
+
+3 dummies into cage 8, leaving $15-3=12$ remaining identical dummies to be distributed into 20 distinct boxes.
+
+Number of different selections = $\binom{12+20-1}{20-1}=\binom{31}{12}=\boxed{141120525}$
+
+\item Equivalent problem:
+\begin{enumerate}[label=(\roman*)]
+    \item $x_2+x_3=5$
+
+    Number of ways = $\binom{5+2-1}{1}=6$
+
+    \item $\sum_{i=1}^{20}x_i=10$, $i\neq2,3$
+
+    Number of ways = $\binom{10+18-1}{18-1}=\binom{27}{17}$
+\end{enumerate}
+By multiplication principle, total number of ways = $6\binom{27}{17}=\boxed{50617710}$
+\end{enumerate}
+
+Total number of ways = $S(5,1)+S(5,2)+S(5,3)+S(5,4)+S(5,5)=1+15+25+10+1=\boxed{52}$
+\end{solution}
+
+In general, the number of ways of distributing $r$ indistinguishable balls into $n$ distinct boxes, where $r\ge n$, such that \emph{no box is empty} can be found by the following steps:
+
+First, put one ball in each box. As the balls are indistinguishable, this can be done in one way. Then distribute the remaining $r-n$ balls in the $n$ boxes freely. The number of ways to perform the second step is
+\[ \binom{(r-n)+(n-1)}{n-1}=\binom{r-1}{n-1}. \]
+
+Thus by MP we arrive at the following result:
+
+\begin{theorem}
+The number of ways of distributing $r$ indistinguishable balls into $n$ distinguishable boxes, where $r\ge n$, such that no box is empty is given by
+\begin{equation}
+\binom{r-1}{n-1}.
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+Alternatively, you can think of this as picking $n-1$ of the $r-1$ gaps between the $r$ balls to place partitions.
+\end{remark}
+
+\subsection{Distinguishable objects into indistinguishable boxes}
+% https://math.mit.edu/research/highschool/primes/circle/documents/2023/Cynthia_and_Chahat.pdf
+%https://brilliant.org/wiki/distinct-objects-into-identical-bins/
+
+\begin{definition}[Stirling number of second kind]
+\vocab{Stirling number of the second kind}, denoted by $S(r,n)$, is the number of ways of distributing $r$ distinguishable objects into $n$ indistinguishable boxes such that \emph{no box is empty}.
+\end{definition}
+
+\begin{lemma}
+\begin{equation}
+S(n,1)=1.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since we only want one subset that has all of the elements, that subset must be the set itself. Since there is only one way to do this, the amount of ways to partition n numbers into 1 subset is one.
+\end{proof}
+
+\begin{lemma}
+\begin{equation}
+S(n,2)=2^{n-1}-1.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+To see this, first note that there are $2n$ ordered pairs of complementary subsets $A$ and $B$. In one case, $A$ is empty, and in another $B$ is empty, so $2n-2$ ordered pairs of subsets remain. Finally, since we want unordered pairs rather than ordered pairs we divide this last number by $2$, giving the result above.
+\end{proof}
+
+\begin{lemma}
+\begin{equation}
+S(n,n-1)=\binom{n}{2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+This is because dividing $n$ elements into $n-1$ sets necessarily means dividing it into one set of size $2$ and $n-2$ sets of size $1$, by Pigeonhole Principle. Therefore we need only pick those two elements.
+\end{proof}
+
+We can establish the following recurrence relation:
+\begin{equation}
+S(r,n)=S(r-1,n-1)+nS(r-1,n)
+\end{equation}
+
+\begin{proof}
+Consider a single object to be fixed, and then consider where the remaining objects go. There are two cases:
+\begin{itemize}
+\item \textbf{Case 1}: The fixed object is in its own box.
+
+There are $r-1$ remaining objects to be distributed into $n-1$ boxes; by definition, there are $S(r-1,n-1)$ ways to do so.
+
+\item \textbf{Case 2}: The fixed object is in a box with other objects.
+
+The remaining $r-1$ objects are distributed into $n$ boxes; there are $S(r-1,n)$ ways to do so. For each of these distributions, there are $n$ ways to group the fixed object with the other object. Thus, there are $nS(r-1,n)$ ways to do so.
+\end{itemize}
+Summing both cases together yields
+\[S(r,n)=S(r-1,n-1)+nS(r-1,n).\]
+\end{proof}
+
+\begin{exercise}[The Ice Cream Problem]
+Imagine that you are going to serve $n$ kids ice cream cones, one cone per kid, and there are $k$ different flavours available. Assuming that no flavours get mixed, show that the number of ways we can give out the cones using all $k$ flavours. 
+\end{exercise}
+
+\begin{solution}
+Arrange the $n$ kids in a line. There are $S(n,k)$ ways to partition the $n$ kids into $k$ subsets according to the flavours that they will be receiving. After partitioning the kids, there are $k!$ ways of assigning the flavours to this partition. Hence, the of ways we can give out the cones using all $k$ flavours is $k!S(n,k)$.
+\end{solution}
+
+This is an answer to the ice cream problem, but it is unsatisfying to us, because we still don't know how to solve for $S(n,k)$. In order to find a formula for Stirling numbers of the second kind, we have to solve the ice cream problem without Stirling numbers, then equate them and isolate $S(n,k)$.
+
+First of all, ignoring the fact that we must use all of the flavours, there would be $k^n$ ways to distribute the ice cream: each kid has $k$ choices, so we just multiply $k$ by itself $n$ times. Now we have overcounted, so we have to subtract the cases where we didn't use at least one flavour. The number of ways we could have
+done this is
+\[\binom{k}{1}(k-1)^n\]
+because we choose one flavour out of the total $k$ to exclude, and then we distribute the other $k-1$ flavours.
+
+Now we have subtracted the cases where we have excluded at least two cases at least twice. We have to add back the cases where we've excluded at least two cases, which is $\binom{k}{2}(k-2)^n$ because we choose two flavours to exclude and distribute the other $k-2$ flavours to the kids. Now we have
+\[n^k-\binom{k}{1}(k-1)^n+\binom{k}{2}(k-2)^n.\]
+However, now we've overcounted again. This pattern repeats as we overcount and undercount, following the Property of Inclusion--Exclusion where the sets are the cases where we exclude each of the flavours.
+
+Our resulting expression for the number of ways to distribute the ice cream is
+\[k^n-\binom{k}{1}(k-1)^n+\binom{k}{2}(k-2)^n-\cdots+(-1)^k\binom{k}{k}(k-k)^n\]
+which we can rewrite as
+\[\sum_{i=0}^k(-1)^i\binom{k}{i}(k-i)^n.\]
+Now that we have two solutions to this problem, one using Stirling numbers of the second kind, and another without them, we can set them equal to each other, giving us
+\begin{equation}
+S(n,k)=\frac{1}{k!}\sum_{i=0}^k(-1)^i\binom{k}{i}(k-i)^n.
+\end{equation}
+
+\begin{definition}[Bell numbers]
+Bell number, denoted by $B_n$, is the number of ways to arrange $n$ distinct objects into up to $n$ identical boxes.
+\end{definition}
+
+Hence, Bell numbers are computed as a sum of Stirling numbers:
+\[B_n=\sum_{k=1}^n S(n,k).\]
+
+The Bell numbers have their own recurrence relation:
+\begin{equation}
+B_{n+1}=\sum_{k=0}^n\binom{n}{k}B_k.
+\end{equation}
+
+\begin{proof}
+We present a combinatorial argument.
+
+Consider how the $(n+1)$-th element is partitioned. Suppose that there are $k$ elements which are not in its box, then there are $\binom{n}{k}$ ways to pick these $k$ elements, and thereafter there are $B_k$ ways to arrange these $k$ elements into identical boxes. Hence, there are $\binom{n}{k}B_k$ such arrangements. The resulting Bell number is the sum of all these arrangements across all possible values of $k$.
+\end{proof}
+
+It is interesting to note that the exponential generating function of the Bell numbers is
+\[B(x)=\sum_{n=0}^\infty\frac{B_n}{n!}x^n=e^{e^x-1}.\]
+
+\begin{proof}
+The simplest way to prove this is to show that the previous recurrence relation explains why $B^\prime(x)=e^x B(x)$, from which the result follows by solving the differential equation and evaluating at $x=0$.
+\end{proof}
+
+\subsection{Indistinguishable objects into indistinguishable boxes}
+\begin{definition}
+We define a \vocab{partition} $P(r,n)$ of a positive integer $r$ into $n$ parts to be a set of $n$ positive integers whose sum is $r$.
+\end{definition}
+
+\begin{remark}
+The ordering of the integers in the collection does not matter.
+\end{remark}
+
+We can establish the following recurrence relation:
+\begin{equation}
+P(r,n)=P(r-1,n-1)+P(r-n,n)
+\end{equation}
+where $1<n\le r$.
+
+\begin{proof}
+
+\end{proof}
+\pagebreak
+
+\section{Further Concepts}
+\subsection{Catalan Numbers}
+%https://brilliant.org/wiki/catalan-numbers/
+Let's look at the \textbf{Bracket Problem}. How many ways can you put $n$ pairs of brackets (a pair of a left and a right bracket) in an expression so that pairs of brackets match up? Note that we can't legally have the situation (()))(, so the number of left brackets appearing at any stage never exceeds the number of right brackets.
+
+The numbers that we have been looking here are known as the \vocab{Catalan numbers}, denoted by $C_n$. The $n$-th Catalan number is given by the formula
+\begin{equation}
+C_n=\frac{(2n)!}{(n+1)!n!}
+\end{equation}
+for $n\ge0$.
+
+It can be written in other ways too:
+\[ C_n=\frac{1}{n+1}\binom{2n}{n}=\binom{2n}{n}-\binom{2n}{n+1}=\frac{1}{n+1}\sum_{i=0}^n\binom{n}{i}^2 \]
+
+The Catalan numbers also satisfy the recurrence relationships:
+\[ C_{n+1}=\frac{2(2n+1)}{n+2}L_n, \quad C_0=1 \]
+and
+\[ C_{n+1}=\sum_{i=0}^nC_iC_{n-i}, \quad C_0=1. \]
+
+\subsection{Derangements}
+A \vocab{derangement} is a permutation with no fixed points. That is, a derangement of a set leaves no element in its original place.
+
+\begin{example}
+For example, the derangements of $\{1,2,3\}$ are $\{2, 3, 1\}$ and $\{3, 1, 2\}$, but $\{3,2, 1\}$ is not a derangement of $\{1,2,3\}$ because $2$ is a fixed point.
+\end{example}
+
+We denote the number of derangements of an $n$-element set by $D_n$. This number satisfies the recurrence relationships
+\[D_n=n\cdot D_{n-1}+(-1)^n\]
+and
+\[D_n=(n-1)\cdot(D_{n - 1}+D_{n-2})\]
+and is given by the formula \[D_n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}.\]
+\pagebreak
+
+\section{Colouring Problems}
+Colouring is a technique in combinatorics that can be used to solve board-tiling problems, specifically to prove certain tilings are impossible. Generally, we assign a specific colour or label to each square on a board and shows that the tiles cannot satisfy constraints set by the colouring.
+
+
+%https://brilliant.org/wiki/coloring-definition/
+\pagebreak
+
+\section{Probability}
+Elementary probability
+O Expected value and linearity of expectation
+%https://www.math.cmu.edu/~lohp/docs/math/mop2009/prob-comb.pdf
+%https://web.evanchen.cc/handouts/ProbabilisticMethod/ProbabilisticMethod.pdf
+\subsection{Definitions and Notation}
+A \vocab{random variable} is just a quantity that we take to vary randomly.
+
+\begin{example}
+The outcome of a standard six-sided dice roll, say $D_6$, is a random variable.
+\end{example}
+
+We can now discuss the \vocab{probability} of certain events, denoted by $\PP(\cdot)$.
+
+\begin{example}
+We can write
+\[\PP(D_6=1)=P(D_6=2)=\cdots=\PP(D_6=6)=\frac{1}{6},\]
+or $\PP(D_6=0)=0$ and $\PP(D_6\ge4)=\frac{1}{2}$.
+\end{example}
+
+We can also discuss the \vocab{expected value} of a random variable $X$, which is the ``average'' value. The formal definition is
+\begin{equation}
+\EE[X]\coloneqq\sum_x\PP(X=x)\cdot x.
+\end{equation}
+
+\begin{example}
+\[\EE[D_6]=\frac{1}{6}\cdot1+\frac{1}{6}\cdot2+\cdots+\frac{1}{6}\cdot6=3.5.\]
+\end{example}
+
+In natural language, we just add up all the outcomes weighted by probability they appear.
+
+\subsection{Properties of Expected Value}
+\begin{example}
+At MOP, there are $n$ people, each of who has a name tag. We shuffle the name tags and randomly give each person one of the name tags. Let $S$ be the number of people who receive their own name tag. Prove that the expected value of $S$ is $1$.
+\end{example}
+
+\begin{solution}
+This result might seem surprising, as one might intuitively expect $\EE[S]$ to depend on the choice of $n$.
+
+Call a person a \emph{fixed point} if they receive their own name tag. Thus $S$ is the number of fixed points, and we wish to show that $\EE[S]=1$. If we are interested in the expected value, then according to our definition we should go through all $n!$ permutations, count up the total number of fixed points, and then divide by $n!$ to get the average. Since we want $E[S]=1$, we expect to see a total of $n!$ fixed points.
+
+Note that if we have $n$ letters, then each letter appears as a fixed point $(n-1)!$ times.
+
+Thus the expected value is
+\[\EE[S]=\frac{1}{n!}\brac{\underbrace{(n-1)!+(n-1)!+\cdots+(n-1)!}_{n\text{ times}}}=\frac{1}{n!}\cdot n\cdot(n-1)!=1.\]
+\end{solution}
+
+\begin{theorem}[Linearity of expectation]
+Given any random variables $X_1,X_2,\dots,X_n$, we always have
+\begin{equation}
+\EE[X_1+X_2+\cdots+X_n]=\EE[X_1]+\EE[X_2]+\cdots+\EE[X_n].
+\end{equation}
+\end{theorem}
+
+This theorem is obvious if $X_1,X_2,\dots,X_n$ are independent of each other. The wonderful thing is that this holds even if the variables are not independent.
+
+
+\pagebreak
+
+\section{Generating Functions}
+AOPS Volume 2 pg200
+
+Let $\{a_n\}$ be an infinite sequence of numbers.
+
+The \vocab{ordinary generating function} (OGF) of the sequence is defined by the formal series
+\begin{equation}
+f(x)=a_0+a_1x+a_2x^2+\cdots+a_nx^n+\cdots
+\end{equation}
+
+The \vocab{exponential generating function} (EGF) of the sequence is defined by the formal series
+\begin{equation}
+f(x)=a_0+a_1\frac{x}{1!}+a_2\frac{x^2}{2!}+\cdots+a_n\frac{x^2}{n!}+\cdots
+\end{equation}
+
+We are never required to consider the convergence of these functions. In fact, we can always substitute such a formal series with functions whose Taylor series is equal to the formal series.
+
+\subsection{Properties of OGFs}
+\begin{proposition}
+If $f(x)$ is the OGF of $\{a_n\}$, then the OGF of $\{a_{n+1}\}$ is
+\[ \frac{f(x)-a_0}{x}. \]
+In general, the OGF of $\{a_{n+k}\}$ is given by
+\[ \frac{f(x)-a_0-a_1x-\cdots-a_{k-1}x^{k-1}}{x^k}. \]
+\end{proposition}
+
+\begin{proof}
+If we let $g(x)$ to be the OGF of $\{a_{n+1}\}$ then
+\[ g(x)=a_1+a_2x+a_3x^2+\cdots \]
+Thus
+\[ f(x)=a_0+x\brac{a_1+a_2x+\cdots}=a_0+xg(x). \]
+\end{proof}
+
+\begin{proposition}
+If $f(x)$ is the OGF of $\{a_n\}$, then the OGF of $\{na_n\}$ is $x\mathrm{D}f=xf^\prime(x)$ where $\mathrm{D}$ is the differential operator $\dv{}{x}$. In general, the OGF of $\{n^ka_n\}$ is given by $(x\mathrm{D})^nf$. More generally, if $P$ is a polynomial, then the OGF of $\{P(n)a_n\}$ is $P(x\mathrm{D})f$.
+\end{proposition}
+
+\begin{proposition}
+If $f(x)$ and $g(x)$ are the OGFs of $\{a_n\}$ and $\{b_n\}$ respectively, then $f(x)g(x)$ is the OGF of
+\[ \crbrac{\sum_{k=0}^na_kb_{n-k}}. \]
+\end{proposition}
+
+\subsection{Properties of EGFs}
+
+\pagebreak
+
+
+\section*{Exercises}
+%AOPS Volume 2 - Chapter 15 exercises
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q6]
+From the first $2005$ natural numbers, $k$ of them are arbitrarily chosen. What is the least value of $k$ to ensure that there is at least one pair of numbers such that one of them is divisible by the other?
+\end{prbm}
+
+\begin{solution}
+Take any set $A$ of $1004$ numbers. Write each number in the form 
+\[2^{a_i}b_i,\quad\text{where $a_i\ge0$ and $b_i$ is odd}.\]
+Thus there are $1004$ odd numbers $b_1,\dots,b_{1004}$. Since there are $1003$ odd numbers among the first $2005$ positive integers, at least two of these odd numbers are equal, say $b_i=b_j$. Then $2^{a_i}b_i\mid 2^{a_j}b_j$ if $2^{a_i}b_i<2^{a_j}b_j$. So the answer is $1004$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q1]
+How many integers are there between $0$ and $10^5$ having the digit sum equal to $8$?
+\end{prbm}
+
+\begin{solution}
+Each integer can be written as $\overline{x_1x_2x_3x_4x_5}$ where each $x_i=0,1,\dots,9$ and $x_1+\cdots+x_5=8$. The number of non-negative integer solutions to the above equation is $\binom{8+4}{4}=495$. So there are $495$ such integers.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q15]
+Let $X=\{1,2,3,\dots,17\}$. Find the number of subsets $Y$ of $X$ with odd cardinalities.
+\end{prbm}
+
+\begin{solution}
+We have $|A|$ odd if and only if $|A^c|$ is even. Thus the number of subsets of odd cardinality is the same as the number of subsets with even cardinality. Hence the answer is $\frac{1}{2}\times2^{17}=2^{16}=65536$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q19]
+Given two sets $A=\{1,2,3,\dots,15\}$ and $B=\{0,1\}$, find the number of mappings $f:A\to B$ with $1$ being the image of at least two elements of $A$.
+\end{prbm}
+
+\begin{solution}
+There are $2^{15}$ mappings from $A$ to $B$. There is only one where $f(x)\neq1$ for all $x$ and $15$ where $f(x)=1$ for exactly one $x$. Thus the answer is $2^{15}-16=\boxed{32752}$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q21]
+Let $P$ be a 30-sided polygon inscribed in a circle. Find the number of triangles whose vertices are the vertices of $P$ such that any two vertices of each triangle are separated by at least three other vertices of $P$.
+\end{prbm}
+
+\begin{solution}
+Consider a vertex of such a triangle together with its three neighbouring vertices on the left as a block. We first count all such triangles that contain $A$ as one of its vertices. After taking away the block counting $A$, we are left with $18$ vertices and $2$ blocks. Thus the number of triangles containing $A$ is the number of ways to arrange these $20$ objects and this can be done in $\binom{20}{2}=190$ ways. Hence there are $30\cdot190/3=\boxed{1900}$ such triangles.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q25]
+Let
+\[S=\sum_{r=0}^n\binom{3n+r}{r}.\]
+Evaluate $\dfrac{S}{23\times38\times41\times43\times47}$ when $n=12$.
+\end{prbm}
+
+\begin{solution}
+By using the fact that $\binom{n}{r-1}+\binom{n}{r}=\binom{n+1}{r}$, and writing $\binom{3n}{0}$ as $\binom{3n+1}{0}$, we have
+\begin{align*}
+S &= \sqbrac{\binom{3n+1}{0}+\binom{3n+1}{1}}+\binom{3n+2}{2}+\cdots+\binom{3n+n}{n} \\
+&= \binom{3n+2}{1}+\binom{3n+2}{2}+\cdots+\binom{3n+n}{n} \\
+&= \cdots \\
+&= \binom{3n+n}{n-1}+\binom{3n+n}{n}=\binom{4n+1}{n}
+\end{align*}
+Thus when $n=12$,
+\[ \frac{S}{23\times38\times41\times43\times47}=1274. \]
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2007 Q2]
+Determine the number of those 0-1 binary sequences of ten $0$'s and ten $1$'s which do not contain three $0$'s together.
+\end{prbm}
+
+\begin{solution}
+In such a binary sequence, $0$'s either appear singly or in blocks of two. If the sequence has exactly $m$ blocks of double $0$'s, then there are $10-2m$ single $0$'s. The number of such binary sequences is $\binom{11}{m}\times\binom{11-m}{10-2m}$. Thus the answer is
+\[ \sum_{m=0}^5\binom{11}{m}\times\binom{11-m}{10-2m}=24068. \]
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2018 Q5]
+A rectangular table has two chairs on each of the longer sides and one chair on each of the shorter sides. In how many ways can six people be seated?
+
+(Note: Any two arrangements are the same up to `rotation' of the rectangular table.)
+\end{prbm}
+
+\begin{solution}
+Fix one person, say $P$. Note that there are three positions to consider:
+\begin{enumerate}
+\item $P$ is seated on the shorter side;
+\item $P$ is seated on the left seat of the longer side;
+\item $P$ is seated on the right seat of the longer side.
+\end{enumerate}
+In each case there are $5!=120$ ways, so in total there are $\boxed{360}$ ways.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{putnam} 1992 A6]
+Four points are chosen independently and at random on the surface of a sphere (using the uniform distribution). What is the probability that the center of the sphere lies inside the resulting tetrahedron?
+\end{prbm}
+
+\begin{solution}
+Having placed $3$ points $A$, $B$ and $C$, the fourth point $D$ will enclose the center in the tetrahedron iff it lies in the spherical triangle $A^\prime B^\prime C^\prime $, where $P^\prime $ is directly opposite to $P$ (so that the center lies on $PP^\prime$).
+
+The probability of this is the area of $ABC$ divided by the area of the sphere. So taking the area of the sphere as $1$, we want to find the expected area of $ABC$. But the $8$ triangles $ABC$, $A^\prime BC$, $AB^\prime C$, $ABC^\prime$, $A^\prime B^\prime C$, $AB^\prime C^\prime$, $A^\prime BC^\prime$, $A^\prime B^\prime C^\prime$ are all equally likely and between them partition the surface of the sphere. So the expected area of $ABC$, and hence the required probability, is just $\boxed{\dfrac{1}{8}}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[Moser's circle problem]
+Determine the number of regions into which a circle is divided if $n$ points on its circumference are joined by chords with no three internally concurrent.
+\end{prbm}
+
+\begin{solution}
+Circle division: chords divide a circle
+number of chords = n choose 2 where there are n points
+number of intersection points = n choose 4 (any 4 points forms 2 chords, thus gives a unique intersection point)
+
+The lemma asserts that the number of regions is maximal if all "inner" intersections of chords are simple (exactly two chords pass through each point of intersection in the interior). This will be the case if the points on the circle are chosen "in general position". Under this assumption of "generic intersection", the number of regions can also be determined in a non-inductive way, using the formula for the Euler characteristic of a connected planar graph (viewed here as a graph embedded in the 2-sphere $S^2$).
+
+A planar graph determines a cell decomposition of the plane with F faces (2-dimensional cells), E edges (1-dimensional cells) and V vertices (0-dimensional cells). As the graph is connected, the Euler relation for the 2-dimensional sphere S 2
+\[ V-E+F=2 \]
+holds. View the diagram (the circle together with all the chords) above as a planar graph. If the general formulas for V and E can both be found, the formula for F can also be derived, which will solve the problem.
+
+Its vertices include the n points on the circle, referred to as the exterior vertices, as well as the interior vertices, the intersections of distinct chords in the interior of the circle. The "generic intersection" assumption made above guarantees that each interior vertex is the intersection of no more than two chords.
+
+Thus the main task in determining V is finding the number of interior vertices. As a consequence of the lemma, any two intersecting chords will uniquely determine an interior vertex. These chords are in turn uniquely determined by the four corresponding endpoints of the chords, which are all exterior vertices. Any four exterior vertices determine a cyclic quadrilateral, and all cyclic quadrilaterals are convex quadrilaterals, so each set of four exterior vertices have exactly one point of intersection formed by their diagonals (chords). Further, by definition all interior vertices are formed by intersecting chords.
+
+Therefore, each interior vertex is uniquely determined by a combination of four exterior vertices, where the number of interior vertices is given by
+\[ V_\text{interior}=\binom{n}{4}, \]
+and so
+\[ V=V_\text{exterior}+V_\text{interior}=n+\binom{n}{4}. \]
+The edges include the $n$ circular arcs connecting pairs of adjacent exterior vertices, as well as the chordal line segments (described below) created inside the circle by the collection of chords. Since there are two groups of vertices: exterior and interior, the chordal line segments can be further categorized into three groups:
+
+\begin{enumerate}
+\item Edges directly (not cut by other chords) connecting two exterior vertices. These are chords between adjacent exterior vertices, and form the perimeter of the polygon. There are n such edges.
+\item Edges connecting two interior vertices.
+\item Edges connecting an interior and exterior vertex.
+\end{enumerate}
+
+To find the number of edges in groups 2 and 3, consider each interior vertex, which is connected to exactly four edges. This yields
+\[ 4\binom{n}{4} \]
+edges. Since each edge is defined by two endpoint vertices, only the interior vertices were enumerated, group 2 edges are counted twice while group 3 edges are counted once only.
+
+Every chord that is cut by another (i.e., chords not in group 1) must contain two group 3 edges, its beginning and ending chordal segments. As chords are uniquely determined by two exterior vertices, there are altogether
+\[ 2\brac{\binom{n}{2}-n} \]
+group 3 edges. This is twice the total number of chords that are not themselves members of group 1.
+
+The sum of these results divided by two gives the combined number of edges in groups 2 and 3. Adding the n edges from group 1, and the n circular arc edges brings the total to
+\[ E=\frac{4\binom{n}{4}+2\brac{\binom{n}{2}-n}}{2}+n+n=2\binom{n}{4}+\binom{n}{2}+n. \]
+Substituting $V$ and $E$ into the Euler relation solved for F, $F=E-V+2$, we then obtain
+\[ F=\binom{n}{4}+\binom{n}{2}+2. \]
+Since one of these faces is the exterior of the circle, the number of regions $r_G$ inside the circle is $F-1$, or
+\[ r_G=\binom{n}{4}+\binom{n}{2}+1. \]
+\end{solution}
+\pagebreak
+
+\begin{prbm}[Langford's Problem $L(n)$]
+Given the multiset\footnote{A multiset is like a set except that there may be more than one occurrence of an element.} of positive integers:
+\[ \{1,1,2,2,3,3,\dots,n,n\},\]
+can they be arranged in a sequence such that for $1 \le i \le n$ there are $i$ numbers between the two occurrences of $i$?
+\end{prbm}
+
+\begin{proof}
+
+% https://link.springer.com/content/pdf/10.1007/978-3-031-13566-8_9.pdf
+% https://www.youtube.com/watch?v=Lju6aYms2EA
+
+\end{proof}
+\pagebreak
+
+\begin{prbm} 
+Use a combinatorial proof to show that 
+\[ \sum_{k=0}^{n} \binom{n}{k}\binom{n}{n-k} = \binom{2n}{n}. \] 
+\end{prbm}
+
+\begin{proof}
+For combinatorial proofs, we begin with a story. Consider a group of $2n$ animals, where $n$ are dogs and $n$ are cats.
+
+\textbf{RHS:} Number of ways to pick $n$ animals from a group of $2n$ animals.
+
+For LHS, we try to understand what's going on in the summation:
+\[ \sum_{k=0}^{n} \binom{n}{k}\binom{n}{n-k} = \binom{n}{0}\binom{n}{n} + \binom{n}{1}\binom{n}{n-1} + \cdots \]
+
+We see that each term looks like a case. For example, for the first term, pick $0$ items from the first group, and pick $n$ items from the second group. This shows that if we want to pick $n$ animals, we can pick $k$ dogs and $n-k$ cats.
+
+\textbf{LHS:} Consider all cases where we pick $k$ dogs and $n-k$ cats.
+
+$\therefore$ LHS is the same as RHS as they both count the same number of things. Hence proven.
+\end{proof}
+\pagebreak
+
+\begin{prbm} 
+Evaluate 
+\[ S = {n \choose 1} + 2 {n \choose 2} + 3 {n \choose 3} + \cdots + n {n \choose n}. \] 
+\end{prbm}
+
+\begin{solution}
+Writing the sum backwards yields 
+\begin{align*} 
+S &= n {n \choose n} + (n-1) {n \choose n-1} + \cdots + {n \choose 1} \\&= n {n \choose 0} + (n-1) {n \choose 1} + \cdots + {n \choose n-1} 
+\end{align*} 
+Add this to the original series gives us 
+\begin{align*}
+2S &= n \left[{n \choose 0} + {n \choose 1} + \cdots + {n \choose n}\right]\\ 
+2S &= n 2^n \\
+\Aboxed{S &= n 2^{n-1}}
+\end{align*}
+\end{solution}
+This is the proof of the sum
+\[ \sum_{k=0}^{n} k \binom{n}{k} = n 2^{n-1} \]
+\pagebreak
+
+\begin{prbm}[\acrshort{usamo} 2005]
+Legs $L_1, L_2, L_3, L_4$ of a square table each have length $n$, where $n$ is a positive integer. For how many ordered 4-tuples $(k_1, k_2, k_3, k_4)$ of non-negative integers can we cut a piece of length $k_i$ from the end of leg $L_i \; (i=1,2,3,4)$ and still have a stable table?
+
+(The table is stable if it can be placed so that all four of the leg ends touch the floor. Note that a cut leg of length $0$ is permitted.)
+\end{prbm}
+
+\begin{solution}
+The table is stable if $k_1+k_3=k_2+k_4$. Let this common value be $k$ such that that $k_1+k_3=k_2+k_4=k$. Let $c_k$ be the number of ways to make the table stable for each value of $k$. We want to find $\sum_{k=0}^{2n}c_k$.
+
+Note that each table leg is at least 0 and at most $n$, hence we'll break this into two sums so that it's easier to handle:
+\[\sum_{k=0}^n c_k+\sum_{k=n+1}^{2n}c_k\]
+
+\textbf{Case 1}: If $0\le k\le n$, there are $k+1$ ways to partition $k_1$ and $k_3$, and another $k+1$ ways to partition $k_2$ and $k_4$. There are $(k+1)^2$ ways to partition $k_i$ in this interval. Hence 
+\[\sum_{k=0}^n (k+1)^2\]
+
+\textbf{Case 2}: If $n+1\le k\le 2n$, each of the $k_i$ is at most $n$ and at least $0$. There are $(2n-k+1)^2$ ways to partition the $k_i$ in this interval. Hence
+\[\sum_{k=n+1}^{2n}(2n-k+1)^2\]
+
+Evaluating the sum gives us $\boxed{\frac{(n+1)(2n^2+4n+3)}{3}}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[ROMANIA 1990]
+Find the least positve integer $m$ such that
+\[ \binom{2n}{n}^\frac{1}{n}<m \]
+for all positive integers $n$.
+\end{prbm}
+
+\begin{solution}
+Note that
+\[ \binom{2n}{n}<\binom{2n}{0}+\binom{2n}{1}+\cdots+\binom{2n}{2n}=(1+1)^{2n}=4^n \]
+and for $n=5$,
+\[ \binom{10}{5}=252>3^5. \]
+Thus $m=4$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Evaluate
+\[ \sum_{k=0}^n\frac{1}{(n-k)!(n_k)!}. \]
+\end{prbm}
+
+\begin{solution}
+Let $S_n$ denote the desired sum. Then
+\begin{align*}
+S_n&=\frac{1}{(2n)!}\sum_{k=0}^n\frac{(2n)!}{(n-k)!(n+k)!}\\
+&=\frac{1}{(2n)!}\sum_{k=0}^n\binom{2n}{n-k}\\
+&=\frac{1}{(2n)!}\binom{2n}{k}\\
+&=\frac{1}{(2n)!}\cdot\frac{1}{2}\sqbrac{\sum_{k=0}^{2n}\binom{2n}{k}+\binom{2n}{n}}\\
+&=\frac{1}{(2n)!}\cdot\frac{1}{2}\sqbrac{2^{2n}+\binom{2n}{n}}\\
+&=\frac{2^{2n-1}}{(2n)!}+\frac{1}{2(n!)^2}
+\end{align*}
+\end{solution}
+
+\chapter{Recurrence Relations}
+% https://www.site.uottawa.ca/~lucia/courses/2101-10/lecturenotes/07RecurrenceRelations.pdf
+
+\section{Introduction}
+\subsection{Definition}
+\begin{definition}
+A \vocab{recurrence relation} for the sequence $\{a_n\}$ is an equation that expresses $a_n$ in terms of one or more of the \emph{previous terms} $a_0,a_1,\dots,a_{n-1}$, for all integers $n\ge n_0$.
+\end{definition}
+
+The \textbf{initial conditions} for a sequence specify the terms before $n_0$ (before the recurrence relation takes effect). The recurrence relations together with the initial conditions uniquely determines the sequence.
+
+We will study more closely linear homogeneous recurrence relations of degree $k$ with constant coefficients:
+\[ a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k}, \]
+where $c_1,c_2,\dots,c_k$ are real numbers and $c_k \neq 0$.
+
+By \textbf{linear}, we mean the previous terms appear with exponent 1 (not squares, cubes, etc); by \textbf{homogeneous}, we mean there is no term other than the multiples of $a_i$; by \textbf{degree} of $k$, we mean the current term can be expressed in terms of previous $k$ terms.
+
+Relevant examples:
+\begin{itemize}
+\item $a_{n+1}=a_n+k$
+
+\textbf{Solution:} $a_n=a_1+(k-1)n$
+
+\item $a_{n+1}=a_n+n$
+
+\textbf{Solution:} $a_n=a_1+1+2+\cdots+(n-1)=a_1+\frac{n(n-1)}{2}$
+
+\item $a_{n+1}=a_n \cdot k$
+
+\textbf{Solution:} $a_n=a_1k^{n-1}$
+
+\item $a_{n+1}=a_n \cdot n$
+
+\textbf{Solution:} $a_n=a_1(n-1)!$
+
+\item Fibonacci sequence: $a_{n+1}=a_n+a_{n-1}$ (for $n \ge 2$), $a_1=a_2=1$
+
+\item Cauchy equation: $f(x+y)=f(x)+f(y)$
+
+\textbf{Solution:} $f(x)=f(1)x$ for rational $x$
+
+\end{itemize}
+
+Some useful heuristics for problem-solving:
+\begin{itemize}
+\item Try from small numbers, look for patterns
+\item Consider first/last things, split into cases
+\end{itemize}
+\pagebreak
+
+\subsection{Identifying Recurrence Relations}
+We shall discuss some counting problems.
+
+\begin{example}[Staircase problem]
+A boy wishes to climb a staircase of $n$ steps. Each time, the boy either climbs up one step or two steps. How many ways are there for him to climb the staircase?
+\end{example}
+
+\begin{solution}
+Consider two cases as follows:
+\begin{itemize}
+\item \textbf{Case 1:} The first move covers 1 step.
+
+Then there are $n-1$ steps left, thus $a_{n-1}$ ways to climb these remaining steps.
+
+\item \textbf{Case 2:} The first move covers 2 steps.
+
+Then there are $n-2$ steps left, thus $a_{n-2}$ ways to climb these remaining steps.
+\end{itemize}
+
+Combining the results of these two cases by applying Addition Principle, we conclude that
+\[ a_n=a_{n-1}+a_{n-2} \]
+for $n\ge3$, where $a_1=1$, $a_2=2$.
+\end{solution}
+
+\begin{example}[Tower of Hanoi]
+A tower of $n$ circular discs of different sizes is stacked on one of the three given pegs in decreasing size from the button. The task is to transfer the entire tower to another peg by a sequence of moves under the following conditions:
+\begin{enumerate}[label=(\roman*)]
+\item each move carries exactly one disc, and
+\item no disc can be placed on top of a smaller one.
+\end{enumerate}
+What is the minimum number of moves required to accomplish the task?
+\end{example}
+
+\begin{solution}
+The task of transferring the entire tower of $n$ discs to another peg can be done via the following steps:
+\begin{enumerate}
+\item Transfer the top $n-1$ discs to another peg.
+\item Move the largest disc from the original peg to the only empty peg.
+\item Transfer the entire tower of $n-1$ smaller discs to the peg that the largest disc is currently placed.
+\end{enumerate}
+The minimum number of moves for step 1, 2 and 3 are $b_{n-1}$, $1$ and $b_{n-1}$ respectively. Hence the minimum number of moves for the whole task is $2b_{n-1}+1$.
+
+By the definition of $b_n$, we have
+\[ b_n=2b_{n-1}+1 \]
+for $n\ge2$, where $b_1=1$.
+
+\begin{remark}
+The closed formula is given by
+\[ b_n=2^n-1. \]
+\end{remark}
+\end{solution}
+
+\begin{example}[Fibonnaci's rabbits]
+Beginning with a pair of new-born rabbits, and assuming that each pair is immortal and gives birth to a new pair each month starting from the second month of its life, how many pairs will there be after $n$ months?
+\end{example}
+
+\begin{solution}
+Let $F_n$ denote the number of pairs of rabbits at the end of the $n$-th month.
+
+Note that $F_n$ is the sum of number of pairs of rabbits in the previous month, and number of pairs of newborn rabbits that were born from rabbits two months ago. Thus
+\[ F_n=F_{n-1}+F_{n-2} \]
+for $n\ge3$, where $F_1=1$, $F_2=1$.
+\end{solution}
+
+\begin{example}[Derangement]
+A permutation of $a_1,a_2,\dots,a_n$ is called a derangement (nothing is in its right place) if $a_i\neq i$ for each $i=1,2,\dots,n$. Denoting the number of derangements by $D_n$, show that
+\[ D_n=(n-1)(D_{n-1}-D_{n-2}). \]
+\end{example}
+
+\begin{solution}
+The first digit cannot be `1', so there are $n-1$ choices for the first digit.
+
+Suppose the first digit is `2'.
+\begin{itemize}
+\item \textbf{Case 1:} If `1' is placed in the second position, the number of ways to arrange the remaining $n-2$ digits such that none is in its right place is given by $D_{n-2}$.
+\item \textbf{Case 2:} If `1' is not placed in the second position, then the number of ways to arrange $1,3,4,\dots,n$ such that none is in its right place is given by $D_{n-1}$.
+\end{itemize}
+Total number of derangements if the first digit is `2' = $D_{n-1}+D_{n-2}$.
+
+A similar argument holds for the other $n-2$ cases. Hence by Multiplication Principle,
+\[ D_n=(n-1)(D_{n-1}+D_{n-2}) \]
+for $n\ge3$, where $D_1=0$, $D_2=1$.
+\end{solution}
+\pagebreak
+
+\section{First-order Recurrence Relations}
+• solution of
+(i) first order linear (homogeneous and nonhomogeneous) recurrence relations with constant coefficients
+
+The homogeneous case can be written in the following way:
+\[ x_n=rx^{n-1}, \quad x_0=A. \] 
+The general solution is
+\[ \boxed{x_n=Ar^n} \]
+which is a geometric sequence with common ratio $r$.
+
+\section{Second-order Recurrence Relations}
+A second order linear homogeneous recurrence relation with constant coefficients can be written in the following way:
+\[ c_0x_n+c_1x_{n-1}+c_2x_{n-2}=0. \]
+We first look for solutions in the form of $x_n=cr^n$. Plugging in the equation, we get
+\[ c_0\brac{cr^n}+c_1\brac{cr^{n-1}}+c_2\brac{cr^{n-2}}=0 \] 
+which simplifies to
+\[ c_0r^2+c_1r+c_2=0, \] 
+known as the \vocab{characteristic equation} of the recurrence. The roots of the above equation, $r_1$ and $r_2$, are known as the \vocab{characteristic roots}.
+
+In the case of distinct real roots, the general solution is 
+\[ \boxed{x_n=\alpha_1{r_1}^n+\alpha_2{r_2}^n} \]
+where $\alpha_1$ and $\alpha_2$ are constants to be found.
+
+In the case of repeated real roots, the general solution is
+\[ \boxed{x_n=\brac{\alpha_1+\alpha_2n}{r_1}^n} \]
+where $\alpha_1$ and $\alpha_2$ are constants to be found.
+
+\begin{exercise}
+Solve the recurrence relation $a_n=3a_{n-1}-2a_{n-2}$, with initial conditions $a_1=1$, $a_2=2$.
+\end{exercise}
+
+\begin{solution}
+The characteristic equation $x^2=3x-2$ has two roots $1$ and $2$. Thus
+\[ a_n=K\cdot1^n+L\cdot2^n \]
+where $K$ and $L$ are constants to be determined from initial conditions:
+\begin{align*}
+&n=1,\quad a_1=K+2L=1\\
+&n=2,\quad a_2=K+4L=2
+\end{align*}
+Solving these equations, we get $K=0$ and $L=\frac{1}{2}$. Therefore
+\[ a_n=0\cdot1^n+\frac{1}{2}\cdot2^n=2^{n-1}. \]
+\end{solution}
+
+\begin{exercise}
+Solve the recurrence relation $a_n=6a_{n-1}-9a_{n-2}$, with initial conditions $a_0=1$, $a_1=6$.
+\end{exercise}
+
+\begin{solution}
+$r^2-6r+9=0$ has only $3$ as a root. So the format of the solution is $a_n=\alpha_13^n+\alpha_2n3^n$. Need to determine $\alpha_1$ and $\alpha_2$ from initial conditions:
+\begin{align*}
+a_0&=1=\alpha_1\\
+a_1&=6=\alpha_1\cdot3+\alpha_2\cdot3
+\end{align*}
+Solving these equations we get $\alpha_1=1$ and $\alpha_2=1$. Therefore
+\[ a_n=3^n+n3^n. \]
+\end{solution}
+
+% https://www.math.hkust.edu.hk/~mabfchen/Math2343/Recurrence.pdf
+
+\begin{exercise}{Fibonacci Equation}{} 
+Let \[ f(n+2)=f(n+1)+f(n) \] 
+where $f(0)=0, f(1)=1$. Find a general formula for the sequence.
+\end{exercise} 
+
+\begin{solution}
+Consider the solution of the form \[ f(n)=\alpha^n \] for some real number $\alpha$. Then we have \[ \alpha^{n+2}=\alpha^{n+1}+\alpha^n \] from which we conclude that $\alpha^2 - \alpha - 1$. Solving quadratically, we have \[ \alpha_1=\frac{1+\sqrt{5}}{2}, \alpha_2=\frac{1-\sqrt{5}}{2}. \] 
+
+Hence, a general solution of the sequence can be written as \[ f(n)=c_1 \left(\frac{1+\sqrt{5}}{2}\right)^n+c_2 \left(\frac{1-\sqrt{5}}{2}\right)^n \] where $c_1$ and $c_2$ are coefficients to be determined using the initial values.
+
+By the initial conditions, we have 
+\begin{align*}
+& c_1+c_2=0 \\
+& c_1 \left(\frac{1+\sqrt{5}}{2}\right)+c_2 \left(\frac{1-\sqrt{5}}{2}\right)=1
+\end{align*}
+
+Thus we have \[ c_1=\frac{1}{\sqrt{5}},\:c_2=- \frac{1}{\sqrt{5}}. \] 
+
+Hence this gives us \[ \boxed{f(n)=\frac{1}{\sqrt{5}} \left(\frac{1+\sqrt{5}}{2}\right)^n - \frac{1}{\sqrt{5}} \left(\frac{1-\sqrt{5}}{2}\right)^n}. \]
+\end{solution}
+
+Generalising this, we have the following theorem.
+\begin{theorem}
+Let $c_1,c_2,\dots,c_k$ be real numbers. Suppose that the characteristic equation $r^k-c_1r^{k-1}-\cdots-c_k=0$ has $k$ distinct roots $r_1,r_2,\dots,r_k$. Then, a sequence $\{a_n\}$ is a solution of the recurrence relation 
+\[ a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k} \]
+if and only if $a_n=\alpha_1{r_1}^n+\alpha_2{r_2}^n+\cdots+\alpha_k{r_k}^n$ for $n=0,1,2,\dots$, where $\alpha_1,\alpha_2,\dots,\alpha_k$ are constants.
+\end{theorem}
+\pagebreak
+
+\section*{Exercises}
+\begin{prbm}[\acrshort{smo} Open 2018 Q19]
+Assume that $a_1<2$, and for any integer $n\ge2$, $a_n=1+a_{n-1}(a_{n-1}-1)$. If
+\[\frac{1}{a_1}+\frac{1}{a_2}+\cdots+\frac{1}{a_m}=1\]
+for some integer $m$, and that $16a_1-a_{m+1}\le N$ for some integer $N$, what is the least possible value of $N$? (Note that $N$ may not be attainable.)
+\end{prbm}
+
+\begin{solution}
+For $n\ge2$, as $a_n=1+a_{n-1}(a_{n-1}-1)$, we have
+\[\frac{1}{a_n-1}=\frac{1}{(a_{n-1}-1)(a_{n-1})}=\frac{1}{a_{n-1}-1}-\frac{1}{a_{n-1}},\]
+i.e.,
+\[\frac{1}{a_{n-1}}=\frac{1}{a_{n-1}-1}-\frac{1}{a_n-1}.\]
+Thus
+\[\frac{1}{a_1}+\frac{1}{a_2}+\cdots+\frac{1}{a_m}=\frac{1}{a_1-1}-\frac{1}{a_{m+1}-1}.\]
+By the given condition,
+\[\frac{1}{a_1-1}-\frac{1}{a_{m+1}-1}=1.\]
+Solving this gives $a_{m+1}=-\dfrac{1}{a_1-2}$. Thus
+\begin{align*}
+16a_1-a_{m+1}
+&=16a_1+\frac{1}{a_1-2}\\
+&=16(a_1-2)+32+\frac{1}{a_1-2}\\
+&=32-\sqbrac{16(2-a_1)+\frac{1}{2-a_1}}\\
+&\le32-2\sqrt{16}\quad\text{by AM--GM}\\
+&=24.
+\end{align*}
+Equality is attained when $16(2-a_1)=\frac{1}{2-a_1}$, i.e., $a_1=\frac{7}{4}$. Note however that in this problem the maximum value is not attainable.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2018 Q17]
+Let $f_0(x)=\dfrac{x}{3x+2}$ and for any integer $n\ge1$, $f_n(x)=f_0(f_{n-1}(x))$. Find $f_{2018}(x)$.
+\end{prbm}
+
+\begin{solution}
+Observe that for $n\ge1$,
+\[\frac{1}{f_n(x)}=\frac{3f_{n-1}(x)+2}{f_{n-1}(x)}=\frac{2}{f_{n-1}(x)}+3=2\brac{\frac{1}{f_{n-1}(x)}+3}-3,\]
+i.e.
+\[\frac{1}{f_n(x)}+3=2\brac{\frac{1}{f_{n-1}(x)}+3}.\]
+Thus
+\[\frac{1}{f_n(x)}+3=2^n\brac{\frac{1}{f_0(x)}+3}=2^n\brac{\frac{3x+2}{x}+3},\]
+implying that
+\[\frac{1}{f_n(x)}=2^n\brac{\frac{3x+2}{x}+3}-3=\frac{3(2^{n+1}-1)x+2^{n+1}}{x}.\]
+So
+\[f_n(x)=\frac{x}{3(2^{n+1}-1)x+2^{n+1}}.\]
+\end{solution}
+
+SMO Open 2017 Q24
+
+SMO Open 2015 Q3
+
+SMO Open 2012 Q21
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q20]
+Let $a_1,a_2,\dots$ be a sequence satisfying the condition that
+\[ a_1=1\quad\text{and}\quad a_n=10a_{n-1}-1 \quad \text{for all $n\ge2$}. \]
+Find the minimum $n$ such that $a_n>10^{100}$.
+\end{prbm}
+
+\begin{solution}
+Note that $a_n-\frac{1}{9}=10\brac{a_{n-1}-\frac{1}{9}}$ for all $n\ge2$. Let $b_n=a_n-\frac{1}{9}$. Then
+\[ b_n=10b_{n-1}=\cdots=10^{n-1}b_1=\frac{8\cdot10^{n-1}}{9}. \]
+Therefore $a_n=\dfrac{1+8\cdot10^{n-1}}{9}$. For $n\ge2$, $8\cdot10^{n-2}<a_n<10^{n-1}$. Thus $a_{101}<10^{101}<a_{102}$ and the answer is $102$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q14]
+Let $a_1=2006$, and for $n\ge2$, $a_1+a_2+\cdots+a_n=n^2a_n$. What is the value of $2005a_{2005}$?
+\end{prbm}
+
+\begin{solution}
+\[ a_n=\sum_{i=1}^na_i-\sum_{i=1}^{n-1}a_i=n^2a_n-(n-1)^2a_{n-1}. \]
+This gives $a_n=\dfrac{n-1}{n+1}a_{n-1}$. Thus
+\[ a_{2005}=\frac{2004}{2006}a_{2004}=\cdots=\frac{2004\times2003\times\cdots\times1}{2006\times2005\times\cdots\times3}a_1=\frac{2}{2005}. \]
+\end{solution}
+
+\begin{prbm}[\acrshort{vietnam} 1977]
+Into how many regions do $n$ circles divide the plane, if each pair of circles intersects at two points and no point lies on three circles?
+\end{prbm}
+
+\begin{solution}
+Denote by $P(n)$, the number of regions divided by $n$ circles. We have $P(1)=2,P(2)=4,P(3)=8,P(4)=14,\dots$ and from this we notice that
+\begin{align*}
+P(1)&=2\\
+P(2)&=P(1)+2\\
+P(3)&=P(2)+4\\
+P(4)&=P(3)+6\\
+\vdots&\\
+P(n)&=P(n-1)+2(n-1).\\
+\end{align*}
+Summing up these equations we obtain
+\[P(n)=2+n(n-1).\]
+We now prove this formula by induction.
+
+For $n=1$ it is obviously true.
+
+Suppose the formula is true for $n=k$, $k\in\ZZ^+,k\ge1$; that is, $P(k)=2+k(k-1)$. Consider $k+1$ circles, the $(k+1)$-th circle intersects $k$ other circles at $2k$ points, which means that this circle is divided into $2k$ arcs, each of which divides the region it passes into two sub-regions. Therefore, we have in addition $2k$ regions, and so
+\begin{align*}
+P(k+1)&=P(k)+2k\\
+&=2+k(k-1)+2k\\
+&=2+k(k+1).
+\end{align*}
+\end{solution}
+
+\begin{prbm}[\acrshort{australia} 2020 Q4]
+Define the sequence $A_1,A_2,A_3,\dots$ by $A_1=1$ and for $n=1,2,3,\dots$
+\[ A_{n+1}=\frac{A_{n+2}}{A_n+1}. \]
+Define the sequence $B_1,B_2,B_3,\dots$ by $B_1=1$ and for $n=1,2,3,\dots$
+\[ B_{n+1}=\frac{{B_n}^2+2}{2B_n}. \]
+Prove that $B_{n+1}=A_{2^n}$ for all non-negative integers $n$.
+\end{prbm}
+
+\begin{solution}
+% https://www.amt.edu.au/wp-content/uploads/2020/05/AMO-2020-paper-and-solutions.pdf
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+The sequence given by $x_0=a$, $x_1=b$, and
+\[ x_{n+1}=\frac{1}{2}\brac{x_{n-1}+\frac{1}{x_n}} \]
+is periodic.
+
+Prove that $ab=1$.
+\end{prbm}
+
+\begin{solution}
+Multiplying by $2x_n$ on both sides of the given recursive relation yields
+\[ 2x_nx_{n+1}=x_{n-1}x_n+1 \]
+or
+\[ 2(x_nx_{n+1}-1)=x_{n-1}x_n-1. \]
+Let $y_n=x_{n-1}x_n-1$ for $n\in\NN$. Since $y_{n+1}=\dfrac{y_n}{2}$, $\{y_n\}$ is a geometric sequence. If $x_n$ is periodic, then so is $y_n$, which implies that $y_n=0$ for all $n\in\NN$. Therefore
+\[ ab=x_0x_1=y_1+1=1. \]
+\end{solution}
+
+\chapter{Graph Theory}
+%NUSH syllabus: Graph Theory:  nature and properties of simple graphs, and different types of graphs such as connected graphs, regular graphs, complete graphs, bipartite graphs and trees. Application of graph theory including tournament, matching, and scheduling problems.
+% https://web.mit.edu/yufeiz/www/imo2008/tang-graph.pdf
+Basic properties and definitions from graph theory, e.g. connectedness and degree of a vertex
+O Definition and existence of the convex hull of a finite set of points % https://ti.inf.ethz.ch/ew/courses/CG13/lecture/Chapter%203.pdf
+!! Nontrivial results from graph theory, such as Hall's marriage lemma or Turan's theorem
+\section{Introduction, Definitions and Notations}
+\begin{itemize}
+\item A \vocab{graph} is a pair of sets $G=(V,E)$ where $V$ is a set of vertices and $E$ is a collection of edges whose endpoints are in $V$. It is possible that a graph can have infinitely many vertices and edges. Unless stated otherwise, we assume that all graphs are simple.\footnote{An edge whose endpoints are the same is called a \textbf{loop}. A graph where there is more than one edge joining a pair of vertices is called a \textbf{multigraph}. A graph without loops and is not a multigraph is said to be \textbf{simple}.}
+
+\item Two vertices $v$, $w$ are said to be \vocab{adjacent} if there is an edge joining $v$ and $w$. An edge and a vertex are said to be \vocab{incident} if the vertex is an endpoint of the edge.
+
+\item Given a vertex $v$, the \vocab{degree} of $v$ is defined to be the number of edges containing $v$ as an endpoint.
+
+\item A \vocab{path} in a graph $G$ is defined to be a finite sequence of distinct vertices $v_0,v_1,\dots,v_t$ such that $v_i$ is adjacent to $v_{i+1}$. (A graph itself can also be called a path.) The \vocab{length} of a path is defined to be the number of edges in the path.
+
+\item A \vocab{cycle} in a graph $G$ is defined to be a finite sequence of distinct vertices $v_0,v_1,\dots,v_t$ such that $v_i$ is adjacent to $v_{i+1}$ where the indices are taken modulo $t+1$. (A graph itself can also be called a cycle.) The \vocab{length} of a cycle is defined to be the number of vertices (or edges) in the path.
+
+\item A graph is said to be \vocab{connected} if for any pair of vertices, there exists a path joining the two vertices. Otherwise, a graph is said to be \vocab{disconnected}.
+
+\item The \vocab{distance} between two vertices $u$, $v$ in a graph is defined to be the length of the shortest path joining $u$ and $v$. (In the case the graph is disconnected, this may not be well-defined.)
+
+\item Let $G=(V,E)$ be a graph. The \vocab{complement} $\bar{G}$ of $G$ is a graph with the same vertex set as $G$ and $E(\bar{G})=\{e\notin E(G)\}$. i.e. $\bar{G}$ has edges exactly where there are no edges in $G$.
+
+\item Let $G=(V,E)$ be a finite graph. A graph $G$ is said to be \vocab{complete} if every pair of vertices in $G$ is joined by an edge. A complete graph on $n$ vertices is denoted by $K_n$.
+
+\item A graph $G$ is said to be \vocab{bipartite} if $V(G)$ can be partitioned into two non-empty disjoint sets $A$, $B$ such that no edge has both endpoints in the same set. A graph is said to be \vocab{complete bipartite} if $G$ is bipartite and all possible edges between the two sets $A$, $B$ are drawn. In the case where $|A|=m$, $|B|=n$, such a graph is denoted by $K_{m,n}$.
+
+\item Let $k\ge2$. A graph $G$ is said to be $k$-partite if $V(G)$ can be partitioned into $k$ pairwise disjoint sets $A_1,\dots,A_k$ such that no edge has both endpoints in the same set. A complete $k$-partite graph is defined similarly as a complete bipartite. In the case where $|A_i|=n_i$, such a graph is denoted by $K_{n_1,n_2,\dots,n_k}$. (Note that a 2-partite graph is simply a bipartite graph.)
+\end{itemize}
+
+\begin{theorem}[Euler]
+For a connected planar graph with $V$ vertices, $E$ edges and $F$ faces,
+\begin{equation}
+V-E+F=2.
+\end{equation}
+\end{theorem}
+
+\section{Trees and Balancing}
+A \vocab{tree} is defined to be a connected graph that does not contain any cycles. We will first give characterisations to such graphs.
+
+\begin{lemma}[Characterisation of trees]
+Let $G$ be a connected graph with $n$ vertices. The following
+statements are equivalent.
+\begin{enumerate}
+\item $G$ does not contain any cycles.
+\item $G$ contains exactly $n-1$ edges.
+\item For any two vertices, there exists exactly one path joining the two vertices.
+\item The removal of any edge disconnects the graph.
+\end{enumerate}
+\end{lemma}
+
+\section{Friends, Strangers and Cliques}
+Given a graph $G$, a \vocab{clique} in $G$ is a subset of vertices of $G$ where every pair of vertices in the subset is joined by an edge. This becomes important in certain math olympiad problems involving friends and strangers.
+
+\section{Directed Graphs, Lots of Arrows and Tournaments}
+A \vocab{direct graph} is a graph where each edge is oriented with an arrow pointing in exactly one direction. A \vocab{directed path} is a path in the graph that moves along with the orientation of the arrow. A \vocab{directed cycle} is defined similarly. A \vocab{tournament} is defined to be a complete directed graph.
+
+\section{Matchings: Pair Them Up}
+Given a graph $G$, a \vocab{matching} $M$ is a set of edges in $G$ such that no two edges in $M$ touch. A matching is said to be \vocab{perfect} if every vertex in $G$ is incident to an edge in $M$. A vertex is said to be \vocab{$M$-exposed} if it is not covered by an edge in $M$. Clearly, $M$ is a perfect matching if and only if there are no $M$-exposed vertices.
+
+We will now state two important properties regarding matchings.
+
+\begin{theorem}[Hall's theorem]
+Let $G=A\cup B$ where $A\cap B=\emptyset$ be a bipartite graph. For $\emptyset\neq S\subseteq A$, let $\Gamma(S)$ be the vertices in $B$ which is adjacent to a vertex in $A$. Then there is a matching that covers every vertex in $A$ if and only if for all $S\subseteq A$,
+\[ |\Gamma(S)|\ge|S|. \]
+The latter condition is called \textbf{Hall's Condition}. In the special case where $|A|=|B|$, then $G$ has a perfect matching if and only if $G$ satisfies Hall's Condition.
+\end{theorem}
+
+\section{Hamiltonian and Eulerian Paths and Cycles}
+Given a graph $G$, an \vocab{Eulerian walk} is defined to be a sequence of successive adjacent vertices that encounter every edge in the graph exactly once. An \vocab{Eulerian cycle} is a sequence of successive adjacent vertices that begin and ends at the same vertex, that encounter every edge in the graph exactly once.
+
+Eulerian Walk and Cycle Characterization: A connected graph has an Eulerian walk if and only if the number of vertices with odd degree is 0 or 2. A connected graph has an Eulerian cycle if and only if every vertex has even degree.
+
+A \vocab{Hamiltonian path} is a path that encounters every vertex in the graph. A \vocab{Hamiltonian cycle} is a cycle that encounters every vertex in the graph. A graph containing a Hamiltonian cycle is said to be \vocab{Hamiltonian}. It is in general difficult to determine whether these paths and cycles exist. The only real useful tool at our disposal is Dirac's Theorem.
+
+\begin{theorem}[Dirac's theorem]
+Let $n\ge 3$. Suppose a graph $G$ has $n$ vertices and the degree of each vertex is at least $\ceiling{\frac{n}{2}}$. Then $G$ has a Hamiltonian cycle.
+\end{theorem}
+
+
+
+
+In a graph with $E$ edges, the sum of degrees of each vertex is $2E$.
+
+A Eulerian path is a path that visits each edge exactly once. 
+For a connected path, a Eulerian path exists if and only if the number of vertices with odd degree is 0 or 2.
+If there are no vertices with odd degree, the path will return to the start forming a circuit.
+
+\begin{theorem}[Turan's theorem]
+Let $G$ be a graph with $V$ vertices and $E$ edges and let $2\le r\le V$. If there are no $r$-cliques,
+\[ E\le\frac{V^2}{2}\brac{1-\frac{1}{r-1}}. \]
+\end{theorem}
+
+Berge's lemma:
+An augmenting path is a path that starts and ends on unmatched vertices, and alternates between edges in and not in the matching.
+A matching is maximuum if and only if there is no augmenting path.
+
+\begin{theorem}[Four colour theorem]
+A map can be coloured with 4 colours such that adjacent regions have different colours.
+\end{theorem}
+
+\begin{theorem}[Hall's marriage theorem]
+In a bipartite graph with bipartitions $X$ and $Y$, we wish to match each vertex in $X$ to a different vertex in $Y$.
+
+For a subset $W$ of $X$, let $N(W)$ be the neighbourhood of $W$ (the set of all vertices in $Y$ which are connected to some vertex in $W$).
+
+There is a perfect matching for $X$ if and only if for every subset $W$ of $X$, $|N(W)|\ge|W|$.
+\end{theorem}
+
+Konig's theorem
+Max-flow min-cut theorem
+Dilworth's theorem
+
+\pagebreak
+
+\section*{Exercises}
+\begin{prbm}[\acrshort{vietnam} 1969]
+A graph $G$ has $n+k$ vertices. Let $A$ be a subset of $n$ vertices of the graph $G$, and $B$ be a subset of other $k$ vertices. Each vertex of $A$ is joined to at least $k-p$ vertices of $B$. Prove that if $np<k$ then there is a vertex in $B$ that can be joined to all vertices of $A$.
+\end{prbm}
+
+\begin{solution}
+Denote the number of edges between vertices of $A$ and $B$ by $s$. We prove by contradiction.
+
+Assume otherwise, that there is no vertex of $B$ that can be joined to all vertices of $A$. Then $s\le k(n-1)$.
+
+On the other hand, since each vertex of $A$ can be joined to at least $k-p$ vertices of $B$, $s\ge n(k-p)$. Moreover, by the hypothesis, $np<k$. This inequality gives $n(k-p)=nk-np>nk-k=k(n-1)$. Thus $s\le k(n-1)<n(k-p)\le s$, which is impossible.
+\end{solution}
+
+\begin{prbm}[\acrshort{tstst} 2023 P4]
+Let $n\ge 3$ be an integer and let $K_n$ be the complete graph on $n$ vertices. Each edge of $K_n$ is colored either red, green, or blue. Let $A$ denote the number of triangles in $K_n$ with all edges of the same color, and let $B$ denote the number of triangles in $K_n$ with all edges of different colors. Prove
+\[ B\le 2A+\frac{n(n-1)}{3}.\](The complete graph on $n$ vertices is the graph on $n$ vertices with $\tbinom n2$ edges, with exactly one edge joining every pair of vertices. A triangle consists of the set of $\tbinom 32=3$ edges between $3$ of these $n$ vertices.)
+\end{prbm}
+
+\begin{solution}
+Let $C$ denote the number of triangles in $K_n$ with two edges the same color and the third edge a different color. Let $r_i, g_i, b_i$ be the number of red, green, and blue edges (respectively) emanating from vertex $i$. Let $c_i$ and $a_i$ denote the number of $C$ triangles and $A$ triangles vertex $i$ is a part of (respectively). Notice that
+$$c_i+a_i=\binom{r_i}{2}+\binom{g_i}{2}+\binom{b_i}{2}$$Summing over $i$,
+$$\sum_{i}(c_i+a_i)=C+3A=\sum_{i}\left(\binom{r_i}{2}+\binom{g_i}{2}+\binom{b_i}{2}\right)$$Because each $C$ triangle is counted only by the vertex connecting the two edges with the same color, and each $A$ triangle is counted by each vertex. Now by Jensen,
+$$C+3A\ge 3n\binom{\frac{2\binom{n}{2}}{3n}}{2}=\binom{n}{3}-\frac{n(n-1)}{3}$$Because $\sum_i (r_i+b_i+g_i)$ is just twice the number of edges in $K_n$. Noting $A+B+C=\binom{n}{3}$ finishes the problem.
+\end{solution}

@@ -1,0 +1,1241 @@
+\part{Number Theory}
+\chapter{Modular Arithmetic}
+%https://artofproblemsolving.com/articles/files/SatoNT.pdf}{NT notes -> clear this first
+% https://sites.millersville.edu/bikenaga/abstract-algebra-1/modular-arithmetic/modular-arithmetic.pdf
+% https://s3.amazonaws.com/aops-cdn.artofproblemsolving.com/resources/articles/olympiad-number-theory.pdf
+%\href{https://s3.amazonaws.com/aops-cdn.artofproblemsolving.com/resources/articles/olympiad-number-theory.pdf}{Olympiad Number Theory Through Challenging Problems}
+%https://web.math.ucsb.edu/~agboola/teaching/2021/fall/8/liebeck.pdf}{A Concise Introduction to Pure Mathematics, Fourth Edition}
+
+\section{Divisibility}
+\begin{definition}[Divisibility]
+For integers $a$ and $b$, we say that $a$ \emph{divides} $b$, or that $a$ is a \emph{divisor} (or \emph{factor}) of $b$, or that $b$ is a multiple of $a$, if there exists an integer $c$ such that $b=ca$, and we denote this by $a\mid b$. Otherwise, $a$ does not divide $b$, and we denote this by $a\nmid b$.
+\end{definition}
+
+\begin{definition}[Prime]
+A positive integer $p$ is a \emph{prime} if the only divisors of $p$ are $1$ and $p$.
+
+If $p^k\mid a$ and $p^{k+1}\nmid a$ where $p$ is prime, i.e. $p^k$ is the highest power of $p$ dividing $a$, then we denote this by $p^k\parallel a$.
+\end{definition}
+
+\begin{remark}
+If $a$ is a divisor of $b$, then $b$ is also divisible by $-a$, so the divisors of an integer always occur in pairs. To find all the divisors of a given integer, it is sufficient to obtain the positive divisors and then adjoin them to the corresponding negative integers. For this reason, we usually limit ourselves to the consideration of the positive divisors.
+\end{remark}
+
+\begin{proposition}
+Using the definition above, for integers $a$, $b$, $c$, the following properties hold:
+\begin{enumerate}[label=(\roman*)]
+\item $a \mid 0$, $1\mid a$, $a \mid a$.
+\item $a \mid 1$ if and only if $a = \pm 1$.
+\item If $a \mid b$ and $c \mid d$, then $ac \mid bd$.
+\item If $a \mid b$ and $b \mid c$, then $a \mid c$.
+\item $a \mid b$ and $b \mid a$ if and only if $a = \pm b$.
+\item If $a \mid b$ and $b \neq 0$, then $a \le b$.
+\item If $a\mid b_1,\dots,a\mid b_n$ , then for any integers $c_1,\dots,c_n$, 
+\[a\mid\sum_{i=1}^n b_ic_i.\]
+\end{enumerate}
+\end{proposition}
+
+\begin{exercise}
+Let $a,b\in\ZZ$. Prove that if $a,b>0$ and $a\mid b$, then $a\le b$. 
+\end{exercise}
+
+\begin{proof}
+Suppose $a,b>0$ and $a\mid b$. Then there exists an integer $k$ such that $b=ak$.
+
+So $k>0$ as $a$ and $b$ are positive.
+
+It follows that $1\le k$, as every positive integer $\ge 1$.
+
+Then $a\le ak$, as multiplying both sides of an inequality by a positive number preserves the inequality.
+
+Hence $a\le b$.
+\end{proof}
+
+The following \textbf{divisibility rules} help determine when positive integers are divisible by particular other integers.
+
+\begin{lemma}[Divisibility rules] \ 
+\begin{enumerate}[label=(\roman*)]
+\item A number is divisible by $2^n$ if and only if its last $n$ digits are divisible by $2^n$.
+\item A number is divisible by $3$ if and only if the sum of its digits is divisible by $3$; a number is divisible by $9$ if and only if the sum of its digits is divisible by $9$.
+\item A number is divisible by $5^n$ if and only if its last $n$ digits are divisible by $5^n$.
+\item A number is divisible by $7$ if and only if partitioning it into 3 digit numbers from the right ($d_3d_2d_1,d_6d_5d_4,\dots$), the alternating sum ($d_3d_2d_1 - d_6d_5d_4 + d_9d_8d_7 - \dots$) is divisible by $7$.
+\item A number is divisible by $10^n$ if and only if it has $n$ trailing zeros.
+\item A number is divisible by $11$ if and only if the alternating sum of the digits is divisible by $11$.
+\item A number is divisible by $13$ if and only if partitioning it into 3 digit numbers from the right ($d_3d_2d_1,d_6d_5d_4,\dots$), the alternating sum ($d_3d_2d_1 - d_6d_5d_4 + d_9d_8d_7 - \dots$) is divisible by 13.
+\end{enumerate}
+\end{lemma}
+
+\begin{theorem}[Division algorithm]
+For all integers $n$ and $d$ with $d>0$, there exists unique integers $q$ and $r$, known as \emph{quotient} and \emph{remainder} respectively, such that
+\[n=dq+r, \quad 0\le r<d.\]
+\end{theorem}
+
+\begin{theorem}[Fundamental theorem of arithmetic]
+Every integer $n>1$ can be expressed as a product of primes in a unique way apart from the order of the prime factors; that is,
+\[n={p_1}^{a_1}{p_2}^{a_2}\cdots{p_k}^{a_k}\]
+where $p_i$ are prime numbers and $a_i$ are positive integers. 
+\end{theorem}
+
+\begin{proof}
+We prove this by strong induction. Consider some integer $n > 1$. Either it is prime or it is composite. 
+
+\textbf{Case 1:} If $n$ is prime, we are done. 
+
+\textbf{Case 2:} If $n$ is composite, then there exists an integer $d \mid n$ and $1 < d < n$. Among all such integers $d$, choose the smallest, say $p_1$. Then $p_1$ must be prime. Hence we can write $n = p_1 n_1$ for some integer $n_1$ satisfying $1 < n_1 < n$. This completes the induction.
+\end{proof}
+
+\begin{theorem}[Euclid]
+There are infinitely many primes.
+\end{theorem}
+
+\begin{proof}
+We prove by contradiction. Suppose otherwise, that there are a finite number of primes, say $p_1,p_2,\dots,p_n$. Let $N=p_1p_2\cdots p_n+1$. By the fundamental theorem of arithmetic, $N$ is divisible by some prime $p$. This prime $p$ must be among the $p_i$, since by assumption these are all the primes, but $N$ is seen not to be divisible by any of the $p_i$, a contradiction.
+\end{proof}
+
+\begin{exercise}
+Find all positive integers $d$ such that $d$ divides both $n^2+1$ and $(n+1)^2+1$ for some integer $n$.
+\end{exercise}
+
+\begin{solution}
+Let $d\mid(n^2+1)$ and $d\mid[(n+1)^2+1]$, or $d\mid(n^2+2n+2)$. Then
+\begin{align*}
+d&\mid[(n^2+2n+2)-(n^2+1)]\\
+d&\mid(2n+1)\\
+d&\mid(4n^2+4n+1)\\
+d&\mid[4(n^2+2n+2)-(4n^2+4n+1)]\\
+d&\mid(4n+7)\\
+d&\mid[(4n+7)-2(2n+1)]\\
+d&\mid5 
+\end{align*}
+so $d$ can only be $1$ or $5$. Taking $n=2$ shows that both of these values are achieved.
+\end{solution}
+
+\begin{exercise}[\acrshort{imo} 1984 Shortlist]
+Suppose that $a_1,a_2,\dots,a_{2n}$ are distinct integers such that the equation
+\[(x-a_1)(x-a_2)\cdots(x-a_{2n})-(-1)^n(n!)^2=0\]
+has an integer solution $r$. Show that
+\[r=\frac{a_1+a_2+\cdots+a_{2n}}{2n}.\]
+\end{exercise}
+
+\begin{solution}
+Clearly, $r\neq a_i$ for all $i$, and the $r-a_i$ are $2n$ distinct integers, so
+\[\absolute{(r-a_1)(r-a_2)\cdots(r-a_{2n})}\ge\absolute{(1)(2)\cdots(n)(-1)(-2)\cdots(-n)}=(n!)^2,\]
+with equality if and only if
+\[\{r-a_1,r-a_2,\dots,r-a_{2n}\}=\{1,2,\dots,n,-1,-2,\dots,-n\}.\]
+Therefore, this must be the case, so
+\begin{align*}
+&(r-a_1)+(r-a_2)+\cdots+(r-a_{2n})\\
+&=2nr-(a_1+a_2+\cdots+a_{2n})\\
+&=1+2+\cdots+n+(-1)+(-2)+\cdots+(-n)=0
+\end{align*}
+and hence
+\[r=\frac{a_1+a_2+\cdots+a_{2n}}{2n}.\]
+\end{solution}
+
+\begin{exercise}[\acrshort{putnam} 1966]
+Let $0<a_1<a_2<\cdots<a_{mn+1}$ be $mn+1$ integers. Prove that you can select either $m+1$ of them no one of which divides any other, or $n+1$ of them each dividing the following one.
+\end{exercise}
+
+\begin{solution}
+For each $i$, $1\le i\le mn+1$, let $n_i$ be the length of the longest sequence starting with $a_i$ and each dividing the following one, among the integers $a_i,a_{i+1},\dots,a_{mn+1}$. If some $n_i$ is greater than $n$ we are done. Otherwise, by the pigeonhole principle, there are at least $m+1$ values of $n_i$ that are equal. Then, the integers $a_i$ corresponding to these $n_i$ cannot divide each other.
+\end{solution}
+
+\begin{theorem}[Prime number theorem]
+The \textbf{Riemann Zeta Function} describes the distribution of prime numbers. For a positive real $x$, the function $\pi(x)$ denotes the number of primes less than or equal to $x$.
+
+Then the number of primes not exceeding $x$ is asymptotic to $\dfrac{x}{\ln x}$; that is,
+\[\pi(x)\sim\frac{x}{\ln x}.\]
+\end{theorem}
+
+\section{GCD and LCM}
+\begin{definition}
+Let $a,b$ be integers, not both $0$, and $d\in\ZZ^+$. $d$ is the \emph{greatest common divisor} of $a$ and $b$, denoted by $d=\gcd(a,b)$, if and only if 
+\begin{enumerate}[label=(\roman*)]
+\item $d\mid a$ and $d\mid b$
+\item for all $k\in\ZZ^+$, if $k\mid a$ and $k\mid b$ then $k\le d$.
+\end{enumerate}
+
+The \emph{lowest common multiple} of $a$ and $b$, denoted by $\lcm(a,b)$, is the \emph{smallest} positive integer $m$ where $a \mid m$ and $b \mid m$.
+
+We say that $a$ and $b$ are \emph{relatively prime} (or coprime) if $\gcd(a,b)=1$.
+\end{definition}
+
+Basic properties of GCD:
+\begin{itemize}
+\item $\gcd(a,b)>0$, whether $a$ and $b$ are positive or negative
+\item $\gcd(a,a)=|a|$
+\item $\gcd(a,0)=|a|$
+\item $\gcd(a,b)=\gcd(-a,b)=\gcd(a,-b)=\gcd(-a,-b)$
+\end{itemize}
+
+\begin{lemma}
+For positive integers $a$ and $b$,
+\[\gcd(a,b)\cdot\lcm(a,b)=ab.\]
+\end{lemma}
+%https://cs.ioc.ee/cm/NumberTheory1.pdf
+
+\begin{proposition}
+For positive integers $a$, $b$ and $m$,
+\[\gcd(ma,mb)=m\gcd(a,b),\quad\lcm(ma,mb)=m\lcm(a,b).\]
+\end{proposition}
+
+\begin{proposition}
+If $d\mid\gcd(a,b)$, then
+\[\gcd\brac{\frac{a}{d},\frac{b}{d}}=\frac{\gcd(a,b)}{d}.\]
+In particular, if $d=\gcd(a,b)$, then $\gcd(a/d,b/d)=1$; that is, $\frac{a}{d}$ and $\frac{b}{d}$ are relatively prime.
+\end{proposition}
+
+\begin{lemma}
+Let $c$ and $d$ be integers, not both $0$. If $q$ and $r$ are integers such that $c=dq+r$ then $\gcd(c,d)=\gcd(d,r)$.
+\end{lemma}
+
+\begin{proof}
+Let $m=\gcd(c,d)$ and $n=\gcd(d,r)$. To prove $m=n$, we will show $m\le n$ and $n\le m$.
+
+We first show $n\le m$. Since $n=\gcd(d,r)$ then $n\mid d$ and $n\mid r$. There exists integers $x$ and $y$ such that $d=nx$ and $r=ny$.
+
+From $c=dq+r$ we have
+\[c=(nx)q+ny=n(xq+y)\]
+Hence $n\mid c$. Since $n$ is a common divisor of $c$ and $d$, $n\le\gcd(c,d)$ so $n\le m$.
+
+The proof of $m\le n$ is similar and shall be left as an exercise.
+\end{proof}
+
+Let $a$ and $b$ be two non-zero integers. Then $a$ and $b$ are said to be \emph{relatively prime} (or coprime) if and only if $\gcd(a,b)=1$.
+
+\begin{lemma}[Euclid's Lemma]\label{lemma:euclid_lemma}
+Let $a,b,c$ be any integers. If $a\mid bc$ and $\gcd(a,b)=1$ then $a\mid c$.
+\end{lemma}
+
+\begin{proof}
+Since $a\mid bc$, $bc=ak$ for some $k\in\ZZ$.
+
+Since $\gcd(a,b)=1$ then $ax+by=1$ for some $x,y\in\ZZ$.
+\begin{align*}
+cax+cby &= c \\
+acx+aky &= c \\
+acx+aky &= c \\
+a(cx+ky) &= c
+\end{align*}
+Hence $a\mid c$.
+\end{proof}
+
+\begin{proposition}[Sieve of Eratosthenes]
+If $p>1$ is an integer and $n\mid p$ for each integer $n$ for which $2\le n\le\sqrt{p}$, then $p$ is prime.
+\end{proposition}
+
+\begin{proof}
+Prove by contrapositive.
+
+Suppose that $p$ is not prime, so it factors as $p=mn$ for $1<m,n<p$.
+
+Observe that it is not the case that both $m>\sqrt{p}$ and $n>\sqrt{p}$, because if this were true the inequalities would multiply to give $mn>\sqrt{p}\sqrt{p}=p$, which contradicts $p=mn$.
+
+Therefore $m\le\sqrt{p}$ or $n\le\sqrt{p}$. Without loss of generality, say $n\le\sqrt{p}$. Then the equation $p=mn$ gives $n\mid p$, with $1<n\le\sqrt{p}$. Hence it is not true that $n\nmid p$ for each integer $n$ for which $2\le n\le\sqrt{p}$.
+\end{proof}
+
+\begin{exercise}
+Show that for any positive integer $N$, there exists a multiple of $N$ that consists only of 1s and 0s. Furthermore, show that if $N$ is relatively prime to $10$, then there exists a multiple that consists only of 1s.
+\end{exercise}
+
+\begin{solution}
+Consider the $N+1$ integers $1,11,111,\dots,\underbrace{111\cdots1}_{N+1\text{ 1s}}$.
+
+When divided by $N$, they leave $N+1$ remainders. By the pigeonhole principle, two of these remainders are equal, so the difference in the corresponding integers, an integer of the form $111\cdots000$, is divisible by $N$.
+
+If $N$ is relatively prime to $10$, then we may divide out all powers of $10$, to obtain an integer of the form $111\cdots1$ that remains divisible by $N$.
+\end{solution}
+
+The \emph{Euclidean Algorithm} is an efficient method to determine the gcd of two numbers. It makes use of the following properties:
+\begin{itemize}
+\item $\gcd(a,0) = a$
+\item $\gcd(a,b) = \gcd(a \mod b,b)$
+\end{itemize}
+
+The Euclidean Algorithm may be described as follows: Let $a$ and $b$ be two integers whose greatest common divisor is desired. WLOG $a\ge b>0$.
+
+The first step is to apply the Division Algorithm to $a$ and $b$ to obtain
+\[a = q_1b + r_1 \quad 0 \le r_1 < b\]
+
+In the case where $r_1 = 0$, then $b \mid  a$ and $\gcd(a,b) = b$. When $r_1 \neq 0$, divide $b$ by $r_1$ to obtain integers $q_2$ and $r_2$ satisfying
+\[b = q_2r_1 + r_2 \quad 0 \le r_2 < r_1\]
+
+If $r_2 = 0$, we stop; otherwise, proceed as before to obtain
+\[r_1 = q_3r_2 + r_3 \quad 0 \le r_3 < r_2\]
+
+This division process continues until some zero remainder appears, say at the $(n+1)$-th step where $r_{n+1}$ is divided by $r_n$ Note that this process will stop eventually as the strictly decreasing sequence $b > r_1 > r_2 > \dots > r_{n+1} > r_{n+2} = 0$ cannot contain more than $b$ integers.
+
+The result is the following sequence of equations (or operations):
+\begin{align*}
+a &= q_1b + r_1 & 0 \le r_1 < b \\
+b &= q_2r_1 + r_2 & 0 \le r_2 < r_1 \\
+r_1 &= q_3r_2 + r_3 & 0 \le r_3 < r_2 \\
+\vdots \\
+r_{n-2} &= q_nr_{n-1} + r_n & 0 \le r_n < r_{n-1} \\
+r_{n-1} &= q_{n+1} r_n + 0
+\end{align*}
+
+Hence $\gcd(a,b)=\gcd(b,r_1)=\cdots=\gcd(r_n,0)=r_n$. 
+
+\begin{exercise}
+Find $\gcd(682,264)$.
+\end{exercise}
+
+\begin{solution}
+\begin{align*}
+682 &= 3\times264-110 \\
+264 &= 2\times110+44 \\
+110 &= 2\times44+22 \\
+44 &= 2\times22+0
+\end{align*}
+Hence $\gcd(682,264)=\boxed{22}$.
+\end{solution}
+
+\begin{exercise}
+Let $n$ be a positive integer, and let $S$ be a subset of $n+1$ elements of the set $\{1,2,\dots,2n\}$. Show that
+\begin{enumerate}[label=(\alph*)]
+\item There exist two elements of $S$ that are relatively prime, and
+\item There exist two elements of $S$, one of which divides the other.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution} \
+\begin{enumerate}[label=(\alph*)]
+\item There must be two elements of $S$ that are consecutive, and thus, relatively prime.
+\item Consider the greatest odd factor of each of the $n+1$ elements in $S$. Each is among the $n$ odd integers $1,3,\dots,2n-1$. By the pigeonhole principle, two must have the same greatest odd factor, so they differ (multiplication-wise) by a power of $2$, and so one divides the other.
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}[Russian Mathematics Olympiad 1951]
+The positive integers $a_1,a_2,\dots,a_n$ are such that each is less than $1000$, and $\lcm(a_i,a_j)>1000$ for all $i,j$, $i\neq j$. Show that
+\[\sum_{i=1}^{n}\frac{1}{a_i}<2.\]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{theorem}[Dirichlet's theorem]
+If $a$ and $b$ are relatively prime positive integers, then the arithmetic sequence $a,a+b,a+2b,\dots$ contains infinitely many primes.
+\end{theorem}
+
+\section{Arithmetic Functions}
+Let $n={p_1}^{a_1}{p_2}^{a_2}\cdots{p_k}^{a_k}$.
+\begin{lemma}
+Number of factors of $n$ is given by
+\begin{equation}
+\tau(n)=\prod_{i=1}^k(a_i+1).
+\end{equation}
+\end{lemma}
+
+\begin{lemma}
+Sum of factors of $n$ is given by
+\begin{equation}
+d(n)=\prod_{i=1}^k\brac{1+p_i+\cdots+{p_i}^{a_i}}.
+\end{equation}
+\end{lemma}
+
+\begin{lemma}
+Number of positive integers less than $n$ which are coprime to $n$ is given by
+\begin{equation}
+\phi(n)=n\prod_{i=1}^k\brac{1-\frac{1}{p_i}},
+\end{equation}
+where $\phi(n)$ is known as the \textbf{totient function}.
+\end{lemma}
+
+\section{Congruence}
+\begin{definition}[Congruence]
+Let $a,b,n$ be integers with $n>0$. Then we say $a$ and $b$ are \emph{congruent} modulo $n$, or $a$ is congruent to $b$ modulo $n$, denoted by $a\equiv b\pmod n$, if and only if $n\mid a-b$ (or $a=b+nk$ for some integer $k$).
+\end{definition}
+
+Properties of congruence\footnote{these properties can be proven during the definition of congruence.}
+\begin{itemize}
+\item \textbf{Reflexive}: for every integer $a$, $a \equiv a \pmod n$.
+\item \textbf{Symmetric}: for all integers $a$ and $b$, if $a \equiv b \pmod n$ then $b \equiv a \pmod n$.
+\item \textbf{Transitive}: for all integers $a$, $b$ and $c$, if $a \equiv b \pmod n$ and $b \equiv c \pmod n$ then $a \equiv c \pmod n$.
+\end{itemize}
+
+For all integers $a$, $b$, $c$, $d$ and $n$, with $n>1$, if $a \equiv b \pmod n$ and $c \equiv d \pmod n$, then
+\begin{itemize}
+\item $a+c \equiv b+d \pmod n$ (preserve addition)
+\item $ac \equiv bd \pmod n$ (preserve multiplication)
+\item $a+k \equiv b+k \pmod n$ for every $k\in\ZZ$
+\item $ka \equiv kb \pmod n$ for every $k\in\ZZ$
+\item $a^m \equiv b^m \pmod n$ for every $m\in\ZZ^+$ (preserve power)
+\end{itemize}
+
+\begin{exercise}
+Prove that if $a\equiv b\pmod n$ and $c\equiv d\pmod n$, then $ac\equiv bd\pmod n$.
+\end{exercise}
+\begin{proof}
+Given $a\equiv b\pmod n$. So $a=b+nk$ for some integer $k$.
+
+Given $c\equiv d\pmod n$. So $c=d+nh$ for some integer $h$.
+
+Hence 
+\[ac=(b+nk)(d+nh)=bd+n(dk+bh+nkh)\]
+Let $q=dk+bh+nkh$. Since $ac=bd+nq$ for some integer $q$, hence $ac\equiv bd\pmod n$.
+\end{proof}
+
+\subsection{Some theorems}
+\begin{theorem}[Fermat's little theorem]
+For prime $p$ and $p\nmid a$,
+\begin{equation}
+a^{p-1} \equiv 1 \pmod p 
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The idea is that if we write down the sequence of numbers
+\[\{a,2a,3a,\dots,(p-1)a\}\]
+and reduce each one modulo $p$, the resulting sequence turns out to be a rearrangement of
+\[\{1,2,3,\dots,p-1\}.\]
+
+To show this, we just need to show the elements in the first sequence are all different $\mod p$: we want to show $k_1\not\equiv k_2\pmod p \implies k_1a\not\equiv k_2a\pmod p$.
+
+We prove by contrapositive: suppose $k_1a\equiv k_2a \pmod p$. Since $\gcd(a,p)=1$, we can do cancellation to give $k_1\equiv k_2\pmod p$. Hence proven.
+
+Thus if we multiply together the numbers in each sequence, the results must be identical modulo $p$:
+\[a\times 2a\times 3a\times \cdots \times (p-1)a\equiv 1\times 2\times 3\times \cdots \times (p-1) \pmod p\]
+Collecting together the a terms yields
+\[a^{p-1}(p-1)!\equiv (p-1)!\pmod p.\]
+Since $\gcd(p,(p-1)!)=1$, we can cancel $(p-1)!$ on both sides to give $a^{p-1}\equiv 1\pmod p$.
+\end{proof}
+
+\begin{exercise}
+If $n\in\NN$ and $\gcd(n,35)=1$, prove that $n^{12} \equiv 1 \pmod {35}$.
+\end{exercise}
+\begin{proof}
+By Fermat's Little Theorem,
+\[n^4 \equiv 1 \pmod 5 \iff n^{12} \equiv 1 \pmod 5\]
+\[n^6 \equiv 1 \pmod 7 \iff n^{12} \equiv 1 \pmod 7\]
+Hence $n^{12} \equiv 1 \pmod {35}$
+\end{proof}
+
+The following theorem generalises Fermat's Little Theorem:
+
+\begin{theorem}[Euler's totient theorem]
+For coprime $a$ and $n$, 
+\begin{equation}
+a^{\phi(n)} \equiv 1 \pmod n
+\end{equation}
+\end{theorem}
+\pagebreak
+
+\section{Modular Inverse}
+For coprime $a$ and $n$, there exists an inverse of $a \pmod n$. In other words, there exists an integer $b$ such that 
+\[ab \equiv 1 \pmod n.\]
+$b$ is known as the \emph{inverse} of $a$ modulo $n$.
+
+\begin{proof}
+Since $\gcd(a,n)=1$, we have $ab+nm=1$ for some $b,m\in\ZZ$.
+
+So $ab+nm \equiv 1 \pmod n$. Since $nm \equiv 0 \pmod n$, we get $ab \equiv 1 \pmod n$.
+\end{proof}
+
+We can find the modular inverse by reversing the Euclidean algorithm.
+
+\begin{exercise}
+Solve the following modular equation.
+\[7x \equiv 1 \pmod {26}\]
+\end{exercise}
+\begin{solution}
+Compute GCD and keep the tableau:
+\[\gcd(26,7) = \gcd(7,5) = \gcd(5,2) = \gcd(2,1) = \gcd(1,0) = 1\]
+
+Solve the equations for $r$ in the tableau:
+\begin{align*}
+26 &= 3(7) + 5 \\
+7 &= 1(5) + 2 \\
+5 &= 2(2) + 1
+\end{align*}
+
+Back substitute the equations:
+\begin{align*}
+1 &= 5 - 2 \times (7 - 1 \times 5) \\
+&= (-2) \times 7 + 3 \times 5 \\
+&= (-2) \times 7 + 3 \times (26 - 3 \times 7) \\
+&= 3 \times 26 + (-11) \times 7
+\end{align*}
+
+Modular inverse of $7 \pmod {26}$ is $-11 \pmod {26} = 15$. Hence $x = 26k + 15$ for $k\in\ZZ$.
+\end{solution}
+
+\begin{lemma}[Uniqueness of modular inverse]
+The modular inverse is unique.
+\end{lemma}
+
+\begin{proof}
+Assume $x$ has two modular inverses $b$ and $c$ mod $n$. Then $xb\equiv1\pmod n$ and $xc\equiv1\pmod n$.
+
+Thus
+\[b\equiv1b\equiv(xc)b\equiv(xb)c\equiv1c\equiv c\pmod n\]
+\end{proof}
+
+\begin{theorem}[Wilson's theorem] 
+For odd prime $p$, 
+\begin{equation} (p-1)! \equiv -1 \pmod p \end{equation}
+\end{theorem}
+
+\begin{proof}
+Each $a\in\{1,2,\dots,p-1\}$ has an inverse a$^\prime\in\{1,2,\dots,p-1\}$ modulo $p$, that is $aa^\prime\equiv1\pmod p$. This inverse is unique and it follows that $(a^\prime)^\prime=a$.
+
+If $a=a^\prime$ then $1\equiv aa^\prime=a^2\pmod p$. We have seen that this necessitates $a\equiv\pm1\pmod p$ and so $a=1$ or $a=p-1$. In the product $(p-1)!=1\times2\times3\times\cdots\times(p-2)\times(p-1)$ we pair off each term, save for $1$ and $p-1$ with its inverse modulo $p$. We thus get $(p-1)!\equiv1\times(p-1)\equiv-1\pmod p$.
+\end{proof}
+
+\begin{theorem}[Chinese remainder theorem]
+Given $k$ pairwise coprime positive integers $n_i$ and arbitrary integers $a_i$, the system of simultaneous congruences 
+\begin{align*} 
+x &\equiv a_1 \pmod {n_1} \\ 
+x &\equiv a_2 \pmod {n_2} \\ 
+&\vdots \\ 
+x &\equiv a_k \pmod {n_k} 
+\end{align*} 
+has a unique solution modulo $n_1 n_2 \cdots n_k$.
+\end{theorem}
+\begin{proof}
+We first prove the case where $i=2$. Let $n_1=p,n_2=q$.
+
+Let $p_1\equiv p^{-1}\pmod q$ and $q_1\equiv q^{-1}\pmod p$. These must exist since $p$ and $q$ are coprime.
+
+We claim that if $y$ is an integer such that
+\[y\equiv aqq_1+bpp_1 \pmod {pq}\]
+then $y$ satisfies 
+\begin{align*}
+y &\equiv aqq_1 \pmod p \\
+y &\equiv a \pmod p
+\end{align*}
+Similarly,
+\begin{align*}
+y &\equiv bpp_1 \pmod q \\
+y &\equiv b \pmod q
+\end{align*}
+Since $y\equiv a\pmod p$ and $y\equiv b\pmod q$, then $y$ is a solution for $x$. QED.
+
+To prove the general case, we define
+\[b_i=\frac{N}{n_i}\]
+where $N=n_1\cdots n_k$ and
+\[{b_i}^\prime\equiv {b_i}^{-1}\pmod{n_i}\]
+By a similar argument as before,
+${\displaystyle x=\sum_{i=1}^na_ib_i{b_i}^\prime\pmod N}$ is a unique solution.
+\end{proof}
+
+\begin{exercise}
+Find the set of values of $n$ that satisfy the following system of modular equations.
+\[\begin{cases}
+n \equiv 4 \pmod 5 \\
+n \equiv 5 \pmod 9 \\
+n \equiv 3 \pmod {11}
+\end{cases}\]
+\end{exercise}
+\begin{solution}
+From the first equation, let $n=4+5x$. Substituting this into the second equation gives $4+5x \equiv 5 \pmod 9$, which reduces to $x \equiv 2 \pmod 9$.
+
+Let $x=2+9y$. Substituting this into the third equation gives $14+45y \equiv 3 \pmod {11}$, which reduces to $y \equiv 0 \pmod {11}$. 
+
+Let $y=0+11z$. Substituting expressions for $x$ and $y$ into $n=4+5x$ gives $n=14+495z$. Hence the set of values are $\{z\in\ZZ \mid 14+495z\}$.
+
+\begin{remark}
+To check our answer, using the Chinese Remainder Theorem, we can see that there is indeed a unique solution modulo $5 \times 9 \times 11 = 495$.
+\end{remark}
+\end{solution}
+
+\begin{exercise}
+Solve the following linear system of congruences:
+\[\begin{cases}
+x \equiv 1\pmod 2 \\
+x \equiv 2\pmod 3 \\
+x \equiv 3\pmod 5 \\
+x \equiv 4\pmod 7
+\end{cases}\]
+\end{exercise}
+\begin{solution}
+$N=2\times3\times5\times7=210$.
+
+\end{solution}
+\pagebreak
+
+\section{Orders Modulo A Prime}
+%https://web.evanchen.cc/handouts/ORPR/ORPR.pdf
+\subsection{Order}
+\begin{definition}
+Let $p$ be a prime and take $a \not\equiv 0 \pmod p$. The \emph{order} of $a \pmod p$ is defined to be the smallest positive integer $m$ such that 
+\[a^m \equiv 1 \pmod p.\]
+\end{definition}
+
+\begin{remark}
+This order is clearly finite because Fermat's Little Theorem tells us $a^{p-1} \equiv 1 \pmod p$, id est, the order of $a$ is at most $p-1$.
+\end{remark}
+
+\begin{example}
+Here are some examples of each $a \pmod {11}$ and $a \pmod {13}$.
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cc}
+$a$ & $\mod 11$ & $\mod 13$ \\
+\hline
+1 & 1 & 1 \\
+2 & 10 & 12 \\
+3 & 5 & 3 \\
+4 & 5 & 6 \\
+5 & 5 & 4 \\
+6 & 10 & 12 \\
+7 & 10 & 12 \\
+8 & 10 & 4 \\
+9 & 5 & 3 \\
+10 & 2 & 6 \\
+11 & & 12 \\
+12 & & 2 \\
+\end{tabular}
+\end{table}
+\end{example}
+
+One observation you might make about this is that it seems that the orders all divide $p-1$. Obviously if $m\mid p-1$, then $a^{p-1}\equiv1\pmod p$ as well. The miracle of orders is that the converse of this statement is true in an even more general fashion.
+
+\begin{theorem}[Fundamental theorem of orders]
+Suppose $a^N \equiv 1 \pmod p$. Then the order of $a \pmod p$ divides $N$.
+\end{theorem}
+
+\subsection{Primitive Roots}
+
+\pagebreak
+
+\section{Quadratic Residues}
+\begin{definition}[Quadratic residue]
+Let positive integer $m>1$, integer $a$ relatively prime to $m$. If $x^2\equiv a\pmod m$ has a solution, then we say that $a$ is a \emph{quadratic residue} of $m$. Otherwise, we say that $a$ is a quadratic non-residue.
+\end{definition}
+
+\begin{proposition} \
+\begin{enumerate}[label=(\roman*)]
+\item $n^2 \equiv 0/1 \pmod 3$
+\item $n^2 \equiv 0/1 \pmod 4$
+\item $n^2 \equiv 0/1/4 \pmod 5$
+\item $n^2 \equiv 0/1/4 \pmod 8$
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+If $p$ is an odd prime, the residue classes of $0^2,1^2,\dots,(\frac{p-1}{2})^2$ are distinct and give a complete list of the quadratic residues modulo $p$. So there are $\frac{p-1}{2}$ residues and $\frac{p-1}{2}$ non-residues.
+\end{proposition}
+
+\begin{proof}
+They give a complete list because $x^2$ and $(p-x)^2$ are congruent mod $p$. To see that they are distinct, note that 
+\begin{align*}
+x^2 \equiv y^2 \pmod p
+&\iff p \mid x^2-y^2 \\
+&\iff p \mid (x+y)(x-y) \\
+&\iff p \mid x+y \text{ or } p \mid x-y
+\end{align*}
+which is impossible if $x$ and $y$ are two different members of the set $\{0,1,\dots,\frac{p-1}{2}\}$.
+\end{proof}
+
+We now introduce a convenient notation to indicate if $a$ is a quadratic residue mod $p$.
+
+\begin{definition}[Legendre symbol]
+For any integer $a$ and odd prime $p$, we define the \emph{Legendre symbol} as such:
+\[\leg{a}{p}=
+\begin{cases}
+    0 & p \mid a \\
+	1 & a\text{ is a non-zero quadratic residue modulo }p\\
+	-1 & a\text{ is a non-quadratic residue modulo }p
+\end{cases}\]
+\end{definition}
+
+\begin{theorem}[Euler's criterion]
+Let $p$ be an odd prime, and integer $a$ relatively prime to $p$. Then
+\[\leg{a}{p}\equiv a^{\frac{p-1}{2}}\pmod p\]
+\end{theorem}
+
+\begin{proof}
+If the congruence $x^2\equiv a\pmod p$ has a solution, then $a^\frac{p-1}{2}\equiv x^{p-1}\equiv1\pmod p$, by Fermat's Little Theorem.
+
+If the congruence $x^2\equiv a\pmod p$ has no solution, then for each $i$ ($1\le i\le p-1$), there is a unique $j\neq i$ ($1\le j\le p-1$), such that $ij\equiv a$. Therefore, all the integers from $1$ to $p-1$ can be arranged into $\frac{p-1}{2}$ such pairs. Taking their product,
+\[a^\frac{p-1}{2}\equiv1\cdot2\cdots(p-1)\equiv(p-1)!\equiv-1\pmod p\]
+by Wilson's Theorem.
+\end{proof}
+
+\begin{proposition}[Multiplicity]
+For prime $p$ and integers $a$, $b$ not divisible by $p$,
+\[\leg{a}{p} \leg{b}{p} = \leg{ab}{p}\]
+\end{proposition}
+
+\begin{proof}
+This follows from Euler's Criterion.
+
+1b) is a direct consequence of 1a), although there is in fact a way to prove this directly
+:
+The nontrivial deduction is that the product of two nonquadratic residues must be a quadratic residue
+:
+First note that the proof in 1a) actually provided a proof for 1c)
+:
+Now that I think about it, this feels strange because we are still referring to the proof of 1a)
+The thing is that, if we know 1c), then we can show 1b)
+\end{proof}
+
+\begin{proposition}
+For odd prime $p$, then there are an equal number of non-zero quadratic residues and non-quadratic residues modulo $p$.
+\end{proposition}
+
+\begin{theorem}[Gauss' lemma]
+For odd prime $p$ and integer $a$ where $p \nmid a$,
+\[\leg{a}{p} = (-1)^n\]
+where $n$ is the number of integers $0 < k < \frac{p}{2}$ such that $k \cdot a$ belongs to the congruence class $m \pmod p$ where $\frac{p}{2} < m < p$.
+\end{theorem}
+
+\begin{theorem}[Second supplementary law]
+For odd prime $p$,
+\[\leg{2}{p} = (-1)^{\frac{p^2-1}{8}}\]
+\end{theorem}
+
+\begin{theorem}[Eisenstein's lemma]
+For distinct odd primes $p$ and $q$,
+\begin{equation}
+\leg{q}{p} = (-1)^\alpha
+\end{equation}
+where
+\[\alpha = \sum_{k=1}^{\frac{p-1}{2}}\floor{\frac{kq}{p}}\]
+\end{theorem}
+
+\begin{theorem}[Law of quadratic reciprocity]
+For distinct odd primes $p$ and $q$, 
+\begin{equation}
+\leg{p}{q} \leg{q}{p} = (-1)^{\frac{p-1}{2}\cdot\frac{q-1}{2}}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Evaluate the product $a \cdot 2a \cdots \frac{p-1}{2}a \pmod p$ in two different ways. By rearranging terms, we get
+\[a^\frac{p-1}{2} \brac{\frac{p-1}{2}}!\]
+But the product can also be evaluated by noticing that each of the distinct integers in Gauss's lemma is either $x$ or $p-x$ for $1 \le x \le \frac{p-1}{2}$, and showing that each of the $x$'s is distinct. Multiplying them together modulo $p$ gives $(\frac{p-1}{2})!$ multiplied by $n$ minus signs due to the number of $p-x$ terms of which there are $n$, hence the sign is $(-1)^n$. The result follows by Euler's criterion and cancelling the $(\frac{p-1}{2})!$.
+\end{proof}
+
+Special cases
+\begin{itemize}
+\item $\brac{\dfrac{-1}{p}} = (-1)^{\frac{p-1}{2}}$
+\item $\brac{\dfrac{2}{p}} = (-1)^{\frac{p^2-1}{8}}$
+\item $\brac{\dfrac{-3}{p}} = \begin{cases}
+    1 & \quad p=1\pmod 6 \\
+    -1 & \quad p=5\pmod 6
+\end{cases}$
+\item $\brac{\frac{5}{p}} = \begin{cases}
+    1 & \quad p=1,9\pmod {10} \\
+    -1 & \quad p=3,7\pmod {10}
+\end{cases}$
+\end{itemize}
+\pagebreak
+
+\section*{Exercises}
+\begin{prbm}[\acrshort{smo} Open 2018 Q18]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2018 Q21]
+Determine the largest value of the expression $2^{k_1}+2^{k_2}+\cdots+2^{k_{498}}$, where for each $i=1,2,\dots,498$, $k_i$ is an integer, $1\le k_i\le507$, and $k+1+k_2+\cdots+k_{498}=507$.
+\end{prbm}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2017 Q23]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2016 Q18]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2016 Q19]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2013 Q15]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2013 Q17]
+\end{prbm}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q18]
+Find the largest integer $n$ such that $n$ is a divisor of $a^5-a$ for all integers $n$.
+\end{prbm}
+
+\begin{solution}
+Factorising,
+\[a^5-a=a(a-1)(a+1)(a^2+1).\]
+It is clear that $2\mid a^5-a$ and $3\mid a^5-a$. We can show that $5\mid a^5-a$ by considering the five cases of $a\equiv i\pmod5$, $i=0,1,2,3,4$. Thus $30\mid a^5-a$. When $a=2$, we have $a^5-a=30$. Thus the maximum $n$ is $30$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q1]
+Find the last three digits of $9^{100}-1$.
+\end{prbm}
+
+\begin{solution}
+\[9^{100}-1=(1-10)^{100}-1=1-\binom{100}{1}10^1+\cdots+\binom{100}{100}10^{100}-1=1000k\]
+for some integer $k$. Thus the last three digits are $000$.
+\end{solution}
+
+\begin{prbm}[\acrshort{imo} 2023 P1]
+Determine all composite integers $n>1$ that satisfy the following property: if $d_1, d_2, \dots, d_k$ are all the positive divisors of $n$ with $1=d_1<d_2<\cdots<d_k=n$, then $d_i$ divides $d_{i+1}+d_{i+2}$ for every $1\le i \le k-2$.
+\end{prbm}
+
+\begin{solution}
+If $n$ has at least $2$ prime divisors, WLOG let $p<q$ be the smallest two of these primes. Then the ordered tuple of divisors is of the form $(1,p,p^2,\dots,p^a,q\dots,n)$ for some integer $a\ge 1$.
+
+To prove this claim, note that $p$ is the smallest prime that divides $n$, so it is the smallest divisor not equal to $1$, meaning the first $2$ divisors are $1$ and $p$. Furthermore, the smallest divisor of $n$ that is not equal to a power of $p$ (i.e. not equal to $(1,p,p^2\dots)$ is equal to $q$. This is because all other divisors either include a prime $z$ different from both $q$ and $p$, which is larger than $q$ (since $q$ and $p$ are the smallest two prime divisors of $n$), or don’t include a different prime $z$. In the first case, since $z>q$, the divisor is larger than $q$. In the second case, all divisors divisible by $q^2$ are also larger than $q$, and otherwise are of the form $p^x \cdot q^1$ or $p^x$ for some non-negative integer $x$. If the divisor is of the form $p^x$, then it is a power of $p$. If it is of the form $p^x \cdot q^1$, the smallest of these factors is $p^0 \cdot q^1 = q$. Therefore, (in the case where $2$ or more primes divide $n$) the ordered tuple of divisors is of the form $(1,\,  p,p^2 \dots,p^a,q \dots,n)$ for some integer $a\geq 1$, since after each divisor $p^x$, the next smallest divisor is either $p^{x+1}$ or simply $q$.
+
+If $a\geq 2$, the condition fails. This is because $p^{a-1} \nmid p^a + q$, since $p^a$ is divisible by $p^{a-1}$, but $q$ is not since it is a prime different from $p$. If $a=1$, then $p^{a-1}=p^0=1$, which does divide $q$. Therefore $a$ must equal $1$ for the condition to be satisfied in this case. However, we know that the ordered list of divisors satisfies $d_i \cdot d_{k+1-i}=n$, meaning since the first $3$ divisors are $(1, p, q)$, then the last $3$ divisors are $(\frac{n}{q}, \frac{n}{p}, n)$, so $(\frac{n}{q})$ must divide $(\frac{n}{p} + n)$. The fraction $\frac{(\frac{n}{p} + n)}{(\frac{n}{q})} = \frac{(\frac{1}{p} + 1)}{(\frac{1}{q})} = (\frac{q}{p}) + q$ which is clearly not an integer since $q$ is an integer, but $\frac{q}{p}$ is not an integer, so $(\frac{q}{p}) + q$ is not an integer. Therefore the condition fails specifically for the final $3$ divisors in the list in this case, meaning $n$ can never have $2$ or more prime divisors.
+
+When $n=p^x$, it is easy to verify this works for all primes $p$ and all $x\ge 2$, since $p^y \mid (p^{y+1} + p^{y+2})$, and the divisors are ordered as $1, p, p^2, \dots, p^x$.
+\end{solution}
+
+\begin{prbm}[\acrshort{australia} 2020 Q2]
+Amy and Ben play the following game. Initially, there are three piles, each containing $2020$ stones. The players take turns to make a move, with Amy going first. Each move consists of choosing one of the piles available, removing the unchosen pile(s) from the game, and then dividing the chosen pile into $2$ or $3$ non-empty piles. A player loses the game if they
+are unable to make a move.
+
+Prove that Ben can always win the game, no matter how Amy plays.
+\end{prbm}
+
+\begin{solution}
+Call a pile \emph{perilous} if the number of stones in it is one more than a multiple of three, and \emph{safe} otherwise. Ben has a winning strategy by ensuring that he only leaves Amy perilous piles. Ben wins because the number of stones is strictly decreasing, and eventually Amy will be left with two or three piles each with just one stone.
+
+To see that this is a winning strategy, we prove that Ben can always leave Amy with only perilous piles, and that under such circumstances, Amy must always leave Ben with at least one safe pile.
+
+On Amy's turn, whenever all piles are perilous it is impossible to choose one such perilous pile and divide it into two or three perilous piles by virtue of the fact that $1+1\not\equiv1\pmod3$ and $1+1+1\not\equiv1\pmod3$. Thus Amy must leave Ben with at least one safe pile.
+
+On Ben's turn, whenever one of the piles is safe, he can divide it into two or three piles, each of which are safe, by virtue of the fact that $2\equiv1+1\pmod3$ and $0\equiv1+1+1\pmod 3$.
+\end{solution}
+
+\begin{prbm}[\acrshort{canada} 1969 P7]
+Show that there are no integers $a,b,c$ for which 
+\[a^2+b^2-8c=6.\]
+\end{prbm}
+
+\begin{solution}
+Using quadratic residues, all perfect squares are equivalent to $0,1,4\pmod8$. Hence, the problem statement is equivalent to $a^2+b^2\equiv 6\pmod8$. It is impossible to obtain a sum of $6$ with two of $0,1,4$, so our proof is complete.
+\end{solution}
+
+\begin{prbm}[\acrshort{italy} 2011] 
+Given that $p$ is a prime number, find integer solutions to 
+\[n^3 = p^2 - p - 1.\] 
+\end{prbm}
+
+\begin{solution}
+It is easy to see that $n < p$.
+\begin{align*}
+p^2 - p &= n^3 + 1\\
+p(p-1) &= (n+1)(n^2-n+1)
+\end{align*}
+Since $p$ is prime, $p \mid n+1$ or $p \mid n^2 - n + 1$.
+
+\textbf{Case 1:} $p \mid n+1$
+
+Since  $n < p$, thus $n+1 \le p$. Hence, $n+1=p$.
+Substituting this into the original equation gives us 
+\[n^3 = n^2 + n - 1\] 
+\[(n-1)^2(n+1) = 0\] 
+\[n = 1\]
+$\therefore\:(n,p) = (1,2)$.
+
+\textbf{Case 2:} $p \mid n^2 - n + 1$
+
+Let $n^2 - n + 1 = kp$ where k is a positive integer. Then 
+\begin{align*}
+p(p-1) &= (n+1)(n^2-n+1)\\
+&= kp(n+1)\\
+p-1 &= k(n+1) \\
+p &= kn + k + 1\\
+n^2-n+1 &= k(kn+k+1) \\
+n^2-n(1+k^2)-(k^2+k-1) &= 0
+\end{align*}
+
+Taking discriminant, 
+\[\Delta = (1+k^2)^2 + 4(k^2+k-1) = k^4+6k^2+4k-3\]
+which is a perfect square.
+
+Let $f(k) = k^4+6k^2+4k-3$.
+
+We find that $k=3$ via trial and error, then $n=11$, $p=37$.
+
+For $k \ge 4$, we can prove that $f(k)$ is not a perfect square; in fact, $f(k)$ lies between two consecutive perfect squares, as shown below:
+\[(k^2+3)^2 < f(k) < (k^2+4)^2\]
+which can be easily shown by expanding the terms.
+
+$\therefore\:(n,p) = (11,37)$
+\end{solution}
+
+\begin{prbm}[\acrshort{usamo} 2003]
+Prove that for every positive integer $n$ there exists an $n$-digit number divisible by $5^n$ all of whose digits are odd.
+\end{prbm}
+
+\begin{solution}
+This is immediate by induction on $n$. For $n = 1$ we take $5$; moving forward if $M$ is a
+working $n$-digit number then exactly one of
+\begin{align*}
+N_1 &= 10^n + M \\
+N_3 &= 3 \cdot 10^n + M \\
+N_5 &= 5 \cdot 10^n + M \\
+N_7 &= 7 \cdot 10^n + M \\
+N_9 &= 9 \cdot 10^n + M
+\end{align*}
+is divisible by $5^{n+1}$; as they are all divisible by $5^n$ and $\dfrac{N_k}{5^n}$ are all distinct.
+\end{solution}
+
+\begin{prbm}[Albania 2009]
+Find all the natural numbers $m,n$ such that $1+5 \cdot 2^m=n^2$.
+\end{prbm}
+
+\begin{solution}
+We have $5\cdot 2^m=(n-1)(n+1) \implies n-1=2^k \text{ or } n+1=2^k$
+
+\textbf{Case 1:} $n-1=2^k$
+
+This implies $n+1=2^k+2$
+
+But $5\mid2^k+2$, $2^k+2=2^t\cdot 5 \implies t=1, k=3 \implies n=9,m=4$
+
+\textbf{Case 2:} $n+1=2^k$ 
+
+This implies $n-1=2^k-2$. 
+But $5\mid2^k-2$, $2^k-2=2^t\cdot 5 \implies t=1,2^k=12$ which has no integer solution for $k$.
+
+$\therefore\:(m,n)=(4,9)$ is a unique solution.
+\end{solution}
+
+\begin{prbm}[NJC \acrshort{h3math} 2019 Prelim Q4]
+Let $p$ be a prime number. Show that 
+\[\binom{2p}{p} \equiv 2 \pmod p\]
+\end{prbm}
+
+\begin{solution}
+We first express $\binom{2p}{p}$ as
+\[\binom{2p}{p} = \frac{(2p)!}{p!p!} = \frac{(2p)(2p-1)(2p-2)\cdots(p+1)}{(p)(p-1)(p-2)\cdots1}\]
+Note that $2p$ and $p$ will cancel each other out to give 2. We hence need to prove the remaining thing is congruent to $1 \pmod p$.
+\[\frac{(2p-1)(2p-2)\cdots(p+1)}{(p-1)(p-2)\cdots1} = \binom{2p-1}{p-1}\]
+which is an integer, so 
+\[(p-1)!\mid(2p-1)(2p-2)\cdots(p+1).\]
+We can hence write
+\[(2p-1)(2p-2)\cdots(p+1)=k(p-1)! \quad k\in\ZZ^+\]
+Note that since $p$ is prime, 
+\[(p+1)(p+2)\cdots(2p-1) \equiv (1)(2)\cdots(p-1) = (p-1)! \pmod p\]
+Hence, 
+\[p\mid (2p-1)(2p-2)\cdots(p+1)-(p-1)! \implies p\mid k(p-1)!-(p-1)!=(k-1)(p-1)!\]
+Since $p$ is prime, $\gcd(p,(p-1)!)=1$ which implies $p\mid k-1$ or $k \equiv 1 \pmod p$.
+
+The rest follows easily.
+\end{solution}
+
+\begin{prbm}[\acrshort{imo} 1988 P6]
+Let $a$ and $b$ be positive integers such that $ab+1$ divides $a^2+b^2$. Show that $\dfrac{a^2+b^2}{ab+1}$ is the square of an integer.
+\end{prbm}
+
+\begin{solution}
+We proceed by way of contradiction, using a method known as \textbf{Vieta Jumping}.
+
+WLOG, let $a\ge b$ and fix $c$ to be the nonsquare positive integer such that such that $\frac{a^2+b^2}{ab+1}=c,$ or $a^2+b^2=c(ab+1).$ Choose a pair $(a, b)$ out of all valid pairs such that $a+b$ is minimized. Expanding and rearranging,\[P(a)=a^2+a(-bc)+b^2-c=0.\]This quadratic has two roots, $r_1$ and $r_2$, such that\[(a-r_1)(a-r_2)=P(a)=0.\]WLOG, let $r_1=a$. By Vieta's, $\textbf{(1) } r_2=bc-a,$ and $\textbf{(2) } r_2=\frac{b^2-c}{a}.$ From $\textbf{(1)}$, $r_2$ is an integer, because both $b$ and $c$ are integers.
+
+From $\textbf{(2)},$ $r_2$ is nonzero since $c$ is not square, from our assumption.
+
+We can plug in $r_2$ for $a$ in the original expression, because $P(r_2)=P(a)=0,$ yielding $c=\dfrac{r^2_2+b^2}{r_2b+1}$. If $c>0,$ then $r_2b+1>0,$ and $r_2b+1\neq0$, and because $b>0$, $r_2$ is a positive integer.
+
+We construct the following inequalities: $r_2=\dfrac{b^2-c}{a}<a,$ since $c$ is positive. Adding $b$, $r_2+b<a+b$, contradicting the minimality of $a+b$.
+\end{solution}
+
+\begin{prbm}[\acrshort{arml} 2019 P7]
+Compute the least positive integer $n$ such that the sum of the digits of $n$ is five times the sum of the digits of $n+2019$.
+\end{prbm}
+
+\begin{solution}
+Let $S(n)$ denote the sum of the digits of $n$, so that solving the problem is equivalent to solving $S(n)=5S(n+2019)$.
+
+Using the fact that $S(n)\equiv n\pmod 9$ for all $n$, it follows that
+\begin{align*}
+n&\equiv5(n+2019)\equiv5(n+3)\pmod 9\\
+4n&\equiv-15\pmod 9\\
+n&\equiv3\pmod 9.
+\end{align*}
+Then $S(n+2019)\equiv6\pmod 9$. In particular, $S(n+2019)\ge6$ and $S(n)\ge5\cdot6=30$. The latter inequality implies $n\ge3999$, which then gives $n+2019\ge6018$. Thus if $n+2019$ were a four-digit number, then $S(n+2019)\ge7$. Moreover, $S(n+2019)$ can only be $7$, because otherwise, $S(n)=5S(n+2019)\ge40$, which is impossible (if $n$ has four digits, then $S(n)$ can be no greater than $36$). So if $n+2019$ were a four-digit number, then $S(n+2019)=7$ and $S(n)=35$. But this would imply that the digits of $n$ are $8, 9, 9, 9$ in some order, contradicting the assumption that $n+2019$ is a four-digit number. On the other hand, if $n+2019$ were a five-digit number such that $S(n+2019)\ge6$, then the least such value of $n+2019$ is $10005$, and indeed, this works because it corresponds to $\boxed{n=7986}$, the least possible value of $n$.
+\end{solution}
+
+\begin{prbm}
+Let $a,b$ be integers, not both $0$. Prove that $\gcd(a+b,a-b)\le\gcd(2a,2b)$.
+\end{prbm}
+
+\begin{proof}
+Direct proof.
+
+Let $e=\gcd(a+b,a-b)$. Then $e\mid(a+b)$ and $e\mid(a-b)$. So
+\[ e\mid(a+b)+(a-b) \implies e\mid 2a \]
+and
+\[ e\mid(a+b)-(a-b) \implies e\mid 2b \]
+This implies $e$ is a common divisor of $2a$ and $2b$. So $e\le\gcd(2a,2b)$.
+\end{proof}
+
+\begin{prbm}[Division Algorithm]
+Let $c$ and $d$ be integers, not both $0$. If $q$ and $r$ are integers such as $c=dq+r$, then $\gcd(c,d)=\gcd(d,r)$.
+\end{prbm}
+
+\begin{proof}
+Let $m=\gcd(c,d)$ and $n=\gcd(d,r)$. To prove $m=n$, we will show $m\le n$ and $n\le m$.
+
+\begin{enumerate}[label=(\roman*)]
+\item Show $n\le m$
+
+Since $n=\gcd(d,r)$, $n\mid d$ and $n\mid r$. There exists integers $x$ and $y$ such that $d=nx$ and $r=ny$.
+
+From $c=dq+r$, we have $c=(nx)q+ny=n(xq+y)$ thus $n\mid c$. $n$ is a common divisor of $c$ and $d$, so $n\le\gcd(c,d)$. Hence $n\le m$.
+
+\item Show $m\le n$
+
+This is left as an exercise.
+\end{enumerate}
+\end{proof}
+
+\begin{prbm}[Euclid's Lemma]
+Let $a,b,c$ be any integers. If $a\mid bc$ and $\gcd(a,b)=1$, then $a\mid c$.
+\end{prbm}
+
+\begin{proof}
+Since $a\mid bc$, $bc=ak$ for some $k\in\ZZ$.
+
+Since $\gcd(a,b)=1$,
+\begin{align*}
+ax+by&=1 \quad \text{for some } x,y\in\ZZ \\
+cax+cby&=c \\
+acx+aky&=c \\
+a(cx+ky)&=c
+\end{align*}
+thus $a\mid c$.
+\end{proof}
+
+\begin{prbm}
+Let $a$ and $b$ be integers, not both $0$. Show that $\gcd(a,b)$ is the smallest possible positive linear combination of $a$ and $b$. (i.e. There is no positive integer $c<\gcd(a,b)$ such that $c=ax+by$ for some integers $x$ and $y$.)
+\end{prbm}
+
+\begin{proof}
+Prove by contradiction.
+
+Suppose there is a positive integer $c<\gcd(a,b)$ such that $c=ax+by$ for some integers $x$ and $y$.
+
+Let $d=\gcd(a,b)$. Then $d\mid a$ and $d\mid b$, and hence $d\mid ax+by$. This means $d\mid c$.
+
+Since $c$ is positive, this implies $\gcd(a,b)=d\le c$. This contradicts $c<\gcd(a,b)$.
+
+Hence we conclude that there is no positive integer $c<\gcd(a,b)$ such that $c=ax+by$ for some integers $x$ and $y$.
+\end{proof}
+
+\chapter{Diophantine Equations}
+\begin{definition}
+A \emph{Diophantine equation} is a polynomial equation with $2$ or more integer unknowns.
+\end{definition}
+
+\section{Linear Diophantine Equations}
+A \emph{linear Diophantine equation} is an equation with 2 or more integer unknowns and the integer unknowns are each to at most degree of 1. Linear Diophantine equation in two variables takes the form of 
+\[ax+by=c\]
+where $x,y\in\ZZ$ and $a,b,c$ are integer constants. $x$ and $y$ are unknown variables.
+
+Such equations can be solved completely, and the first known solution was constructed by Brahmagupta, which makes use of the Euclidean algorithm, as we will see later.
+
+\subsection{Homogeneous Linear Diophantine Equations}
+A special case of linear Diophantine equations is \emph{homogeneous linear Diophantine equations}, i.e. when $c=0$, which take the form
+\[ax+by=0\]
+where $x,y\in\ZZ$. Note that $(x,y)=(0,0)$ is a solution, known as the \emph{trivial solution} for this equation.
+
+Homogeneous linear Diophantine equations can be easily solved: If $d=gcd(a,b)$, then the complete family of solutions to the above equation is
+\[x=\frac{b}{d}k,\quad y=-\frac{a}{d}k\]
+for $k\in\ZZ$.
+
+\begin{exercise}
+Solve the homogeneous linear Diophantine equation
+\[6x+9y=0\]
+where $x,y\in\ZZ$.
+\end{exercise}
+\begin{solution}
+Note that $\gcd(6,9)=3$. Hence the solutions are
+\[x=\frac{9k}{3}=3k \quad \text{and} \quad y=-\frac{6k}{3}=-2k\]
+with $k\in\ZZ$.
+\end{solution}
+
+\subsection{Non-homogeneous Linear Diophantine Equations}
+We can use the following steps to solve non-homogeneous linear Diophantine equations (of the form $ax+by=c,\:x,y\in\ZZ$).
+
+\begin{enumerate}
+\item Determine $\gcd(a,b)$.
+
+Let $d=\gcd(a,b)$. For smaller $a,b$ you can simply determine $d$ by manually checking factors of $a$ and $b$; for larger $a,b$ use the Euclidean algorithm to determine $d$.
+
+\item Check that $d\mid c$. 
+
+If YES, continue on. If NO, stop as there are no solutions.
+
+\item Find a particular solution to $ax+by=c$.
+
+by first finding $x_0$ and $y_0$ such that $ax+by=d$. Suppose $x=cdx0$ and $y=cdy0$.
+
+\item Use a change of variables.
+
+Let $u=x-cdx0$ and $v=y-cdy0$, then we will see that $au+bv=0$ (important to check your results).
+
+\item Solve $au+bv=0$.
+
+That is: $u=-\frac{b}{d}m$ and $v=\frac{a}{d}m$, $m\in\ZZ$.
+  
+\item Substitute for $u$ and $v$.
+
+Thus the general solutions are $x-cdx0=-bdm
+  and  y-cdy0=adm$, or $(x,y)=()$, $m\in\ZZ$.
+\end{enumerate}
+
+A Diophantine equation in the form $ax+by=c$ is known as a linear combination. There will always be an infinite number of solutions when $\gcd(a,b)=1$ and $\gcd(a,b)\mid c$.
+
+\begin{theorem}[Bezout's lemma]
+For non-zero integers $a$ and $b$, let $d=\gcd(a,b)$. Then there exists integers $s$ and $t$ that satisfy
+\[sa+tb=d.\] 
+\end{theorem}
+
+An important case of Bezout's Lemma is when $a,b$ are coprime:
+\[ax+by=1, x,y\in\ZZ \iff a,b \text{ coprime}\]
+
+\begin{exercise}
+Find integers $x$ and $y$ that satisfy \[102x+38y=2.\] 
+\end{exercise}
+
+\begin{solution}
+Apply the extended Euclidean algorithm on $a$ and $b$ to calculate $\gcd(a,b)$:
+\begin{align*}
+102 &= 2 \times 38 + 26\\
+38 &= 1 \times 26 + 12\\
+26 &= 2 \times 12 + 2\\
+12 &= 6 \times 2 + 0\\
+6 &= 3 \times 2 + 0
+\end{align*}
+Work backwards and substitute the numbers from above:
+\begin{align*}
+2 &= 26 - 2 \times 12\\
+&= 3 \times 26 - 2 \times 38\\
+&= 3 \times 102 - 8 \times 38
+\end{align*}
+Hence $x=3$, $y=-8$.
+\end{solution}
+
+All solutions of linear Diophantine equations:
+\begin{theorem}
+If $(x_0,y_0)$ is a solution of $ax + by = n$, then all solutions are given by 
+\[\{(x,y)\mid x = x_0 + bt, y = y_0 - at,t \in \ZZ\}\]
+\end{theorem}
+
+For three variables in the equation $ax + by + cz = d$, this is the equation of a plane, instead of a line.
+
+\subsection{Chicken Mcnugget Theorem}
+\begin{theorem}[Chicken mcnugget theorem]
+For coprime $m$ and $n$, the largest impossible sum of $m$ and $n$ (i.e. largest number not expressable in the form $mx+ny$ for non-negative integer $x$ and $y$) is $mn-m-n$.
+\end{theorem}
+
+\begin{proof}
+Because the equation is symmetric, WLOG assume that $n\ge m$.
+
+Assume that $mn-m-n=mx+ny$. Taking $\mod m$, we arrive at
+\[ny\equiv-n\pmod m \implies y\equiv-1 (mod m)\]
+This implies that $y\ge m-1$, however, this gives
+\[mx+ny\ge mx+mn-m>mn-m-n\]
+which is a contradiction. Now, we prove that
+\[mn-m-n+k=mx+ny, \quad k\in\{1,2,3,\dots,m\}.\]
+The reason for this is that for $k=k_1>m$, then we can repeatedly add $m$ to the reduced value of $k_1 \mod m$ until we reach $k_1$. Our goal is to prove that for every $k$, there exists an $x$ such that
+\begin{itemize}
+\item $x$ is an integer.
+\item $x$ is a non-negative integer.
+\end{itemize}
+
+Taking the equation $\mod m$ brings us to 
+\[n(y+1)\equiv k\pmod m \implies y\equiv kn^{-1}-1\pmod m\]
+Using this value of $y$ produces the first desired outcome. For the second, we must have $mn-m-n+k-ny\ge0$. For $y=m-y_0$ and $m\ge y_0\ge 2$, we get
+\[mn-m-n+k-ny=(y_0-1)n-m+k>0.\]
+For $y_0=1$, we have
+\[y\equiv-1\pmod m \implies kn^{-1}-1\equiv-1\pmod m \implies k\equiv0\pmod m\]
+Therefore, $k=m$, and we get
+\[mn-m-n+k-ny=mn-m-n+m-n(m-1)=0 \implies x=0\]
+Therefore, we have proven our desired statement, and we are done.
+% https://artofproblemsolving.com/wiki/index.php/Chicken_McNugget_Theorem
+\end{proof}
+\pagebreak
+
+\section{Pythagorean Triples}
+\begin{definition}[Pythagorean triple]
+A \emph{Pythagorean triple} is a triplet $(a,b,c)$, where $a,b,c$ are positive integers that satisfy $a^2+b^2=c^2$.
+\end{definition}
+
+The smallest and best-known Pythagorean triple is $(a,b,c)=(3,4,5)$. The right triangle having these side lengths is sometimes called the $3-4-5$ triangle.
+
+In fact, all Pythagorean triples can be expressed in the form of 
+\[a=k(m^2-n^2) \quad b=k(2mn) \quad c=k(m^2+n^2)\]
+
+\begin{exercise}
+Prove that there is one and only one Pythagorean triple $(a,b,c)$ such that $a,b,c$ are consecutive integers.
+\end{exercise}
+\begin{solution}
+We need to prove two parts: existence (``one'') and uniqueness (``only one'').
+
+\textbf{Existence:}
+
+Take $(a,b,c)=(3,4,5)$, which indeed satisfies $a^2+b^2=c^2$.
+
+\textbf{Uniqueness:}
+
+Suppose $a,b,c$ are consecutive. Then $b=a+1$ and $c=a+2$. By Pythagoras' theorem we have 
+\[a^2+(a+1)^2=(a+2)^2\]
+which simplifies down to $(a-3)(a+1)=0$, so $a=3$ or $a=-1$. Since Pythagorean triple consists of positive integers, $a$ can only be $3$.
+\end{solution}
+
+\begin{exercise}
+Prove that there are infinitely many Pythagorean triples.
+\end{exercise}
+\begin{solution}
+This is an existential statement. We prove this by construction.
+
+Suppose $(a,b,c)$ is a Pythagorean triple (Pythagorean triples exist, one example being $(a,b,c)=(3,4,5)$ as shown earlier). Then $a^2+b^2=c^2$.
+
+Let $k$ be any positive integer. Note that
+\[(ka)^2+(kb)^2=k^2a^2+k^2b^2=k^2(a^2+b^2)=k^2c^2=(kc)^2.\]
+Thus $(ka,kb,kc)$ is also a Pythagorean triple.
+
+Since there are infinitely many $k$, we have infinitely many Pythagorean triples $(ka,kb,kc)$.
+\end{solution}
+
+\section{Pell's Equation}
+\begin{theorem}[Pell's equation] 
+If $n>0$ is not a perfect square, then the equation 
+\[x^2-ny^2=1\]
+has infinitely many solutions.
+\end{theorem}
+Note that $(x,y)=(1,0)$ is a trivial solution.
+
+Steps:
+\begin{enumerate}
+	\item Find one non-trivial solution $(x,y)$.
+	\item Let $\alpha^n = (x+y\sqrt{d})^n$ where $n=2,3,\dots$. The coefficients of the integer and square root give us the values of $x$ and $y$ respectively.
+\end{enumerate}
+
+\begin{exercise}
+Find positive integers $x$ and $y$ that satisfy
+\[x^2-2y^2=1.\] 
+\end{exercise}
+
+\begin{solution}
+We first observe that $(x,y)=(3,2)$ is a solution.
+\begin{align*}
+\alpha &= (3+2\sqrt{2}) \\
+\alpha^n &= (3+2\sqrt{2})^n
+\end{align*}
+For $n=2$,
+\begin{align*}
+\alpha^2 &= (3+2\sqrt{2})^2 \\&= 17 + 12\sqrt{2}
+\end{align*}
+From this, we deduce that another solution is $(x,y)=(17,12)$.
+
+Simply repeat the above method to find further solutions.
+\end{solution}
+
+\begin{theorem}[Fermat's last theorem]
+For $n>2$, there are no non-zero solutions to 
+\[a^n+b^n=c^n.\]
+\end{theorem}
+
+\begin{proof}
+Refer to Andrew Wiles's proof.
+\end{proof}

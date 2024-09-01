@@ -1,0 +1,2152 @@
+\part{Algebra}
+\chapter{Basic Algebra}
+\section{Algebraic Manipulation}
+This book assumes the reader should be familiar with basic algebraic manipulation.
+
+Some common \textbf{factorisation} techniques include
+\begin{itemize}
+\item Difference of squares:
+\[ a^2-b^2=(a+b)(a-b) \]
+\item Sum of squares:
+\[ a^2+b^2=(a+b)^2-2ab \]
+\item Sum of cubes:
+\[ a^3+b^3=(a+b)(a^2-ab+b^2) \]
+\item Difference of cubes:
+\[ a^3-b^3=(a-b)(a^2+ab+b^2) \]
+\item Generalised formulae:
+\[ a^n-b^n=(a-b)(a^{n-1}+a^{n-2}b+\cdots+ab^{n-2}+b^{n-1}) \quad \forall n\in\NN \]
+\[ a^n+b^n=(a+b)(a^{n-1}-a^{n-2}b+\cdots-ab^{n-2}+b^{n-1}) \quad \forall \text{ odd } n\in\NN \]
+\item Generalised expansion of square:
+\[ (a_1+a_2+\cdots+a_n)^2=(a_1^2+a_2^2+\cdots+a_n^2)+(2a_1a_2+\cdots+2a_1a_n)+(2a_2a_3+\cdots+2a_2a_n)+\cdots+2a_{n-1}a_n \]
+or, written succintly,
+\[\brac{\sum_{i=1}^n a_i}^2=\sum_{i=1}^n a_i^2+2\sum_{i<j}a_ia_j\]
+\item Useful ones:
+\[ a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca) \]
+\end{itemize}
+
+\begin{exercise}
+Evaluate the expression
+\[ (2+1)(2^2+1)(2^4+1)\cdots(2^{2^{10}}+1)+1. \]
+\end{exercise}
+
+\begin{solution}
+By using the formula $(a-b)(a+b)=a^2-b^2$ repeatedly, we have 
+\begin{align*}
+&(2+1)(2^2+1)(2^4+1)\cdots(2^{2^{10}}+1)+1 \\
+&= (2-1)(2+1)(2^2+1)(2^4+1)\cdots(2^{2^{10}}+1)+1 \\
+&= ((2^{2^{10}})^2-1)+1=\boxed{2^{2048}}
+\end{align*}
+Note the trick here: to multiply the expression by $(2-1)$
+\end{solution}
+
+\begin{exercise}
+Given that the real numbers $x$, $y$ and $z$ satisfy the system of equations
+\[ \begin{cases}
+x+y+z=6 \\
+x^2+y^2+z^2=26 \\
+x^3+y^3+z^3=90
+\end{cases} \]
+Find the values of $xyz$ and $x^4+y^4+z^4$.
+\end{exercise}
+
+\begin{solution}
+$(x+y+z)^2=(x^2+y^2+z^2)+2(xy+yz+zx)$ implies that $xy+yz+zx=5$.
+
+Since $x^3+y^3+z^3-3xyz=(x+y+z)[(x^2+y^2+z^2)-(xy+yz+zx)]$, $xy+yz+zx=\boxed{-12}$.
+
+Further, by completing squares,
+\begin{align*}
+x^4+y^4+z^4 &= (x^2+y^2+z^2)^2-2(x^2y^2+y^2z^2+z^2x^2) \\
+&= (x^2+y^2+z^2)^2-2[(xy+yz+zx)^2-2(xy^2z+yz^2x+x^2yz)] \\
+&= (x^2+y^2+z^2)^2-2[(xy+yz+zx)^2-2xyz(x+y+z)]=\boxed{338}
+\end{align*}
+\end{solution}
+
+Sometimes it is useful to look out for terms or expressions that are always positive or negative.
+
+\begin{exercise}[\acrshort{vietnam} 1962]
+Prove that
+\[\frac{1}{\frac{1}{a}+\frac{1}{b}}+\frac{1}{\frac{1}{c}+\frac{1}{d}}\le\frac{1}{\frac{1}{a+c}+\frac{1}{b+d}},\]
+for all positive real numbers $a,b,c,d$.
+\end{exercise}
+
+\begin{solution}
+We prove that
+\[\frac{1}{\frac{1}{a+c}+\frac{1}{b+d}}-\brac{\frac{1}{\frac{1}{a}+\frac{1}{b}}+\frac{1}{\frac{1}{c}+\frac{1}{d}}}\ge0.\]
+A straightforward summing up and simplification show that this is equivalent to
+\[\frac{a^2d^2-2abcd+b^2c^2}{(a+b+c+d)(a+b)(c+d)}\ge0,\]
+which is always true, as the denominator is positive, and the numerator is $(ad-bc)^2\ge0$.
+
+The equality occurs if and only if $ad=bc$.
+\end{solution}
+
+Since $(a-b)^2\ge0$, we have $a^2+b^2\ge2ab$. Adding $a^2+b^2$ to both sides gives us
+\begin{equation}
+2(a^2+b^2)\ge(a+b)^2
+\end{equation}
+Expanding this to three and four variables,
+\begin{equation}
+3(a+b+c)^2\ge(a+b+c)^2
+\end{equation}
+and
+\begin{equation}
+4(a^2+b^2+c^2+d^2)\ge(a+b+c+d)^2
+\end{equation}
+\begin{remark}
+This can be easily seen by applying Titu's Lemma.
+\end{remark}
+The above equations are useful in finding the minimum value of $a^2+b^2$ given $a+b$, or finding the maximum value of $a+b$ given $a^2+b^2$.
+\pagebreak
+
+\section{Polynomials}
+%AOPS 2 chap 6
+A \vocab{polynomial}, in terms of the variable $x$, takes the form of 
+\[ f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0 \]
+where $a_i$ are the \vocab{coefficients}, $a_0$ is the \vocab{constant term}. The highest power $n$ is the \vocab{degree} of the polynomial denoted by $\deg f(x)$.
+
+\subsection{Finding Roots of Polynomials}
+Suppose we are given the polynomial $f(x)$ and asked to find the solutions to $f(x)=0$. We call these solutions \textbf{roots} of the polynomials.
+
+\begin{theorem}[Quadratic formula] 
+For $a,b,c\in\RR$, $a\neq0$, the quadratic equation $ax^2+bx+c=0$ has solutions 
+\begin{equation} x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a} \end{equation}
+\end{theorem}
+
+\begin{proof}
+The proof is quite simple; it can be done by completing the square.
+\end{proof}
+
+Let $\Delta$ denote the \vocab{discriminant}, then $\Delta=b^2-4ac$.
+\begin{itemize}
+\item For $\Delta < 0$, the $2$ roots are complex and conjugates to each other.
+\item For $\Delta=0$, the $2$ roots are real and repeated.
+\item For $\Delta > 0$, the $2$ roots are real and distinct.
+\end{itemize}
+
+Unfortunately, no quick and easy method like the quadratic formula exists to solve general polynomials. We do have some helpful hints to do.
+
+\begin{theorem}[Division algorithm]
+If $f(x)$ and $D(x)$ are polynomials where $Q(x)\neq0$ and $\deg D(x)<\deg f(x)$, then
+\[f(x)=D(x)Q(x)+R(x).\]
+\end{theorem}
+
+\begin{theorem}[Remainder theorem] 
+If the polynomial $f(x)$ is divided by $x-c$, then the remainder is $f(c)$.
+\end{theorem}
+
+\begin{theorem}[Factor theorem]
+Let $f(x)$ be a polynomial. $f(c)=0$ if and only if $x-c$ is a factor of $f(x)$.
+\end{theorem}
+
+We can generalise the above:
+
+\begin{theorem}[Linear factorisation theorem]
+If $f(x)=a_n x^n+a_{n-1} x^{n-1}+\dots+a_1 x+a_0$, where $n \ge 1, a_n \neq 0$, then
+\[ f(x)=a_n (x-c_1)(x-c_2) \dots (x-c_n) \]
+where $c_1, c_2, \dots c_n$ are complex numbers. 
+\end{theorem}
+
+\begin{exercise}[MA$\theta$ 1990]
+$P(x)$ is a polynomial with real coefficients. When $P(x)$ is divided by $x-1$, the remainder is $3$. When $P(x)$ is divided by $x-2$, the remainder is $5$. Find the remainder when $P(x)$ is divided by $x^2-3x+2$.
+\end{exercise}
+
+\begin{solution}
+We write
+\[P(x)=(x^2-3x+2)q(x)+r(x),\]
+where $r(x)$ is the desired remainder.
+
+Since $\deg r(x)<\deg(x^2-3x+2)$, we can write $r(x)=ax+b$ for some constants $a$ and $b$. From the given information, we know $P(1)=3$ and $P(2)=5$. Since $x^2-3x+2=0$ for $x=2$ and $x=1$, we put these values in our equation for $P(x)$, yielding
+\begin{align*}
+0\cdot q(1)+r(1)&=a+b=P(1)=3\\
+0\cdot q(2)+r(2)&=2a+b=P(2)=5.
+\end{align*}
+Solving this system, we find $(a,b)=(2,1)$, so the remainder is $2x+1$.
+\end{solution}
+
+\begin{theorem}[Fundamental theorem of algebra]
+A polynomial of degree $n>0$, with real or complex coefficients, has $n$ complex roots (some may be repeated).
+\end{theorem}
+
+A polynomial equation of degree $n$ has $n$ roots, counting multiple roots (multiplicities) separately.
+
+Imaginary roots occur in conjugate pairs; if $a+bi$ is a root ($b \neq 0$), then the imaginary number $a-bi$ is also a root.
+
+For the \emph{rational} roots of a polynomial, there is a method we can use to narrow the search.
+
+\begin{theorem}[Rational root theorem]
+For any polynomial $f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0$ with integer coefficients, all rational roots are of the form $\frac{p}{q}$, where $p \mid a_0$ and $q \mid a_n$.
+\end{theorem}
+
+\begin{proof}
+Let $\frac{p}{q}$ be a rational roots of the polynomial $f(x)$, where $p$ and $q$ are relatively prime positive integers. Since $\frac{p}{q}$ is a root, we have
+\[f\brac{\frac{p}{q}}=a_n\brac{\frac{p}{q}}^n+a_{n-1}\brac{\frac{p}{q}}^{n-1}+\cdots+a_0=0.\]
+Multiplying by $q^n$ gives
+\[a_np^n+a_{n-1}p^{n-1}q+\cdots+a_1pq^{n-1}+a_0q^n=0.\]
+Now look at this equation modulo $p$. The first $n$ terms on the left will become $0$ since theya re multiples of $p$, so we have
+\[a_np^n+a_{n-1}p^{n-1}q+\cdots+a_1pq^{n-1}+a_0q^n\equiv a_0q^n\pmod p\equiv0\pmod p\]
+Thus $a_0q^m\equiv0\pmod p$, so $p\mid a_0q^n$. Since $p$ and $q$ are relatively prime, it follows that $p\mid a_0$.
+
+By the same argument, we can evaluate the sum mod $q$ to show that $q\mid a_np^n$. Thus $q\mid a_n$ and our proof is complete.
+\end{proof}
+
+There are a few more guides to tell us where to look for roots. The first is Descartes' Rule of Signs.
+
+\begin{theorem}[Descartes' rule of signs]
+To count how many positive and negative roots there are, we count sign changes.
+
+The number of sign changes in the coefficients of $f(x)$ (meaning we list the coefficients from first to last and count how many times they change from positive to negative) tells us the maximum number of positive roots the polynomial has, and the number of sign changes in the coefficients of $f(-x)$ gives us the maximum number of negative roots the polynomial has.
+\end{theorem}
+
+\begin{example}
+For
+\[f(x)=3x^5+2x^4-3x^2+2x-1,\]
+there are at most 3 positive roots and at most 2 negative roots (since $f(x)=-3x^5+2x^4-3x^2-2x-1$).
+\end{example}
+
+\begin{theorem}[Lagrange interpolation formula]
+The polynomial $Q$ that solves $Q(a_0)=1, Q(a_1)=0, Q(a_2)=0, \dots, Q(a_n)=0$ is
+\[ \frac{(x-a_1)(x-a_2)\cdots(x-a_n)}{(a_0-a_1)(a_0-a_2)\cdots(a_0-a_n)}. \]
+We can take a linear combination of these types of polynomials to create a polynomial where $f(a_0)=b_0, f(a_1)=b_1, \dots, f(a_n)=b_n$.
+\end{theorem}
+
+\begin{theorem}[Gauss's lemma]
+If a polynomial with integer coefficients can be factored with rational coefficients, then it can also be factored with integer coefficients.
+\end{theorem}
+
+\subsection{Coefficients and Roots}
+The coefficients of a polynomial are directly related to the sum and product of the roots.
+
+\begin{theorem}[Vieta's relations]
+For polynomial $f(x)=a_n x^n+a_{n-1} x^{n-1}+\dots+a_1 x+a_0$ with complex coefficients with roots $r_1, r_2, \dots, r_n$, 
+\begin{equation}
+\begin{split}
+r_1+r_2+\dots+r_n &= -\frac{a_{n-1}}{a_n} \\
+r_1 r_2+r_2 r_3+\dots+r_{n-1} r_n &= \frac{a_{n-2}}{a_n} \\
+&\vdots \\
+r_1 r_2 \cdots r_n &= (-1)^n \frac{a_0}{a_n}
+\end{split}
+\end{equation}
+\end{theorem}
+
+\subsection{Combinatorial Nullstellensatz}
+Let 
+\[ f(x)=cx^d+\cdots \]
+be a polynomial with degree $d$. For any set $S$ such that $|S|>d$, there will be an element $a\in S$ such that
+\[ f(a)\neq0. \]
+
+More generally, let
+\[ f(x_1,x_2,\dots,x_k)=cx_1^{d_1}x_2^{d_2}\cdots x_k^{d_k}+\cdots \]
+where $c$ is non-zero be a polynomial with total degree $d_1+d_2+\cdots+d_k$. Then for any sets $S_1,\dots,S_k$ such that $|S_1|>d_1, \dots, |S_k|>d_k$, there exists $a_1\in S_1, \dots, a_k\in S_k$ such that
+\[ f(a_1,\dots,a_k)\neq0. \]
+
+\subsection{Transforming Polynomials}
+AOPS Volume 2 pg62
+
+\subsection{Newton's Sums}
+Newton sums give us a clever and efficient way of finding the sums of roots of a polynomial raised to a power.
+
+Consider a polynomial $f(x)$ of degree $n$,
+\[f(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0.\]
+Let $f(x)=0$ have roots $x_1,x_2,\ldots,x_n$. Let $S_k$ be the sum of the $k$-th powers of the roots of $f(x)$; that is,
+\[S_k = x_1^k + x_2^k + \cdots + x_n^k.\]
+\textbf{Newton's sums} tell us that
+\begin{align*}
+a_nS_1 + a_{n-1}&=0\\
+a_nS_2 + a_{n-1}S_1 + 2a_{n-2}&=0\\
+a_nS_3 + a_{n-1}S_2 + a_{n-2}S_1 + 3a_{n-3}&=0\\
+&\vdots\\
+a_nS_k+a_{n-1}S_{k-1}+\cdots+a_{n-k+1}S_1+k\cdot a_{n-k}&=0
+\end{align*}
+(Define $a_j = 0$ for $j<0$.)
+\pagebreak
+
+\section{Absolute Value Equations}
+Common problem-solving techniques:
+\begin{itemize}
+    \item Squaring both sides
+    \item Casework: solve each case for $x$
+    \item Sketching graph
+\end{itemize}
+
+\begin{exercise}
+Find all real values of $x$ such that \[ |x+2|+|2x+6|+|3x-3|=12. \]
+\end{exercise} 
+
+\begin{solution}
+The three turning points are at $x=-2$, $x=-3$ and $x=1$. Hence we just need to check the following cases:
+\begin{itemize}
+\item $x\le3$
+\item $-3<x\le-2$
+\item $-2<x\le1$
+\item $x>1$
+\end{itemize}
+Solving all the cases gives us $\boxed{x=-\dfrac{5}{2},\:x=\dfrac{7}{6}}$
+\end{solution}
+
+\begin{exercise}
+How many real solutions $x$ are there to the equation $x|x|+1=3|x|$?
+\end{exercise}
+
+\begin{solution}
+Two cases: either $x \ge 0$ and $x^2+1=3x$, or $x < 0$ and $-x^2+1=-3x$. The first case has solutions $\dfrac{3\pm\sqrt{5}}{2}$ which are both positive. The second case has solutions $\dfrac{3\pm\sqrt{13}}{2}$ and only one of these is negative. So there are $\boxed{3}$ solutions in total.
+\end{solution}
+\pagebreak
+
+\section{Logarithms}
+Properties of logarithms
+\begin{enumerate}
+\item $\log_ab^n=n\log_ab$
+\item $\log_ab+\log_ac=\log_abc$
+\item $\log_ab-\log_ac=\log_a\dfrac{b}{c}$
+\item $\dfrac{\log_ab}{\log_ac}=\log_cb$
+\item $\log_{a^n}b^n=\log_ab$
+\end{enumerate}
+
+One useful identity is the chain rule for logarithms:
+\[ (\log_ab)(\log_bc)=\log_ca \]
+which can be easily proven by changing of base.
+
+\begin{exercise}
+Find the sum
+\[ \log\frac{1}{2}+\log\frac{2}{3}+\log\frac{3}{4}+\cdots+\frac{99}{100}. \]
+\end{exercise}
+\begin{solution}
+Using the sum of logarithms,
+\[ S=\log\brac{\frac{1}{2}\cdot\frac{2}{3}\cdot\frac{3}{4}\cdots\frac{99}{100}}=\log\frac{1}{100}=\log10^{-2}=\boxed{-2} \]
+\end{solution}
+
+Another useful property is 
+\[ x^{\log_xy}=y \]
+\pagebreak
+
+\section*{Exercises}
+\begin{prbm}
+Solve the equation
+\[ x^5+(x+1)^5+(x+2)^5+\cdots+(x+1998)^5=0. \]
+\end{prbm}
+
+\begin{solution}
+Let $u=x+999$ to get $(u-999)^5+(u-998)^5+ \dots + (u+998)^5+(u+999)^5$. Note that when $(u-a)^5+(u+a)^5=10 a^4 u + 20 a^2 u^3 + 2 u^5$ for all $a$, but when $u=0$ this expression is always equal to $0$. We can apply this for all $a=0$ to $a=999$ to make all the terms $0$, thus $u=0$ and $\boxed{x=-999}$.
+\end{solution}
+
+\begin{prbm}
+Let $a, b, c$ be distinct non-zero real numbers such that
+\[ a+\frac{1}{b}=b+\frac{1}{c}=c+\frac{1}{a}. \]
+Prove that $|abc|=1$.
+\end{prbm}
+
+\begin{proof}
+From the given conditions it follows that
+\[ a-b=\frac{b-c}{bc} \quad b-c=\frac{c-a}{ca} \quad c-a=\frac{a-b}{ab}. \]
+Multiplying the above equations gives $(abc)^2=1$, from which the desired result follows.
+\end{proof}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} 2014 (Junior) Q16]
+If $m$ and $n$ are positive real numbers satisfying the equation $m+4\sqrt{mn}-2\sqrt{m}-4\sqrt{n}+4n=3$, find the value of $\dfrac{\sqrt{m}+2\sqrt{n}+2014}{4-\sqrt{m}-2\sqrt{n}}$.
+\end{prbm}
+\begin{solution}
+Grouping the expression as $m+4\sqrt{mn}+4n-2\brac{\sqrt{m}+2\sqrt{n}}-3=0$ becomes 
+\[ \brac{\sqrt{m}+2\sqrt{n}}^2-2\brac{\sqrt{m}+2\sqrt{n}}-3=0 \]
+which is factorised as $\brac{\sqrt{m}+2\sqrt{n}-3}\brac{\sqrt{m}+2\sqrt{n}+1}=0$ which gives $\sqrt{m}+2\sqrt{n}=3$ or $-1$ (rejected). Hence $\sqrt{m}+2\sqrt{n}=3$.
+
+Substituting this into the given expression gives $\boxed{2017}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q19]
+Let $x$ and $y$ be positive integers such that
+\[ \frac{100}{151}<\frac{y}{x}<\frac{200}{251}. \]
+What is the minimum value of $x$?
+\end{prbm}
+
+\begin{solution}
+The inequality can be transformed to
+\[ \frac{302}{200}y>x>\frac{251}{200}y. \]
+The minimum $y$ such that $\brac{\dfrac{251}{200}y,\dfrac{302}{200}y}$ contains an integer is $y=2$ and when $y=2$, the only integer it contains is $3$. Hence the answer is $3$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q2]
+Given that $p$ and $q$ are integers that satisfy the equation
+\[ 36x^2-4(p^2+11)x+135(p+q)+576=0, \]
+find the value of $p+q$.
+\end{prbm}
+
+\begin{solution}
+By Vieta's, we have
+\[ p+q=\frac{p^2+11}{9} \quad \text{and} \quad pq=\frac{135(p+q)+576}{36}. \]
+Solving simultaneously gives $p=13$ and $p+q=20$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{australia} 2020 Q1]
+Determine all pairs $(a,b)$ of non-negative integers such that
+\[ \frac{a+b}{2}-\sqrt{ab}=1. \]
+\end{prbm}
+
+\begin{solution}
+Reorganising the equation we get 
+\[ 2\sqrt{ab}=a+b-2 \]
+thus after squaring:
+\[ 4ab=a^2+b^2+4+2ab-4a-4b. \]
+Hence 
+\[ 0=a^2+b^2+4-2ab-4a-4b=(a-b)^2+4(1-a-b), \]
+so $4$ divides $(a-b)^2$. It follows that $a-b$ is even and hence $1-a-b$ is odd. Thus $a-b=4k+2$ for some $k$. Then $(2k+1)^2=a+b-1=2b+4k+1$, and so $b=2k^2$ and $a=2k^2+4k+2=2(k+1)^2$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Let $\alpha,\beta,\gamma,\delta$ be the roots of $x^4-8x^3+24x^2-42x+16=0$. Given
+\[ \brac{\frac{2}{\sqrt[4]{\alpha}+\sqrt[4]{\beta}+\sqrt[4]{\gamma}}+\frac{2}{\sqrt[4]{\beta}+\sqrt[4]{\gamma}+\sqrt[4]{\delta}}+\frac{2}{\sqrt[4]{\alpha}+\sqrt[4]{\beta}+\sqrt[4]{\delta}}+\frac{2}{\sqrt[4]{\delta}+\sqrt[4]{\gamma}+\sqrt[4]{\alpha}}}^2=\frac{a\sqrt{b}}{c} \]
+where $a,b,c$ are pairwise coprime. Find the value of $a+b+c$.
+
+\textbf{Hint:} Vieta's Relation
+\end{prbm}
+\begin{solution}
+The given quartic equation is simply $(x-2)^4=10x$. so we get the stuff as $\left(\sum_{\mathrm{cyc}} \frac{2\cdot \sqrt[4]{10}}{2-\alpha}\right)^2$ this is just $4\sqrt{10} \cdot \left(\frac{f^\prime(2)}{f(2)}\right)^2$ , where $f(x)$ is the given polynomial and $\frac{f^\prime(2)}{f(2)}=\frac{1}{2}$. 
+
+Hence our answer is $\boxed{\sqrt{10}}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{tripos} 1878]
+If $x+y+z=0$, show that 
+\[ \brac{\frac{y-z}{x}+\frac{z-x}{y}+\frac{x-y}{z}} \brac{\frac{x}{y-z}+\frac{y}{z-x}+\frac{z}{x-y}}=9 \]
+\end{prbm}
+
+\begin{proof}
+We have 
+\begin{align*}
+\brac{\frac{y-z}{x}+\frac{z-x}{y}+\frac{x-y}{z}}\frac{x}{y-z}
+&= 1+\frac{x}{y}\cdot\frac{z-x}{y-z}+\frac{x}{z}\cdot\frac{x-y}{y-z} \\
+&= 1+\frac{xz(z-x)+xy(x-y)}{yz(y-z)} \\
+&= 1+\frac{x(z^2-zx+xy-y^2)}{yz(y-z)} \\
+&= 1+\frac{x}{yz}(x-y-z) \\
+&= 1+\frac{2x^2}{yz} \quad \because y+z=-x
+\end{align*}
+Therefore
+\[ \brac{\frac{y-z}{x}+\frac{z-x}{y}+\frac{x-y}{z}} \brac{\frac{x}{y-z}+\frac{y}{z-x}+\frac{z}{x-y}}=3+2\frac{x^3+y^3+z^3}{xyz}=3+6=9 \]
+for, since $x+y+z=0$, $x^3+y^3+z^3-3xyz=0$.
+\end{proof}
+\pagebreak
+
+\begin{prbm}[SSSMO 2000]
+For any real numbers $a$, $b$ and $c$, find the smallest possible value that the following expression can take:
+\[ 3a^2+27b^2+5c^2-18ab-30c+237 \]
+\end{prbm}
+
+\begin{proof}
+By completing squares, the above expression can be rewritten as
+\[ 3(a-3b)^2+5(c-3)^2+192 \ge 192 \]
+The value 192 is obtainable when $a=3b$, $c=3$. 
+
+Hence the smallest possible value is \boxed{192}.
+\end{proof}
+
+\begin{remark}
+The technique of completing squares is an important tool in determining the extreme values of polynomials.
+\end{remark}
+\pagebreak
+
+\begin{prbm}[GERMANY]
+Given that $m^{15}+m^{16}+m^{17}=0$, solve for $m^{18}$.
+\end{prbm}
+
+\begin{solution}
+Factorising gives us 
+\[ m^{15}(m^2+m+1)=0. \]
+Either $m^{15}=0$ which implies $m=0$ so $m^{18}=0$, or $m^2+m+1=0$ where multiplying $m-1$ on both sides gives $(m-1)(m^2+m+1)=0 \implies m^3-1=0 \implies m^3=1$.
+
+Hence $m^{18}=(m^3)^6=\boxed{1}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Given that for positive real number $a$,
+\[ \brac{\frac{5}{x}}^{\log_a 25}=\brac{\frac{3}{x}}^{\log_a 9} \]
+\end{prbm}
+
+\begin{solution}
+Taking log base $a$ at both sides,
+\begin{align*}
+\log_a\brac{\frac{5}{x}}^{\log_a 25} &= \log_a\brac{\frac{3}{x}}^{\log_a 9} \\
+\log_a 25 \times \log_a\brac{\frac{5}{x}} &= \log_a 9 \times \log_a\brac{\frac{3}{x}} \\
+2\log_a 5 \times (\log_a 5-\log_a x) &= 2\log_a 3 \times (\log_a 3 - \log_a x)
+\end{align*}
+
+Let $p=\log_a 5$, $q=\log_a 3$. The equation can be rewritten as 
+\[ 2(p-q)(p+q)=2(p-q) \times \log_a x \]
+Dividing $2(p-q)$ for both sides, $p+q=\log_ax\implies \boxed{x=15}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Consider the following expression. Find all possible real roots.
+\[ \frac{1}{x^2-10x-29}+\frac{1}{x^2-10x-45} - \frac{2}{x^2-10x-69}=0 \]
+\end{prbm}
+
+\begin{solution}
+Since the given equation looks quite complicated to solve, we try the substitution method. Let $a=(x-5)^2$, then the equation can be rewritten as
+\[ \frac{1}{a-54}+\frac{1}{a-70} - \frac{2}{a-94}=0 \]
+Solving quadratically gives us $\boxed{x=13}$ or $\boxed{x=-3}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[DOKA]
+Given that $f(x)=\dfrac{x}{x-3}$,  $f^8(x)=\dfrac{x}{ax+b}$, where $a$ and $b$ are integers. Find $a$ and $b$.
+\end{prbm}
+
+\begin{solution}
+Observe that 
+\begin{align*}
+f(x) &= \frac{x}{x-p} \\
+f^2(x) &= \frac{x}{(1-p)x+p^2} \\
+f^3(x) &= \frac{x}{(1-p+p^2)x-p^3} \\
+f^4(x) &= \frac{x}{(1-p+p^2-p^3)x+p^4}
+\end{align*}
+Suppose $f^n(x)=\dfrac{x}{a_nx-b_n}$, 
+\[ a_n=(-3)^0+(-3)^1+\cdots+(-3)^{n-1} \]
+\[ b_n=(-3)^n \]
+Hence $\boxed{a=-1640}$ and $\boxed{b=6561}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[Oxford MAT 2022]
+Find the constant term of the expression
+\[\brac{x+1+\frac{1}{x}}^4\]
+\end{prbm}
+
+\begin{solution}
+We calculate the square of $(x+1+x^{-1})$ first;
+\[ x^2+2x+1+2x^{-1}+x^{-2} \]
+Now if we were to square this expression, the constant term independent of $x$ would be
+\[ 2(x^2)(x^{-2})+2(2x)(2x^{-1})+32 \]
+Most of the terms have a factor of 2 because they occur in either order. This sum is $2+8+9=\boxed{19}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[Oxford MAT]
+How many real solutions $x$ are there to the following equation?
+\[ \log_2(2x^3+7x^2+2x+3)=3\log_2(x+1)+ 1 \]
+\end{prbm}
+
+\begin{solution}
+We can use laws of logarithms to write the right-hand side of the given equation as
+\[ \log_2 (2x^3+6x^2+6x+2). \]
+
+Since $\log_2x$ is an increasing function for $x > 0$, we can compare the arguments of the logarithms, provided that both are positive. This gives the polynomial equation
+\[ 2x^3+7x^2+2x+3=2x^3+6x^2+6x+2 \]
+which rearranges to $x^2-4x+1=0$, which has $\boxed{2}$ real solutions. We should check that $2x^3+7x^2+2x+3$ is positive for these roots, but it definitely is because the roots of the quadratic are both positive and all the coefficients of the cubic are positive.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[CHINA 1979]
+Given that $x^2-x+1=0$, find the value of $x^{2015}-x^{2014}$. 
+\end{prbm}
+
+\begin{solution}
+Multiplying both sides by $x+1$,
+\[ (x^2-x+1)(x+1)=0 \implies x^3+1=0 \implies x^3=-1 \]
+Substituting this into the given expression,
+\[ x^{2015} - x^{2014}=x^{2014} (x-1)=x^{2014} \cdot x^2=x^{2016}=(x^3)^{672}=(-1)^6=\boxed{1} \]
+\end{solution}
+\pagebreak
+
+\begin{prbm}[DOKA]
+For a positive integer $n$, we have the polynomial
+\[ \brac{2+\frac{x}{2}}\brac{2+\frac{2x}{2}}\brac{2+\frac{3x}{2}}\cdots\brac{2+\frac{nx}{2}}=a_0+a_1x+a_2x^2+\cdots+a_nx^n \]
+where $a_0,\dots,a_n$ are the coefficients of the polynomial. Find the smallest possible value of $n$ if $2a_0+4a_1+8a_2+\cdots+2^{n+1}a_n-(n+1)!$ is divisible by 2020.
+\end{prbm}
+
+\begin{solution}
+By comparing the coefficients of $x^n$,
+\[ \brac{\frac{1}{2}}\brac{\frac{2}{2}}\brac{\frac{3}{2}}\cdots\brac{\frac{n}{2}}=\frac{n!}{2^n}=a_n. \]
+Now if we let $x=2$, notice that
+\begin{align*}
+(2+1)(2+2)(2+3)\cdots(2+n) &= a_0+a_1(2)+a_2(2)^2+a_3(2)^3+\cdots+a_n(2)^n \\
+(3)(4)(5)\cdots(n+2) &= a_0+2a_1+4a_2+8a_3+\cdots+2^na_n \\
+\frac{(n+2)!}{2} &= a_0+2a_1+4a_2+8a_3+\cdots+2^na_n \\
+(n+2)! &= 2a_0+4a_1+8a_2+\cdots+2^{n+1}a_n
+\end{align*}
+Therefore
+\[ 2a_0+4a_1+8a_2+\cdots+2^{n+1}a_n-(n+1)!=(n+2)!-(n+1)!=(n+1)!(n+1) \]
+which is divisible by 2020.
+
+Smallest possible $n$ is when $(n+1)!$ is divisible by 2020. 
+Hence $n+1=101$ gives $\boxed{n=100}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Consider the sequence of real numbers $\{a_n\}$ is defined by $a_1=\dfrac{1}{1000}$ and $a_{n+1}=\dfrac{a_n}{na_n-1}$ for $n\ge 1$. Find the value of $\dfrac{1}{a_{2020}}$.
+\end{prbm}
+
+\begin{solution}
+\[ \frac{1}{a_{n+1}}=\frac{na_n-1}{n}=n-\frac{1}{a_n} \]
+Listing out terms,
+\begin{align*}
+\frac{1}{a_{2020}} &= 2019 - \frac{1}{a_{2019}} \\
+-\frac{1}{a_{2019}} &= -2018+\frac{1}{a_{2018}} \\
+\frac{1}{a_{2018}} &= 2017 - \frac{1}{a_{2017}} \\
+\vdots& \\
+\frac{1}{a_4} &= 3 - \frac{1}{a_3} \\
+-\frac{1}{a_3} &= -2+\frac{1}{a_2} \\
+\frac{1}{a_2} &= 1-\frac{1}{a_1}=1-1000
+\end{align*}
+Thus $\dfrac{1}{a_{2020}}=2019-2018+2017-2016+\cdots+3-2+1-1000=\boxed{10}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} 2014 (Senior) Q2]
+Find, with justification, all positive real numbers $a,b,c$ satisfying the system of equations
+\[ a\sqrt{b}=a+c, \quad b\sqrt{c}=b+a, \quad c\sqrt{a}=c+b. \]
+\end{prbm}
+
+\begin{solution}
+Adding the three equations, we have
+\[ a\sqrt{b}+b\sqrt{c}+c\sqrt{a}=2a+2b+2c \]
+and factorising yields
+\[ a\brac{\sqrt{b}-2}+b\brac{\sqrt{c}-2}+c\brac{\sqrt{a}-2}=0. \]
+Thus $a=b=c=0$ (rejected) or $\sqrt{b}-2=\sqrt{c}-2=\sqrt{a}-2$ which gives $\boxed{a=b=c=4}$.
+\end{solution}
+
+\begin{prbm}
+Let $x,y,z$ be positive real numbers, such that $x+y+z=1$ and $xy+yz+zx=\dfrac{1}{3}$. Find the value of 
+\[ \frac{4x}{y+1}+\frac{16y}{z+1}+\frac{64z}{x+1}. \]
+\end{prbm}
+
+\begin{solution}
+Dividing the two equations, we have
+\[ \frac{x+y+z}{xy+yz+zx}=\frac{1}{\frac{1}{3}} \]
+and after cross multiplication 
+\[ 3xy+3yz+3zx=x+y+z. \]
+Upon factorising
+\[ x(3y-1)+y(3z-1)+z(3x-1)=0. \]
+We arrive at $x=y=z=\dfrac{1}{3}$. Substituting these values into the above expression gives $\boxed{21}$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2018 Q11]
+Find the shortest distance from the point $(22,21)$ to the graph with equation $x^3+1=y(3x-y^3)$.
+\end{prbm}
+
+\begin{solution}
+The equation can be expanded as $x^3+1-3xy+y^3=0$ which by observation is ``symmetric''. Substituting $x=y$ we have $x^3+1-3x^2+x^3=0$ which upon solving gives $(x,y)=(1,1)$ or $\brac{-\dfrac{1}{2},\dfrac{1}{2}}$.
+
+Since $(1,1)$ is nearer to $(22,21)$ than $\brac{-\dfrac{1}{2},\dfrac{1}{2}}$, the shortest distance is
+\[ \sqrt{(22-1)^2+(21-1)^2}=\boxed{29}. \]
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Let $a,b,c$ be non-zero real numbers such that $a+b+c=0$ and
+\[ 28(a^4+b^4+c^4)=a^7+b^7+c^7. \]
+Find $a^3+b^3+c^3$.
+\end{prbm}
+\begin{proof}
+We use two lemmas.
+
+\begin{lemma}
+For $a+b+c=0$, 
+\begin{equation*}\tag{1}
+2(a^4+b^4+c^4)=(a^2+b^2+c^2)^2
+\end{equation*}
+\end{lemma}
+\begin{proof}
+We prove this by direct expansion.
+\begin{align*}
+2(a^4+b^4+c^4) &= 2[a^4+b^4+(a+b)^4] \\
+&= 4(a^4+2a^3b+3a^2b^2+2ab^3+b^4) \\
+&= 4(a^2+ab+b^2)^2 \\
+&= (a^2+b^2+c^2)^2
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+For $a+b+c=0$,
+\begin{equation*}\tag{2}
+4(a^7+b^7+c^7)=7abc(a^2+b^2+c^2)^2
+\end{equation*}
+\end{lemma}
+\begin{proof}
+This is a restatement of $(a+b)^7-a^7-b^7=7ab(a+b)(a^2+ab+b^2)^2$.
+\end{proof}
+
+Dividing (2) by (1) gives us
+\[ \frac{2(a^7+b^7+c^7)}{a^4+b^4+c^4}=7abc \implies abc=8 \]
+Hence $a^3+b^3+c^3=3abc=\boxed{24}$.
+\end{proof}
+\pagebreak
+
+\begin{prbm}
+Find all the real solution pairs $(x,y)$ that satisfy the system
+\begin{equation*}\tag{1}
+\frac{1}{\sqrt{x}}+\frac{1}{2\sqrt{y}}=(x+3y)(3x+y)
+\end{equation*}
+\begin{equation*}\tag{2}
+\frac{1}{\sqrt{x}}-\frac{1}{2\sqrt{y}}=2(y^2-x^2)
+\end{equation*}
+\end{prbm}
+
+\begin{solution}
+Let $a=\sqrt{x}$ and $b=\sqrt{y}$. The two equations become
+\begin{equation*}\tag{3}
+\frac{1}{a}+\frac{1}{2b}=(a^2+3b^2)(3a^2+b^2)
+\end{equation*}
+\begin{equation*}\tag{4}
+\frac{1}{a}-\frac{1}{2b}=2(b^4-a^4)
+\end{equation*}
+Adding the two equations above, we obtain
+\[ \frac{2}{a}=(3a^4+10a^2b^2+3b^4)+(2b^4-2a^4). \]
+Thus we get
+\begin{equation*}\tag{5}
+1=5a^4b+10a^2b^3+b^5.
+\end{equation*}
+By adding (5) and (6), we obtain $3=(a+b)^5$. Similarly, by subtracting (6) from (5), we obtain $1=(a-b)^5$. It is now easy to deduce that
+\[ a=\frac{1+\sqrt[5]{3}}{2}\text{ and }b=\frac{\sqrt[5]{3}-1}{2}. \]
+Consequently, we obtain
+\[ x=\brac{\frac{1+\sqrt[5]{3}}{2}}^2\text{ and }y=\brac{\frac{\sqrt[5]{3}-1}{2}}^2. \]
+\end{solution}
+
+% https://www.youtube.com/watch?v=zWtGOjfm29Q
+\pagebreak
+
+\begin{prbm}
+Find all pairs of integers $(x,y)$ such that
+\[ x^3+y^3=(x+y)^2. \]
+\end{prbm}
+
+\begin{solution}
+Since $x^3+y^3=(x+y)(x^2-xy+y^2)$, all pairs of integers $(n,-n)$ where $n\in\ZZ$ are solutions.
+
+Suppose that $x+y\neq0$. Then the equation becomes
+\[ x^2-xy+y^2=x+y, \]
+i.e.
+\[ x^2-(y+1)x+y^2-y=0. \]
+Considering the above as a quadratic equation in $x$, we calculate the discriminant
+\[ \Delta=y^2+2y+1-4y^2+4y=-3y^2+6y+1. \]
+Solving for $\Delta\ge0$ yields
+\[ \frac{3-2\sqrt{3}}{3}\le y\le\frac{3+2\sqrt{3}}{3}. \]
+Thus the possible values for $y$ are $0$, $1$, and $2$, which lead to the solutions $(1,0)$, $(0,1)$, $(1,2)$, $(2,1)$, and $(2,2)$.
+
+Therefore the integer solutions of the equation are $(x,y)=(1,0),(0,1),(1,2),(2,1),(2,2),(n,-n)$ for all $n\in\ZZ$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Find all pairs of integers $(a,b)$ such that the polynomial $ax^{17}+bx^{16}+1$ is divisible by $x^2-x-1$.
+\end{prbm}
+
+\begin{solution}
+Let $p$ and $q$ be the roots of $x^2-x-1=0$. By Vieta’s theorem, $p+q=1$ and $pq=-1$. Note that $p$ and $q$ must also be the roots of $ax^{17}+bx^{16}+1$. Thus
+\[ ap^{17}+bp^{16}=-1 \quad \text{and} \quad aq^{17}+bq^{16}=-1. \]
+Multiplying the first of these equations by $q^{16}$ and the second one by $p^{16}$, and using the fact that $pq=-1$, we find
+\begin{equation*}\tag{1}
+ap+b=-q^{16} \quad \text{and} \quad aq+b=-p^{16}.
+\end{equation*}
+Thus
+\[ a=\frac{p^{16}-q^{16}}{p-q}=(p^8+q^8)(p^4+q^4)(p^2+q^2)(p+q). \]
+Since
+\begin{align*}
+p+q &= 1, \\
+p^2+q^2 &= (p+q)^2-2pq=1+2=3, \\
+p^4+q^4 &= (p^2+q^2)^2-2p^2q^2=9-2=7, \\
+p^8+q^8 &= (p^4+q^4)^2-2p^4q^4=49-2=47,
+\end{align*}
+It follows that $a=1\cdot3\cdot7\cdot47=987$.
+
+Likewise, eliminating $a$ in (1) gives
+\begin{align*}
+-b&=\frac{p^{17}-q^{17}}{p-q}\\
+&=p^{16}+p^{15}q+p^{14}q^2+\cdots+q^{16}\\
+&=(p^{16}+q^{16})+pq(p^{14}+q^{14})+p^2q^2(p^{12}+q^{12})+\cdots+p^7q^7(p^2+q^2)+p^8q^8\\
+&=(p^{16}+q^{16})-(p^{14}+q^{14})+\cdots-(p^2+q^2)+1.
+\end{align*}
+For $n\ge1$, let $k_{2n}=p^{2n}+q^{2n}$. Then $k_2=3$ and $k_4=7$, and
+\begin{align*}
+k_{2n+4}&=p^{2n+4}+q^{2n+4}\\
+&=(p^{2n+2}+q^{2n+2})(p^2+q^2)-p^2q^2(p^{2n}+q^{2n})\\
+&=3k_{2n+2}-k_{2n}
+\end{align*}
+for $n\ge3$. Then $k_6=18$, $k_8=47$, $k_{10}=123$, $k_{12}=322$, $k_{14}=843$, $k_{16}=2207$.
+
+Hence
+\[ -b=2207-843+322-123+47-18+7-3+1=1597 \]
+or
+\[ (a,b)=(987,-1597). \]
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Let $x,y,z$ be complex numbers such that $x+y+z=2$, $x^2+y^2+z^2=3$, and $xyz=4$. Evaluate
+\[ \frac{1}{xy+z-1}+\frac{1}{yz+x-1}+\frac{1}{zx+y-1}. \]
+\end{prbm}
+
+\begin{solution}
+Let $S$ be the desired value. Note that
+\[ xy+z-1=xy+1-x-y=(x-1)(y-1). \]
+Likewise, 
+\[ yz+x-1=(y-1)(x-1) \]
+and
+\[ zx+y-1=(z-1)(x-1). \]
+Hence
+\begin{align*}
+S&=\frac{1}{(x-1)(y-1)}+\frac{1}{(y-1)(z-1)}+\frac{1}{(z-1)(x-1)}\\
+&=\frac{x+y+z-3}{(x-1)(y-1)(z-1)}=\frac{-1}{(x-1)(y-1)(z-1)}\\
+&=\frac{-1}{xyz-(xy+yz+zx)+x+y+z-1}\\
+&=\frac{-1}{5-(xy+yz+zx)}.
+\end{align*}
+But
+\[ 2(xy+yz+zx)=(x+y+z)^2-(x^2+y^2+z^2)=1. \]
+Therefore $\boxed{S=-\dfrac{2}{9}}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{usamo} 1978]
+Given that the real numbers $a$, $b$, $c$, $d$, $e$ satisfy simultaneously the relations
+\[ a+b+c+d+e=8 \quad \text{and} \quad a^2+b^2+c^2+d^2+e^2=16, \]
+determine the maximum and the minimum value of $a$.
+\end{prbm}
+
+\begin{solution}
+Since the total of $b,c,d,e$ is $8-a$, their average is $x=\dfrac{8-a}{4}$. Let
+\[ b=x+b_1, \quad c=x+c_1, \quad d=x+d_1, \quad e=x+e_1. \]
+Then $b_1+c_1+d_1+e_1=0$ and
+\[ 16=a^2+4x^2+b_1^2+c_1^2+d_1^2+e_1^2\ge a^2+4x^2=a^2+\frac{(8-a)^2}{4} \]
+or
+\[ 0\ge5a^2-16a=a(5a-16). \]
+Therefore $0\le a\le\dfrac{16}{5}$, where $a=0$ if and only if $b=c=d=e=2$ and $a=\dfrac{16}{5}$, and $a=\dfrac{16}{5}$ if and only if $b=c=d=e=\dfrac{6}{5}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Let $a$ and $b$ be given real numbers. Solve the system of equations
+\begin{align*}
+\frac{x-y\sqrt{x^2-y^2}}{\sqrt{1-x^2+y^2}}&=a\\
+\frac{y-x\sqrt{x^2-y^2}}{\sqrt{1-x^2+y^2}}&=b
+\end{align*}
+for real numbers $x$ and $y$.
+\end{prbm}
+
+\begin{solution}
+Let $u=x+y$ and $v=x-y$. Then
+\[ 0<x^2-y^2=uv<1, \quad x=\frac{u+v}{2}, \quad y=\frac{u-v}{2}. \]
+Adding the two equations and subtracting the two equations in the original system yields the new system
+\begin{align*}
+u-u\sqrt{uv}&=(a+b)\sqrt{1-uv}\\
+v+v\sqrt{uv}&=(a-b)\sqrt{1-uv}
+\end{align*}
+Multiplying the above two equations yields
+\[ uv(1-uv)=(a^2-b^2)(1-uv), \]
+hence $uv=a^2-b^2$. It follows that
+\[ u=\frac{(a+b)\sqrt{1-a^2+b^2}}{1-\sqrt{a^2-b^2}} \quad \text{and} \quad v=\frac{(a-b)\sqrt{1-a^2+b^2}}{1+\sqrt{a^2-b^2}}, \]
+which in turn implies that
+\[ (x,y)=\brac{\frac{a+b\sqrt{a^2-b^2}}{\sqrt{1-a^2+b^2}},\frac{b+a\sqrt{a^2-b^2}}{\sqrt{1-a^2+b^2}}}, \]
+whenever $0<a^2-b^2<1$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Find all real numbers $x$ for which
+\[ 10^x+11^x+12^x=13^x+14^x. \]
+\end{prbm}
+
+\begin{solution}
+It is easy to check that $x=2$ is a solution. We claim that it is the only one. In fact, dividing by $13^x$ on both sides gives
+\[ \brac{\frac{10}{13}}^x + \brac{\frac{11}{13}}^x + \brac{\frac{12}{13}}^x = 1 + \brac{\frac{14}{13}}^x. \]
+The LHS is a decreasing function of $x$ and the RHS is an increasing function of $x$.
+
+Therefore their graphs can have at most one point of intersection.
+\end{solution}
+
+\begin{remark}
+More generally,
+\[ a^2+(a+1)^2+\cdots+(a+k)^2=(a+k+1)^2+(a+k+2)^2+(a+2k)^2 \]
+for $a=k(2k+1)$, $k\in\NN$.
+\end{remark}
+\pagebreak
+
+\begin{prbm}[Korean Mathematics Competition 2000]
+Find all real numbers $x$ satisfying the equation
+\[ 2^x+3^x-4^x+6^x-9^x=1. \]
+\end{prbm}
+
+\begin{solution}
+Setting $2^x=a$ and $3^x=b$, the equation becomes
+\[ 1+a^2+b^2-a-b-ab=0. \]
+Multiplying both sides of the equation by $2$ and completing the square gives
+\[ (1-a)^2+(a-b)^2+(b-1)^2=0. \]
+Therefore $1=2^x=3^x$, and $x=0$ is the only solution.
+\end{solution}
+
+\chapter{Inequalities}
+% https://web.williams.edu/Mathematics/sjmiller/public_html/161/articles/Riasat_BasicsOlympiadInequalities.pdf
+% https://artofproblemsolving.com/wiki/index.php/Inequality
+For Mathematics Olympiad competitions, you are only required to apply these inequalities; hence the proofs of the following inequalities will not be included in this book.
+
+\section{AM--GM Inequality}
+The most well-known and frequently used inequality is the Arithmetic mean--Geometric mean inequality, also known as the AM--GM inequality. The inequality simply states that the arithmetic mean is greater than or equal to the geometric mean.
+
+\subsection{General AM--GM Inequality}
+The \vocab{arithmetic mean} (AM) of $n$ non-negative real variables is given by
+\[ A(n)=\frac{a_1+a_2+\cdots+a_n}{n}. \]
+The \vocab{geometric mean} (GM) of $n$ non-negative real variables is given by
+\[ G(n)=\sqrt[n]{a_1a_2\cdots a_n}. \]
+
+\begin{theorem}[AM--GM inequality]
+\[ A(n)\ge G(n), \]
+or
+\begin{equation}
+\frac{a_1+a_2+\cdots+a_n}{n} \ge \sqrt[n]{a_1a_2\cdots a_n}.
+\end{equation} 
+Equality holds iff $a_1=a_2=\cdots=a_n$. 
+\end{theorem}
+
+\begin{exercise}
+For real numbers $a, b, c$ prove that
+\[ a^2+b^2+c^2 \ge ab+bc+ca. \]
+\end{exercise}
+
+\begin{proof}
+By AM--GM inequality, we have
+\begin{align*}
+a^2+b^2 &\ge 2ab \\
+b^2+c^2 &\ge 2bc \\
+c^2+a^2 &\ge 2ca
+\end{align*}
+Adding the three inequalities and then dividing by 2 we get the desired result. Equality holds if and only if $a=b=c$.
+\end{proof}
+
+\begin{exercise}
+Let $a_1,a_2,\dots,a_n$ be positive real numbers such that $a_1a_2\cdots a_n=1$. Prove that
+\[ (1+a_1)(1+a_2)\cdots(1+a_n) \ge 2^n. \]
+\end{exercise}
+
+\begin{proof}
+By AM--GM,
+\begin{align*}
+1+a_1 &\ge 2\sqrt{a_1} \\
+1+a_2 &\ge 2\sqrt{a_2} \\
+&\vdots \\
+1+a_n &\ge 2\sqrt{a_n} \\
+\end{align*}
+Multiplying the above inequalities and using the fact $a_1a_2\cdots a_n=1$ we get our desired result. Equality holds if and only if $a_i=1$ for $i=1,2,\dots,n$.
+\end{proof}
+
+\begin{exercise}
+Let $a, b, c$ be non-negative real numbers. Prove that
+\[ (a+b)(b+c)(c+a) \ge 8abc. \]
+\end{exercise}
+
+\begin{proof}
+By AM--GM,
+\begin{align*}
+a+b &\ge 2\sqrt{ab} \\
+b+c &\ge 2\sqrt{bc} \\
+c+a &\ge 2\sqrt{ca}
+\end{align*}
+Multiplying the above inequalities gives us our desired result. Equality holds if and only if $a=b=c$.
+\end{proof}
+
+\begin{exercise}
+Let $a, b, c > 0$. Prove that
+\[ \frac{a^3}{bc}+\frac{b^3}{ca}+\frac{c^3}{ab} \ge a+b+c. \]
+\end{exercise}
+
+\begin{proof}
+By AM--GM we deduce that
+\begin{align*}
+\frac{a^3}{bc}+b+c &\ge 3a \\
+\frac{b^3}{ca}+c+a &\ge 3b \\
+\frac{c^3}{ab}+a+b &\ge 3c
+\end{align*}
+Adding the three inequalities we get our desired result.
+\end{proof}
+
+\begin{exercise}
+Let $a, b, c$ be positive real numbers. Prove that
+\[ ab(a+b)+bc(b+c)+ca(c+a) \ge \sum_\text{cyc} ab\sqrt{\frac{a}{b}(b+c)(c+a)}. \]
+\end{exercise}
+\begin{proof}
+By AM--GM,
+\begin{align*}
+&2ab(a+b)+2ac(a+c)+2bc(b+c) \\
+&= ab(a+b)+ac(a+c)+bc(b+c)+ab(a+b)+ac(a+c)+bc(b+c) \\
+&= a^2(b+c)+b^2(a+c)+c^2(a+b)+(a^2b+b^2c+ca^2)+(ab^2+bc^2+ca^2) \\
+&\ge a^2(b+c)+b^2(a+c)+c^2(a+b)+(a^2b+b^2c+c^2a)+3abc \\
+&= a^2(b+c)+b^2(a+c)+c^2(a+b)+ab(a+c)+bc(a+b)+ac(b+c) \\
+&= \brac{a^2(b+c)+ab(a+c)}+\brac{b^2(a+c)+bc(a+b)}+\brac{c^2(a+b)+ac(b+c)} \\
+&\ge 2\sqrt{a^3b(b+c)(c+a)}+2\sqrt{b^3c(c+a)(a+b)}+2\sqrt{c^3a(a+b)(b+c)} \\
+&= 2ab\sqrt{\frac{a}{b}(b+c)(c+a)}+2bc\sqrt{\frac{b}{c}(c+a)(a+b)}+2ca\sqrt{\frac{c}{a}(a+b)(b+c)}
+\end{align*}
+Equality holds if and only if $a=b=c$.
+\end{proof}
+
+\begin{exercise}[Nesbitt's inequality]
+For positive real numbers $a, b, c$ prove that
+\[ \frac{a}{b+c}+\frac{b}{c+a}+\frac{c}{a+b} \ge \frac{3}{2} \]
+\end{exercise}
+\begin{proof}
+Our inequality is equivalent to
+\[ 1+\frac{a}{b+c}+1+\frac{b}{c+a}+1+\frac{c}{a+b} \ge \frac{9}{2} \]
+or 
+\[ (a+b+c)\brac{\frac{1}{b+c}+\frac{1}{c+a}+\frac{1}{a+b}} \ge \frac{9}{2} \]
+Using AM--GM, we have
+\[ \frac{(b+c)+(c+a)+(a+b)}{3} \ge \sqrt[3]{(b+c)(c+a)(a+b)} \]
+and 
+\[ \frac{\frac{1}{b+c}+\frac{1}{c+a}+\frac{1}{a+b}}{3} \ge \frac{1}{\sqrt[3]{(b+c)(c+a)(a+b)}} \]
+\end{proof}
+
+\begin{exercise}
+For positive real numbers $p,q,r$, find the minimum of 
+\[ \frac{p+q}{r}+\frac{q+r}{p}+\frac{r+p}{q}. \]
+\end{exercise}
+
+\begin{solution}
+We split the expression up first into 
+\[ \frac{p}{r}+\frac{q}{r}+\frac{r}{p}+\frac{q}{p}+\frac{p}{q}+\frac{r}{q} \]
+Now we pair up terms as such:
+\[ \brac{\frac{p}{r}+\frac{r}{p}}+\brac{\frac{q}{r}+\frac{r}{q}}+\brac{\frac{q}{p}+\frac{p}{q}} \]
+Applying AM--GM to each pair, the result follows easily.
+\end{solution}
+
+\begin{exercise}
+Show that $A$, the maximum area of a triangle $XYZ$ with a fixed perimeter $P$, happens when the triangle is equilateral. You may use the Heron's formula which states that $A$, the area of a triangle is
+\[ A=\sqrt{\frac{P}{2}\brac{\frac{P}{2}-x}\brac{\frac{P}{2}-y}\brac{\frac{P}{2}-z}} \]
+where $x,y,z$ are the lengths of the sides of the triangle.
+\end{exercise}
+
+\begin{proof}
+Using the AM--GM inequality,
+\[ \brac{\frac{P}{2}-x}\brac{\frac{P}{2}-y}\brac{\frac{P}{2}-z}\le\brac{\frac{\frac{P}{2}-x+\frac{P}{2}-y+\frac{P}{2}-z}{3}}^3=\brac{\frac{P}{6}}^3. \]
+Hence the maximum area is $\displaystyle A=\sqrt{\frac{P}{2}\brac{\frac{P}{6}}^3}=\frac{P^2}{12\sqrt{3}}$ and occurs when $\displaystyle\frac{P}{2}-x=\frac{P}{2}-y=\frac{P}{2}-z$, i.e. $x=y=z$ which means that the triangle is equilateral.
+\end{proof}
+
+\subsection{Weighted AM--GM Inequality}
+The weighted version of the AM--GM inequality follows from the original AM--GM inequality. 
+\begin{theorem}[Weighted AM--GM inequality]
+For positive real $a_1,a_2,\dots,a_n$ and positive integers $\omega_1,\omega_2,\dots,\omega_n$, by AM--GM,
+\begin{equation}
+\frac{\omega_1a_1+\omega_2a_2+\cdots+\omega_na_n}{\omega_1+\omega_2+\cdots+\omega_n} \ge \brac{a_1^{\omega_1}a_2^{\omega_2}\cdots a_n^{\omega_n}}^\frac{1}{\omega_1+\omega_2+\cdots+\omega_n}
+\end{equation}
+\end{theorem}
+
+Or equivalently in symbols
+\[ \frac{\sum\omega_ia_i}{\sum\omega_i} \ge \brac{\prod a_i^{\omega_i}}^\frac{1}{\sum\omega_i} \]
+
+\begin{exercise}
+Let $a, b, c$ be positive real numbers such that $a+b+c=3$. Show that
+\[ a^bb^cc^a \le 1 \]
+\end{exercise}
+\begin{proof}
+Notice that
+\[ 1=\frac{a+b+c}{3} \ge \frac{ab+bc+ca}{a+b+c} \ge (a^bb^cc^a)^\frac{1}{a+b+c} \]
+which implies $a^bb^cc^a \le 1$.
+\end{proof}
+
+\subsection{Other mean quantities}
+For non-negative real $a_1,a_2,\dots,a_n$, the \vocab{harmonic mean} (HM) is given by
+\[ H(n)=\frac{1}{\frac{1}{a_1}+\frac{1}{a_2}+\cdots+\frac{1}{a_n}} \]
+
+For non-negative real $a_1,a_2,\dots,a_n$, the \vocab{quadratic mean} (QM) is given by
+\[ Q(n)=\frac{\sqrt{{a_1}^2+{a_2}^2+\cdots+{a_n}^2}}{n} \]
+
+Relating AM, GM, HM, and SM, we have the following inequality:
+\[ Q(n) \ge A(n) \ge G(n) \ge H(n) \]
+
+\subsection{Murihead's inequality}
+Suppose we have two sequences $x_1\ge x_2\ge\cdots\ge x_n$ and $y_1\ge y_2\ge\cdots\ge y_n$ such that
+\[ x_1+x_2+\cdots+x_n=y_1+y_2+\cdots+y_n, \]
+and for $k=1,2,\dots,n-1$,
+\[ x_1+x_2+\cdots+x_k\ge y_1+y_2+\cdots+y_k, \]
+Then we say that $(x_n)$ \emph{majorises} $(y_n)$, written $(x_n)\succ(y_n)$.
+
+Using the above, we have the following theorem.
+
+\begin{theorem}[Muirhead’s inequality]
+For positive real $a_1,a_2,\dots,a_n$, and $(x_n)$ majorises $(y_n)$,
+\begin{equation}
+\symsum a_1^{x_1}\cdots a_n^{x_n}\ge\symsum a_1^{y_1}\cdots a_n^{y_n}
+\end{equation}
+\end{theorem}
+
+\section{Cauchy--Schwarz and H\"{o}lder’s Inequalities}
+\begin{theorem}[Cauchy--Schwarz's inequality]
+For real $a_1, a_2, \dots, a_n$ and $b_1, b_2, \dots, b_n$, 
+\begin{equation}
+({a_1}^2+{a_2}^2+\cdots+{a_n}^2)({b_1}^2+{b_2}^2+\cdots+{b_n}^2) \ge (a_1 b_1+a_2 b_2+\cdots+a_n b_n)^2
+\end{equation} 
+Written compactly,
+\[ \brac{\sum_{i=1}^na_ib_i}^2 \le \brac{\sum_{i=1}^n{a_i}^2}\brac{\sum_{i=1}^n{b_i}^2} \]
+Equality holds iff $\dfrac{a_1}{b_1}=\dfrac{a_2}{b_2}=\cdots=\dfrac{a_n}{b_n}$. 
+\end{theorem}
+
+\begin{proof}
+Let $\vb{v}=\begin{pmatrix} a_1\\a_2\\\vdots\\a_n \end{pmatrix}$ and $\vb{u}=\begin{pmatrix} b_1\\b_2\\\vdots\\b_n \end{pmatrix}$ for real $a_1,a_2,\dots,a_n$ and $b_1,b_2,\dots,b_n$. Note that the inequality holds trivially for $\vb{v}=\vb{0}$.
+
+Let $\lambda\in\RR$. Since $|\vb{u}-\lambda\vb{v}|\ge0$,
+\begin{align*}
+(\vb{u}-\lambda\vb{v})\cdot(\vb{u}-\lambda\vb{v}) &\ge 0 \\
+\vb{u}\cdot\vb{u}-\lambda\vb{v}\cdot\vb{u}-\lambda\vb{u}\cdot\vb{v}+\lambda^2\vb{v}\cdot\vb{v} &\ge 0 \\
+(\vb{v}\cdot\vb{v})\lambda^2-(2\vb{u}\cdot\vb{v})\lambda+(\vb{u}\cdot\vb{u}) &\ge 0
+\end{align*}
+This is a quadratic function in $\lambda\in\RR$, hence the discriminant must be less than or equal to zero. Thus
+\begin{align*}
+(2\vb{u}\cdot\vb{v})^2-4(\vb{v}\cdot\vb{v})(\vb{u}\cdot\vb{u}) &\le 0 \\
+(\vb{u}\cdot\vb{v})^2 &\le |\vb{u}|^2|\vb{v}|^2 \\
+\brac{\sum_{k=1}^n a_kb_k}^2 &\le \brac{\sum_{k=1}^n {a_k}^2}\brac{\sum_{k=1}^n {b_k}^2}
+\end{align*}
+\end{proof}
+
+\begin{theorem}[Titu's lemma]
+For positive real $a_1, a_2, \dots, a_n$ and $b_1, b_2, \dots, b_n$, 
+\begin{equation}
+\frac{{a_1}^2}{b_1}+\frac{{a_2}^2}{b_2}+\cdots+\frac{{a_n}^2}{b_n} \ge \frac{(a_1+a_2+\cdots+a_n)^2}{b_1+b_2+\cdots+b_n}
+\end{equation} 
+Equality holds iff $\dfrac{a_1}{b_1}=\dfrac{a_2}{b_2}=\cdots=\dfrac{a_n}{b_n}$. 
+\end{theorem}
+
+\begin{proof}
+Substitute $a_i=\dfrac{x_i}{\sqrt{y_i}}$ and $b_i=\sqrt{y_i}$.
+\end{proof}
+
+Generalising Cauchy--Schwarz to integrals, 
+\begin{equation}
+\brac{\int_a^bf(t)g(t)\dd{t}}^2\le\brac{\int_a^b[f(t)]^2\dd{t}}\brac{\int_a^b[g(t)]^2\dd{t}}
+\end{equation}
+
+\begin{proof}
+For all $x\in\RR$,
+\begin{align*}
+\brac{xf(t)+g(t)}^2 &\ge 0 \\
+\end{align*}
+\end{proof}
+
+\begin{theorem}[H\"{o}lder's inequality]
+For positive real $a_1, a_2, \dots, a_n$ and $b_1, b_2, \dots, b_n$, and positive real $p$, $q$ that satisfy $\frac{1}{p}+\frac{1}{q}=1$, 
+\begin{equation} 
+\left(\sum_{i=1}^{n} {a_i}^p\right)^{\frac{1}{p}} \left(\sum_{i=1}^{n} {b_i}^q\right)^{\frac{1}{q}} \ge \sum_{i=1}^{n} a_ib_i 
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+Cauchy--Schwarz is a special case of H\"{o}lder, when $p=q=2$.
+\end{remark}
+
+\section{Rearrangement and Chebyshev's Inequalities}
+\begin{theorem}[Chebyshev's inequality]
+For real $a_1\ge\dots\ge a_n$ and $b_1\ge\dots\ge b_n$,
+\begin{equation}
+\frac{a_1b_1+\cdots+a_nb_n}{n} \ge \frac{a_1+\cdots+a_n}{n} \frac{b_1+\cdots+b_n}{n}\ge\frac{a_1b_n+\cdots+a_nb_1}{n}
+\end{equation}
+\end{theorem}
+
+\begin{theorem}[Rearrangement inequality]
+For real $a_1\ge\dots\ge a_n$ and $b_1\ge\dots\ge b_n$, for any permutation $\sigma$ of $\{1,\dots,n\}$, 
+\begin{equation}
+\sum_{i=1}^n a_ib_i \ge \sum_{i=1}^n a_ib_{\sigma(i)} \ge \sum_{i=1}^n a_ib_{n+1-i}
+\end{equation}
+\end{theorem}
+
+\section{Other Useful Strategies}
+\begin{theorem}[Triangle inequality]
+For real $a_1, a_2, \dots , a_n$, 
+\begin{equation}
+|a_1|+|a_2|+\cdots+|a_n| \ge |a_1+a_2+\cdots+a_n| 
+\end{equation} 
+Equality holds iff $a_1, a_2, \cdots, a_n$ are all non-negative.
+\end{theorem}
+
+\subsection{Schur's Inequality}
+\begin{theorem}[Schur's inequality]
+For non-negative real $a,b,c$ and $n>0$, 
+\begin{equation}
+a^n (a-b)(a-c)+b^n (b-c)(b-a)+c^n (c-a)(c-b) \ge 0 
+\end{equation} 
+Equality holds iff either $a=b=c$ or when two of $a,b,c$ are equal and the third is $0$.
+\end{theorem}
+
+\begin{proof}
+WLOG, let ${a\ge b\ge c}$. 
+Note that 
+\begin{align*}
+    &a^n(a-b)(a-c)+b^n(b-a)(b-c) \\
+    &= a^n(a-b)(a-c)-b^n(a-b)(b-c) \\
+    &= (a-b)(a^n(a-c)-b^n(b-c))
+\end{align*}
+Clearly, $a^n\ge b^n \ge 0$, and $a-c \ge b-c \ge 0$. Thus, 
+\[ (a-b)(a^n(a-c)-b^n(b-c)) \ge 0 \implies a^n(a-b)(a-c)+b^n(b-a)(b-c) \ge 0 \]
+However, $c^n(c-a)(c-b) \ge 0$, and thus the proof is complete.
+\end{proof}
+
+When $n=1$, we have the well-known inequality:
+\[a^3+b^3-c^3+3abc \ge a^2 b+a^2 c+b^2 a+b^2 c+c^2 a+c^2 b\]
+When $n=2$, an equivalent form is:
+\[a^4+b^4+c^4+abc(a+b+c) \ge a^3 b+a^3 c+b^3 a+b^3 c+c^3 a+c^3 b\]
+
+\subsection{Jensen's Inequality}
+A real function defined on $(a,b)$ is said to be \vocab{convex} if for all $x,y\in(a,b)$,
+\[ f\brac{\frac{x+y}{2}}\le f(x)+f(y). \]
+If the opposite inequality holds, then $f$ is said to be \vocab{concave}.
+
+Properties
+\begin{itemize}
+\item If $f(x)$ and $g(x)$ are convex functions on $(a,b)$, then so are $h(x)=f(x)+g(x)$ and $M(x)=\max\{f(x),g(x)\}$.
+\item If $f(x)$ and $g(x)$ are convex functions on $(a,b)$ and if $g(x)$ is non-decreasing on $(a,b)$, then $h(x)=g(f(x))$ is convex on $(a,b)$.
+\end{itemize}
+
+\begin{theorem}[Jensen's inequality]
+Let a real-valued function $f$ be convex on the interval $I$. Let $x_1, \dots, x_n \in I$ and $\omega_1, \dots, \omega_n \ge 0$. Then we have 
+\begin{equation}
+\frac{\omega_1f(x_1)+\omega_2f(x_2)+\cdots+\omega_nf(x_n)}{\omega_1+\omega_2+\cdots+\omega_n} \ge f\brac{\frac{\omega_1x_1+\omega_2x_2+\cdots+\omega_nx_n}{\omega_1+\omega_2+\cdots+\omega_n}}
+\end{equation}
+If $f$ is concave, the direction of the inequality is flipped.
+
+In particular, if we take the weights $\omega_1=\omega_2=\cdots=\omega_n=1$, we get the inequality
+\[ \frac{f(x_1)+f(x_2)+\cdots+f(x_n)}{n} \ge f\brac{\frac{x_1+x_2+\cdots+x_n}{n}}. \]
+\end{theorem}
+
+If $f$ is concave, the inequality is reversed.
+
+\begin{exercise}
+Let $a,b,c>0$. Prove that
+\[ a^ab^bc^c\ge\brac{\frac{a+b+c}{3}}^{a+b+c}. \]
+\end{exercise}
+
+\begin{proof}
+Consider the function $f(x)=x\ln x$. Verify that $f^{\prime\prime}(x)=\dfrac{1}{x}>0$ for all $x\in\RR^+$. Thus $f$ is convex in $\RR^+$ and by Jensen's inequality we conclude that
+\[ f(a)+f(b)+f(c)\ge3f\brac{\frac{a+b+c}{3}} \iff \ln a^a+\ln b^b+\ln c^c\ge3\ln\brac{\frac{a+b+c}{3}}^{a+b+c}, \]
+which is equivalent to
+\[ \ln(a^ab^bc^c)\ge\ln\brac{\frac{a+b+c}{3}}^{a+b+c} \]
+as desired.
+\end{proof}
+
+\subsection{Minkowski's Inequality}
+\begin{theorem}[Minkowski's inequality]
+For positive real $a_1,\dots,a_n$ and $b_1,\dots,b_n$ and $p > 1$,
+\begin{equation}
+\brac{\sum_{i=1}^n{a_i}^p}^{\frac{1}{p}}+\brac{\sum_{i=1}^n{b_i}^p}^{\frac{1}{p}} \ge \brac{\sum_{i=1}^n(a_i+b_i)^p}^{\frac{1}{p}}
+\end{equation}
+\end{theorem}
+
+\begin{theorem}[Generalised Minkowski's inequality]
+Let $a_{ij}\ge0$ for $i=1,\dots,n$ and $j=1,\dots,m$ and let $p>1$, then
+\begin{equation}
+\sqbrac{\sum_{i=1}^n\brac{\sum_{j=1}^ma_{ij}}}^\frac{1}{p} \le \sum_{j=1}^m\brac{\sum_{i=1}^n{a_{ij}}^p}^\frac{1}{p}
+\end{equation}
+\end{theorem}
+
+\begin{theorem}[Bernoulli's inequality]
+For $x>-1,x\neq0$ and integer $n>1$,
+\begin{equation}
+(1+x)^n > 1+nx
+\end{equation}
+\end{theorem}
+
+\subsection{Ravi Transformation}
+Suppose that $a, b, c$ are the side lengths of a triangle. Then positive real numbers $x, y, z$ exist such that $a=x+y$, $b=y+z$ and $c=z+x$.
+
+To verify this, let $s$ be the semi-perimeter. Then denote $z=s-a$, $x=s-b$, $y=s-c$ and the conclusion is obvious since $s-a=\dfrac{b+c-a}{2}>0$ and similarly for the others.
+
+\begin{exercise}
+Let $a,b,c$ be the lengths of the sides of a triangle. Prove that
+\[ \sqrt{3\brac{\sqrt{ab}+\sqrt{bc}+\sqrt{ca}}}\ge\sqrt{a+b-c}+\sqrt{b+c-a}+\sqrt{c+a-b}. \]
+\end{exercise}
+
+\begin{proof}
+Let $x,y,z>0$ such that $a=x+y$, $b=y+z$, $c=z+x$. Then the above inequality is equivalent to 
+\[ 3\cycsum\sqrt{(x+y)(x+z)}\ge2\brac{\cycsum\sqrt{x}}^2. \]
+From Cauchy,
+\begin{align*}
+3\cycsum\sqrt{(x+y)(x+z)}
+&\ge3\cycsum\brac{y+\sqrt{zx}}\\
+&\ge2\cycsum y+4\cycsum\sqrt{zx}\\
+&=2\brac{\cycsum\sqrt{x}}^2
+\end{align*}
+\end{proof}
+
+\subsection{Normalisation}
+Homogeneous inequalities can be \vocab{normalised} e.g. applied restrictions with homogeneous expressions in the variables
+
+For example, to show that $a^3+b^3+c^3-3abc\ge0$, assume that, WLOG, $abc=1$ or $a+b+c=1$ etc. The reason is explained below.
+
+Suppose that $abc=k^3$. Let $a=ka^\prime$, $b=kb^\prime$, $c=kc^\prime$. This implies $a^\prime b^\prime c^\prime=1$, and our inequality becomes $a^{\prime3}+b^{\prime3}+c^{\prime3}-3a^\prime b^\prime c^\prime\ge0$, which is the same as before. Therefore the restriction $abc=1$ doesn't change anything of the inequality. Similarly one might also assume $a+b+c=1$.
+
+\subsection{Homogenisation}
+\vocab{Homogenisation} is the opposite of normalisation. It is often useful to substitute $a=\frac{x}{y}$, $b=\frac{y}{z}$, $c=\frac{z}{x}$, when the condition $abc=1$ is given. Similarly when $a+b+c=1$ we can substitute $a=\frac{x}{x}+y+z$, $b=\frac{y}{x}+y+z$, $c=\frac{z}{x}+y+z$ to homogenise the inequality.
+
+\begin{exercise}
+If $a,b,c>0$ and $a+b+c=1$, prove that $a^2+b^2+c^2+1\ge 4(ab+bc+ca)$.
+\end{exercise}
+
+\begin{proof}
+So all the terms except for the $1$ are of the second degree. We substitute $a+b+c$ for $1$. The inequality still gives a non-homogeneous inequality. So instead we square the condition to make it second degree and get\[a^2+b^2+c^2+2(ab+bc+ca)=1\]Now plugging this for $1$ in the inequality and simplifying gives $a^2+b^2+c^2\ge ab+bc+ca$, which is well-known by the Rearrangement Inequality.
+\end{proof}
+\pagebreak
+
+\section*{Exercises}
+\begin{prbm}[\acrshort{h3math} 2018 Q3]
+A triangle has sides of length $a$, $b$, $c$ units. In each of the following cases, prove that there is a triangle having sides of the given lengths.
+\begin{enumerate}[label=(\alph*)]
+\item $\dfrac{a}{1+a}$, $\dfrac{b}{1+b}$ and $\dfrac{c}{1+c}$ units.
+\item $\sqrt{a}$, $\sqrt{b}$ and $\sqrt{c}$ units.
+\item $\sqrt{a(b+c-a)}$, $\sqrt{b(c+a-b)}$ and $\sqrt{c(a+b-c)}$ units.
+\end{enumerate}
+\end{prbm}
+
+\begin{solution}
+To prove that there is a triangle having sides of the given lengths, prove that the sum of lengths of any two sides is greater than length of third side.
+\begin{enumerate}[label=(\alph*)]
+\item WLOG, assume that $a\le b\le c$. By monotonicity of the function $y=\dfrac{x}{1+x}$, $x>0$, we have $\dfrac{a}{1+a}\le\dfrac{b}{1+b}\le\dfrac{c}{1+c}$.
+
+It remains to be shown that $\dfrac{a}{1+a}+\dfrac{b}{1+b}>\dfrac{c}{1+c}$, as the remaining other triangle inequalities are trivially true.
+\begin{align*}
+\frac{a}{1+a}+\frac{b}{1+b} &\ge \frac{a}{1+b}+\frac{b}{1+b} \\
+&= \frac{a+b}{1+b} \\
+&> \frac{c}{1+b} \quad \text{[using triangle inequality on triangle with sides $a,b,c$]} \\
+&\ge \frac{c}{1+c}
+\end{align*}
+
+\item WLOG, assume that $a\le b\le c$. By monotonicity of the function $y=\sqrt{x}$, $x>0$, we have $\sqrt{a}\le\sqrt{b}\le\sqrt{c}$.
+
+It remains to be shown that $\sqrt{a}+\sqrt{b}>\sqrt{c}$, as the remaining other triangle inequalities are trivially true.
+\begin{align*}
+\brac{\sqrt{a}+\sqrt{b}}^2 &= a+b+2\sqrt{ab} \\
+&> c+2\sqrt{ab} \quad \text{[using triangle inequality on triangle with sides $a,b,c$]} \\
+&> c+0=c
+\end{align*}
+
+\item WLOG, we only need to show that $\sqrt{a(b+c-a)}+\sqrt{b(c+a-b)}>\sqrt{c(a+b-c)}$ due to the symmetricity of the terms involved.
+\begin{align*}
+&a(b+c-a)+b(c+a-b)>c(a+b-c) \\
+\iff &ab+ac-a^2+bc+ab-b^2>ac+bc-c^2 \\
+\iff &c^2-a^2+2ab-b^2>0 \\
+\iff &c^2-(a-b)^2>0 \\
+\iff &(c+a-b)(c-a+b)>0
+\end{align*}
+By triangle inequality, $c+a-b>0$ and $c-a+b>0$.
+\end{enumerate}
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{h3math} 2016 Q3] \
+\begin{enumerate}[label=(\roman*)]
+\item For some positive integer $n$, let $x_1\le x_2\le\cdots\le x_n$ and $y_1\le y_2\le\cdots y_n$ be real numbers.
+
+By considering the sum of all $n^2$ terms of the form $(x_i-x_j)(y_i-y_j)$, prove that
+\[ \sum_{i=1}^nx_iy_i\ge\frac{1}{n}\brac{\sum_{i=1}^nx_i}\brac{\sum_{i=1}^ny_i}. \]
+\hfill \textbf{[5]}
+
+\item Let a triangle have angles $A,B,C$ and let the lengths of the opposite sides be $a$, $b$ and $c$.
+
+By applying the result of part (i), prove that
+\[ aA+bB+cC\ge\frac{1}{3}\pi(a+b+c). \]
+\hfill \textbf{[4]}
+
+\item Let $a,b,c$ be three positive numbers such that $a^2+b^2+c^2=1$. By applying the result of part (i) with $\{x_i\}=\crbrac{\dfrac{a+b}{c},\dfrac{c+a}{b},\dfrac{b+c}{a}}$, find the minimum possible value of 
+\[ \frac{(a+b)(a^2+b^2)}{c}+\frac{(c+a)(c^2+a^2)}{b}+\frac{(b+c)(b^2+c^2)}{a}. \]
+\hfill \textbf{[7]}
+\end{enumerate}
+\end{prbm}
+
+\begin{solution} \
+\begin{enumerate}[label=(\roman*)]
+\item We have
+\begin{align*}
+&\sum_{i=1}^n\sum_{j=1}^n(x_i-x_j)(y_i-y_j) \\
+&= \sum_{i=1}^n\sum_{j=1}^n(x_iy_i-x_jy_i-x_iy_j+x_jy_j) \\
+&= \sum_{i=1}^n\brac{nx_iy_i-y_i\sum_{j=1}^nx_j-x_i\sum_{j=1}^ny_j+\sum_{j=1}^nx_jy_j} \\
+&= 2n\sum_{i=1}^nx_iy_i-2\sum_{i=1}^nx_i\sum_{i=1}^ny_i
+\end{align*}
+Also,
+\begin{align*}
+\sum_{i=1}^n\sum_{j=1}^n(x_i-x_j)(y_i-y_j)
+&=\sum_{i=j}(x_i-x_j)(y_i-y_j)+\sum_{i\neq j}(x_i-x_j)(y_i-y_j) \\
+&= 0+\sum_{i<j}(x_i-x_j)(y_i-y_j)+\sum_{i>j}(x_i-x_j)(y_i-y_j) \\
+&= 0+\sum(\le0)(\le0)+\sum(\ge0)(\ge0) \\
+&\ge0
+\end{align*}
+Combining both results,
+\begin{align*}
+&2n\sum_{i=1}^nx_iy_i-2\sum_{i=1}^nx_i\sum_{i=1}^ny_i-2\sum_{i=1}^nx_i\sum_{i=1}^ny_i\ge0 \\
+&2n\sum_{i=1}^nx_iy_i\ge2\sum_{i=1}^nx_i\sum_{i=1}^ny_i \\
+\sum_{i=1}^nx_iy_i\ge\frac{1}{n}\sum_{i=1}^nx_i\sum_{i=1}^ny_i
+\end{align*}
+
+\item Let $x_1=a,x_2=b,x_3=c$, and $y_1=A,y_2=B,y_3=C$, and without loss of generality let $a\le b\le c$.
+
+Otherwise or in short we assign the $x$'s in ascending length order, the objective is to show that (i) can be applied and apply it to show the result in (ii).
+
+\textbf{Case 1}: 
+
+\item 
+\end{enumerate}
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{h3math}]
+If $a,b,c$ are sides of a triangle, show that
+\[ \frac{a}{b+c-a}+\frac{b}{a+c-b}+\frac{c}{a+b-c}\ge3. \]
+\end{prbm}
+
+\begin{solution}
+Let $x=a+b-c$, $y=a+c-b$, $z=b+c-a$, which are all positive by triangle inequality.
+
+Thus we have $a=\dfrac{x+y}{2}$, $b=\dfrac{x+z}{2}$, $c=\dfrac{y+z}{2}$.
+
+Substituting these in gives us
+\begin{align*}
+\frac{a}{b+c-a}+\frac{b}{a+c-b}+\frac{c}{a+b-c}
+&= \frac{x+y}{2z}+\frac{x+z}{2y}+\frac{y+z}{2x} \\
+&= \frac{1}{2}\brac{\frac{x}{z}+\frac{y}{z}+\frac{x}{y}+\frac{z}{y}+\frac{y}{x}+\frac{z}{x}} \\
+&\ge \frac{1}{2}\cdot6\sqrt[6]{1}=3
+\end{align*}
+\end{solution}
+\pagebreak
+
+\begin{prbm}[HCI \acrshort{h3math} Prelim 2020 Q7] \
+\begin{enumerate}[label=(\alph*)]
+\item Given positive reals $a$, $b$, $c$, prove that 
+\[ \frac{(a+1)^3}{b}+\frac{(b+1)^3}{c}+\frac{(c+1)^3}{a} \ge \frac{81}{4}. \]
+
+\item Given $x,y,z\ge 1$, $\dfrac{1}{x}+\dfrac{1}{y}+\dfrac{1}{z}=2$, prove that
+\[ \sqrt{x+y+z} \ge \sqrt{x-1}+\sqrt{y-1}+\sqrt{z-1}. \]
+
+\item Given that $a+b+c+d=3$ and $a^2+2b^2+3c^2+6d^2=5$, prove that $1\le a\le 2$.
+\end{enumerate}
+\end{prbm}
+
+\begin{solution} \
+\begin{enumerate}[label=(\alph*)]
+\item Applying AM-GM gives us
+\[ \frac{(a+1)^3}{b}+\frac{(b+1)^3}{c}+\frac{(c+1)^3}{a} \ge \frac{3(a+1)(b+1)(c+1)}{\sqrt[3]{abc}} \]
+We note the denominator is a cube root and hence we want to get the numerator to be a product of cube roots containing $a$, $b$ and $c$ so that they cancel out. To do so, split each term in the bracket into three terms and apply AM-GM on the numerator:
+\begin{align*}
+\frac{3(a+1)(b+1)(c+1)}{\cbrt{abc}} 
+&= \frac{3(a+\frac{1}{2}+\frac{1}{2})(b+\frac{1}{2}+\frac{1}{2})(c+\frac{1}{2}+\frac{1}{2})}{\cbrt{abc}} \\
+&\ge \frac{81\cbrt{\frac{a}{4}}\cbrt{\frac{b}{4}}\cbrt{\frac{c}{4}}}{\cbrt{abc}}=\frac{81}{4}
+\end{align*}
+
+\item The expression is certainly odd, as we would usually expect some squares in a Cauchy. We note that if we square both sides, we get something that better resembles a Cauchy inequality.
+
+We construct the inequality 
+\[ (x+y+z)\brac{\frac{x-1}{x}+\frac{y-1}{y}+\frac{z-1}{z}} \ge \brac{\sqrt{x-1}+\sqrt{y-1}+\sqrt{z-1}}^2 \]
+where
+\[ \frac{x-1}{x}+\frac{y-1}{y}+\frac{z-1}{z}=3 - \brac{\frac{1}{x}+\frac{1}{y}+\frac{1}{z}}=3-2=1 \]
+so applying Cauchy gives us the desired result.
+
+\item Since the desired result concerns the variable $a$, we naturally try to express the remaining variables in terms of $a$. 
+
+We hence yield
+\[ b+c+d=3-a \]
+and
+\[ 2b^2+3c^2+6d^2=5-a^2 \]
+
+Note that since both the sum of variables and the sum of the squares of said variables are given, it is an indication that Cauchy is the way to go for this question.
+
+Applying Cauchy,
+\[ (2b^2+3c^2+6d^2)(18+12+6) \ge (6b+6c+6d)^2 \]
+
+Substituting in the relevant expressions gives us $36(5-a^2)\ge (18-6a)^2$ which is a fairly easy inequality to solve.
+\end{enumerate}
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{smo} Open 2020 Q24]
+Let $x$, $y$, $z$ and $w$ be real numbers such that $x+y+z+w=5$. Find the minimum value of $(x+5)^2+(y+10)^2+(z+20)^2+(w+40)^2$. 
+\end{prbm}
+
+\begin{solution}
+By Cauchy--Schwarz,
+\[ 4(a^2+b^2+c^2+d^2)\ge(a+b+c+d)^2. \]
+Substituting $a=x+5$, $b=y+10$, $c=z+20$, $d=w+40$ gives us
+\[ 4\brac{(x+5)^2+(y+10)^2+(z+20)^2+(w+40)^2}\ge(x+5+y+10+z+20+w+40)^2 \]
+from which we can work out the answer of $\boxed{1600}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{imo} 1995]
+Let $a, b, c$ be positive real numbers such that $abc=1$. Prove that
+\[ \frac{1}{a^3(b+c)}+\frac{1}{b^3(c+a)}+\frac{1}{c^3(a+b)} \ge \frac{3}{2} \]
+\end{prbm}
+
+\begin{solution}
+Let $x=\dfrac{1}{a}$, $y=\dfrac{1}{b}$, $z=\dfrac{1}{c}$. Then by the given condition we obtain $xyz=1$. Note that
+\[ \cycsum\frac{1}{a^3(b+c)}=\cycsum\frac{1}{\frac{1}{x^3}\brac{\frac{1}{y}+\frac{1}{z}}}=\cycsum\frac{x^2}{y+z} \]
+Now by Cauchy--Schwarz,
+\[ \cycsum\frac{x^2}{y+z}\ge\frac{(x+y+z)^2}{2(x+y+z)}=\frac{x+y+z}{2} \]
+and by AM--GM,
+\[ \frac{1}{2}(x+y+z)\ge\frac{3}{2}\sqrt[3]{xyz}=\frac{3}{2} \]
+Hence proven.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Prove that for all $n \in \NN$,
+\[ \sqrt{1^2+1}+\sqrt{2^2+1}+\cdots+\sqrt{n^2+1}\ge\frac{n}{2}\sqrt{n^2+2n+5}. \]
+\end{prbm}
+
+\begin{solution}
+Define the function $f(x)=\sqrt{x^2+1}$. Observe that for $x\to\infty$, we have $f(x)\to|x|$, so the graph is convex.
+
+Applying Jensen's inequality with reals $x_1=1,x_2=2,\dots,x_n=n$,
+\begin{align*}
+\frac{f(x_1)+f(x_2)+\cdots+f(x_n)}{n} &\ge f\brac{\frac{x_1+x_2+\cdots+x_n}{n}} \\
+\frac{f(1)+f(2)+\cdots+f(n)}{n} &\ge f\brac{\frac{1+2+\cdots+n}{n}} \\
+\frac{\sqrt{1^2+1}+\sqrt{2^2+1}+\cdots+\sqrt{n^2+1}}{n} &\ge f\brac{\frac{n(n+1)/2}{n}}\\&= f\brac{\frac{n+1}{2}}=\frac{1}{2}\sqrt{n^2+2n+5}
+\end{align*}
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Given that $a,b>0$ and $ab(a+b)=2000$, find the minimum value of 
+\[ \frac{1}{a}+\frac{1}{b}+\frac{1}{a+b}. \]
+\end{prbm}
+\begin{solution}
+Using AM--GM, 
+\begin{align*}
+a+b &\ge 2\sqrt{ab} \\
+\brac{\frac{a+b}{2}}^2 &\ge ab \\
+\brac{\frac{a+b}{2}}^2(a+b) &\ge ab(a+b) \\
+\frac{(a+b)^3}{4} &\ge 2000 \\
+a+b &\ge 20
+\end{align*}
+
+Using AM--GM,
+\begin{align*}
+\frac{1}{a}+\frac{1}{b}+\frac{1}{a+b}
+&= \frac{1}{2a}+\frac{1}{2a}+\frac{1}{2b}+\frac{1}{2b}+\frac{1}{a+b} \\
+&\ge 5\sqrt[5]{\frac{1}{16}\frac{a+b}{a^2b^2(a+b)^2}} \\
+&\ge 5\brac{\frac{1}{20}}=\boxed{\frac{1}{4}}
+\end{align*}
+
+Equality holds if and only if $\dfrac{1}{2a}=\dfrac{1}{2b}=\dfrac{1}{a+b}$, or $a=b=10$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{usamo} 2012]
+Find all integers $n \ge 3$ such that among any $n$ positive real numbers $a_1, a_2, \dots, a_n$ with 
+\[ \text{max}(a_1, a_2, \dots, a_n) \le n \cdot \text{min}(a_1, a_2, \dots , a_n), \]
+there exist three that are the side lengths of an acute triangle.
+\end{prbm}
+
+\begin{solution}
+We claim that $n\ge 13$ are all the satisfying positive integers.
+
+WLOG, let $a_1\le a_2\le\hdots\le a_n$. Three positive real numbers $a\le b \le c$ are the side lengths of an acute triangle iff $a^2+b^2>c^2$. 
+
+Thus, if our $n$ positive real numbers contain no such triple, we must have $a_i^2+a_j^2 \le a_k^2$ for all $i<j<k$. 
+
+We have the following claim:
+
+\begin{lemma}
+Let $S=\{a_1, a_2, \hdots, a_n\}$ be a set of $n\ge 3$ positive real numbers, where $a_1\le a_2\le\hdots\le a_n$. If $S$ contains no three numbers that are side lengths of an acute triangle, we have $a_i\ge F_i\cdot a_1^2$ for all $1\le i\le n$, where $F_i$ is the $i$-th Fibonacci number.
+\end{lemma}
+
+\begin{proof}
+If $n=3$, we must have $a_1^2+a_2^2\le a_3^2$. And since $a_1^2\le a_2^2$ and $a_3^2\ge a_1^2+a_2^2\ge 2a_2^2$, the claim holds for $n=3$.
+
+Assume that the claim holds for all $t\le n$. Consider a set $S$ of $n+1$ real numbers such that $a_1\le a_2\le\hdots\le a_{n+1}$ and $S$ contains no three numbers that are side lengths of an acute triangle. Then, we must have
+\begin{align*}
+a_1^2+a_2^2&\le a_3^2\\
+a_2^2+a_3^2&\le a_4^2\\		
+&\vdots\\
+a_{n-1}^2+a_{n}^2&\le a_{n+1}^2.
+\end{align*}
+
+Since the statement holds for all $t\le n$, we have $a_i\ge F_i\cdot a_1^2$ for all $1\le i\le n$. 
+Thus, $a_{n+1}^2\ge a_{n-1}^2+a_{n}^2\ge F_{n-1}\cdot a_1^2+F_n\cdot a_1^2=F_{n+1}\cdot a_1^2$. QED
+\end{proof}
+
+Now, if $n\ge 13$, we have $a_n\ge F_n\cdot a_1^2$. However, since $\text{max}(a_1,a_2,\dots,a_n) \le n \cdot\text{min}(a_1,a_2, \dots,a_n)$, we have $n\cdot a_1\ge a_n$, or $a_n^2\ge n^2\cdot a_1^2$. But for all $n\ge 13$, we have $n^2<F_n$, hence $a_n\ge F_n \cdot a_1^2>n^2a_1^2\ge a_n$, which is absurd. Thus for all $n\ge 13$, we will always have three numbers that are side lengths of an acute triangle.
+
+For $n\le 12$, the set $S=\{\sqrt{F_i}t\mid 1\le i\le n,\,t\in\RR^+,\, F_i\text{ is the }i\text{-th Fibonacci number}\}$ satisfies that it contains no three numbers that are side lengths of an acute triangle.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{imo} 2000]
+Let $ a, b, c$ be positive real numbers so that $abc=1$. Prove that
+\[ \brac{a-1+\frac{1}{b}} \brac{b-1+\frac{1}{c}} \brac{c-1+\frac{1}{a}} \le 1. \]
+\end{prbm}
+
+\begin{solution}
+Let $a=\dfrac{x}{y}, b=\dfrac{y}{z}, c=\dfrac{z}{x}$, then
+\[ \prod_{cyc}(x-y+z)\le xyz \iff (x^3+y^3+z^3)+3xyz \ge \sum_{cyc}x^2y+\sum_{cyc}x^2z \]
+This holds by Schur's inequality.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{imo} 1964]
+Let $a,b,c$ be the side lengths of a triangle. Prove that
+\[ a^2(b+c-a)+b^2(c+a-b)+c^2(a+b-c)\le3abc. \]
+\end{prbm}
+
+\begin{solution}
+The inequality can be written as 
+\[ (a+b-c)(b+c-a)(c+a-b)\le abc. \]
+Let $a=x+y$, $b=y+z$ and $c=z+x$. Then the above inequality becomes $8xyz\le(x+y)(y+z)(z+x)$ which is obvious by AM--GM.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{cmo} 2007 Q1]
+Given complex numbers $a,b,c$, let $|a+b|=m$, $|a-b|=n$, and suppose $mn\neq0$. Prove that
+\[ \max\{|ac+b|,|a+bc|\}\ge\frac{mn}{\sqrt{m^2+n^2}}. \]
+\end{prbm}
+
+\begin{solution}
+We have
+\begin{align*}
+\max\{|ac+b|,|a+bc|\}
+&\ge\frac{|b||ac+b|+|a||a+bc|}{|b|+|a|}\\
+&\ge\frac{|b(ac+b)-a(a+bc)|}{|a|+|b|}\\
+&=\frac{|b^2-a^2|}{|a|+|b|}\\
+&\ge\frac{|b+a||b-a|}{\sqrt{2\brac{|a|^2+|b|^2}}}.
+\end{align*}
+Since
+\[ m^2+n^2=|a-b|^2+|a+b|^2=2\brac{|a|^2+|b|^2}, \]
+we get
+\[ \max\{|ac+b|,|a+bc|\}\ge\frac{mn}{\sqrt{m^2+n^2}} \]
+as desired.
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Show that 
+\[ \sum_{k=1}^{n}a_k^2 \ge a_1 a_2+a_2a_3+\cdots+a_{n-1}a_n+a_na_1 \]
+\end{prbm}
+
+\begin{solution}
+Multiply both sides by $2$,
+\[ 2\sum_{k=1}^{n}a_{k}^{2}\ge 2(a_{1}a_{2}+a_{2}a_{3}+\cdots+a_{n-1}a_{n}+a_{n}a_{1}) \]
+Subtracting each side by the RHS, 
+\[ (a_1-a_n)^2+(a_2-a_1)^2+(a_3-a_2)^2+\cdots+(a_n-a_{n-1})^2\ge 0 \]
+which is always true.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[MACEDONIA 2016] % Macedonia National Olympiad
+For $n \ge 3$, $a_1, a_2, \dots , a_n \in \mathbb{R}^{+}$ satisfy \[ \frac{1}{1+{a_1}^4}+\frac{1}{1+{a_2}^4}+\cdots+\frac{1}{1+{a_n}^4}=1. \]
+Prove that 
+\[ a_1 a_2 \cdots a_n \ge (n-1)^{\frac{n}{4}}. \]
+\end{prbm}
+
+\begin{solution}
+Let $b_i={a_i}^4$ where $b_i \ge 0$. 
+The given condition becomes \[ \frac{1}{1+b_1}+\frac{1}{1+b_2}+\cdots+\frac{1}{1+b_n}=1. \]
+and we want to prove \[ b_1 b_2 \cdots b_n \ge (n-1)^n.\]
+
+Let $t_i=\dfrac{1}{1+b_i}$. Rewriting the given condition gives us \[ t_1+t_2+\cdots+t_n=1.\] 
+and we want to prove \[ \frac{1-t_1}{t_1} \frac{1-t_2}{t_2} \cdots \frac{1-t_n}{t_n} \ge (n-1)^n. \]
+
+Using AM-GM, we have 
+\begin{align*}
+\frac{1-t_1}{t_1} \frac{1-t_2}{t_2} \cdots \frac{1-t_n}{t_n}
+&= \frac{t_2+t_3+\dots+t_n}{t_1} \frac{t_1+t_3+\dots+t_n}{t_2} \cdots \frac{t_1+t_2+\dots+t_{n-1}}{t_n} \\
+&\ge \frac{(n-1)(t_2  t_3 \cdots t_n)^\frac{1}{n-1}}{t_1} \frac{(n-1)(t_1  t_3 \cdots t_n)^\frac{1}{n-1}}{t_2} \cdots \frac{(n-1)(t_1  t_2 \cdots t_{n-1})^\frac{1}{n-1}}{t_n} \\
+&= (n-1)^n
+\end{align*}
+\end{solution}
+\pagebreak
+
+\begin{prbm}[Canada 1969]
+Show that if $\dfrac{a_1}{b_1}=\dfrac{a_2}{b_2}=\dfrac{a_3}{b_3}$ and $p_1,p_2,p_3$ are not all zero, then 
+\[ \left(\frac{a_1}{b_1} \right)^n=\frac{p_1{a_1}^n+p_2{a_2}^n+p_3{a_3}^n}{p_1{b_1}^n+p_2{b_2}^n+p_3{b_3}^n}\]
+for every positive integer $n$.
+\end{prbm}
+
+\begin{solution}
+Instead of proving the two expressions equal, we prove that their difference equals zero.
+
+Subtracting the LHS from the RHS, 
+\[ \frac{p_1{a_1}^n+p_2{a_2}^n+p_3{a_3}^n}{p_1{b_1}^n+p_2{b_2}^n+p_3{b_3}^n}-\frac{{a_1}^n}{{b_1}^n}=0\]
+
+Finding a common denominator, the numerator becomes 
+\begin{align*}
+&{b_1}^n (p_1{a_1}^n+p_2{a_2}^n+p_3{a_3}^n) - {a_1}^n(p_1{b_1}^n+p_2{b_2}^n+p_3{b_3}^n) \\
+&= p_2({a_2}^n {b_1}^n - {a_1}^n {b_2}^n)+p_3({a_3}^n {b_1}^n - {a_1}^n {b_3}^n)=0
+\end{align*}
+(The denominator is irrelevant since it never equals zero)
+
+From $\dfrac{a_1}{b_1}=\dfrac{a_2}{b_2}$, we have 
+\[ {a_1}^n {b_2}^n={a_2}^n {b_1}^n \]
+
+Similarly, from $\dfrac{a_1}{b_1}=\dfrac{a_3}{b_3}$, we have 
+\[ {a_1}^n {b_3}^n={a_3}^n {b_1}^n \]
+
+Hence, ${a_2}^n {b_1}^n - {a_1}^n {b_2}^n={a_3}^n {b_1}^n - {a_1}^n {b_3}^n=0$ and our proof is complete.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{arml} 1987]
+If $a,b,c$ are positive and $a+b+c=6$, show that
+\[ \brac{a+\frac{1}{b}}^2+\brac{b+\frac{1}{c}}^2+\brac{c+\frac{1}{a}}^2\ge\frac{75}{4}. \]
+\end{prbm}
+
+\begin{solution}
+%https://math.stackexchange.com/questions/4836474/correct-application-of-am-gm-in-inequality-problem
+\end{solution}
+%https://math.stackexchange.com/questions/4886935/prove-the-inequality-1x21y21z2-ge-64-if-xy-yz-zx-9
+\pagebreak
+
+\begin{prbm}[Jensen's inequality]
+Let $f$ be a convex function over an interval $I$. Given $x_i\in I$ and real values $t_i\ge0$ with $\sum_{i=1}^nt_i=1$, for $1,2,\dots,n$, show that 
+\[ f\brac{\sum_{i=1}^nt_ix_i}\le\sum_{i=1}^nt_if(x_i). \]
+\end{prbm}
+
+\begin{solution}
+Prove by induction. Let $P(n)$ be the statement that $\displaystyle f\brac{\sum_{i=1}^nt_ix_i}\le\sum_{i=1}^nt_if(x_i)$ with the given conditions supplied by the question.
+
+Base cases: $P(1)$ is trivial with $f(x_1)\le f(x_1)$, and $P(2)$ is true by the definition of convexity for $f$ [recall that $f$ being convex is defined as $f\brac{tx_1+(1-t)x_2}\le tf(x_1)+(1-t)f(x_2)$].
+
+Assume the relation holds for $n=k$ for some positive integer $k$. Then we have
+\begin{align*}
+f\brac{\sum_{i=1}^{k+1}t_ix_i} &= f\brac{t_{k+1}x_{k+1}+\sum_{i=1}^kt_ix_i} \\
+&= f\brac{t_{k+1}x_{k+1}+(1-t_{k+1})\frac{1}{1-t_{k+1}}\sum_{i=1}^kt_ix_i} \\
+&\le t_{k+1}f(x_{k+1})+(1-t_{k+1})f\brac{\frac{1}{1-t_{k+1}}\sum_{i=1}^nt_ix_i} \quad \text{[use result for $n=2$]} \\
+&= t_{k+1}f(x_{k+1})+(1-t_{k+1})f\brac{\sum_{i=1}^k\frac{t_i}{1-t_{k+1}}x_i} \\
+&\le t_{k+1}f(x_{k+1})+(1-t_{k+1})\sum_{i=1}^k\frac{t_i}{1-t_{k+1}}f(x_i) \quad \text{[use induction hypothesis]} \\
+&= t_{k+1}f(x_{k+1})+\sum_{i=1}^kt_if(x_i)=\sum_{i=1}^{k+1}t_if(x_i)
+\end{align*}
+\end{solution}
+\pagebreak
+
+\begin{prbm}
+Prove that
+\[ \frac{1}{2}\cdot\frac{3}{4}\cdots\frac{2n-1}{2n}<\frac{1}{\sqrt{3n}} \]
+for all positive integers $n$.
+\end{prbm}
+
+\begin{solution}
+We prove a stronger statement:
+\[ \frac{1}{2}\cdot\frac{3}{4}\cdots\frac{2n-1}{2n}\le\frac{1}{\sqrt{3n-1}}. \]
+We use induction.
+
+For $n=1$, the result is evident.
+
+Suppose the statement is true for some positive integer $k$, i.e.
+\[ \frac{1}{2}\cdot\frac{3}{4}\cdots\frac{2k-1}{2k}<\frac{1}{\sqrt{3k-1}}. \]
+Then
+\[ \frac{1}{2}\cdot\frac{3}{4}\cdots\frac{2k-1}{2k}\cdot\frac{2k+1}{2k+2}<\frac{1}{\sqrt{3k+1}}\cdot\frac{2k+1}{2k+2}. \]
+In order for the induction step to pass it suffices to prove that
+\[ \frac{1}{\sqrt{3k+1}}\cdot\frac{2k+1}{2k+2}<\frac{1}{\sqrt{3k+4}}. \]
+This reduces to
+\[ \brac{\frac{2k+1}{2k+2}}^2<\frac{3k+1}{3k+4}, \]
+i.e.
+\[ (4k^2+4k+1)(3k+4)<(4k^2+8k+4)(3k+1), \]
+i.e.
+\[ 0<k, \]
+which is evident. Our proof is complete.
+\end{solution}
+
+\chapter{Functional Equations}
+% https://web.evanchen.cc/handouts/FuncEq-Intro/FuncEq-Intro.pdf
+\section{Introduction}
+\begin{definition}[Function]
+Let $X$ and $Y$ be sets. A \vocab{function} $f:X\to Y$ is an assignment of a value in $Y$ for each $x \in X$; we denote this value $f(x) \in Y$.
+\end{definition}
+
+Let $f:X\to Y$ be a function. The set $X$ is called the \vocab{domain}, and $Y$ the \vocab{codomain}. A couple definitions which will be useful:
+
+\begin{definition}[Injectivity]
+A function $f:X\to Y$ is \vocab{injective} if $f(x)=f(y) \iff x=y$. (Sometimes also called \textit{one-to-one}.)
+\end{definition}
+
+\begin{definition}[Surjectivity]
+A function $f:X\to Y$ is surjective if for all $y \in Y$, there is some $x \in X$ such that $f(x)=y$. (Sometimes also called \textit{onto}.)
+\end{definition}
+
+\begin{definition}[Bijectivity]
+A function is \vocab{bijective} if it is both injective and surjective.
+\end{definition}
+
+An equation containing an unknown function is called a \vocab{functional equation}. A typical functional equation problem will ask you to find all functions satisfying a certain property. For such problems, you must prove \emph{both} directions. In fact, I recommend structuring the opening lines of your solution as follows:
+
+\begin{solution}
+The answer is $f(x)=kx, k\in\RR$. It's easy to see that these functions satisfy the given equation.
+
+We now show these are the only solutions ...
+\end{solution}
+
+\section{Heuristics}
+At the beginning of a problem:
+\begin{itemize}
+\item Figure out what the answer is. For many problems, plug in $f(x)=kx+c$ and find which $k$ and $c$ work. It may also be worth trying general polynomial functions.
+\item Make obvious optimisations (like scaling or shifting).
+\item Plug in $x=y=0$, $x=0$ into the givens, et cetera. See what the most simple substitutions give first.
+\end{itemize}
+
+Once you have done these obvious steps, some other things to try:
+\begin{itemize}
+\item The battle cry “DURR WE WANT STUFF TO CANCEL”. Plug in things that make lots of terms cancel or that make lots of terms vanish (think $x=y=0$).
+\item Watch for opportunities to prove injectivity or surjectivity, for example using isolated parts.
+\item Watch for bumps in symmetry and involutions.
+\item For equations over $\NN$, $\ZZ$, or $\QQ$, induction is often helpful. It can also be helpful over $\RR$ as well. The triggers for induction are the same as any other olympiad problem: you can pin down new values to previous ones.
+\item It may help to rewrite the function in terms of other functions.
+\end{itemize}
+
+Here are three more tricks that are frequently useful.
+\begin{itemize}
+\item Tripling an involution. 
+
+If you know something about $f(f(x))$, try applying it $f(f(f(x)))$ in different ways. For example, if we know that $f(f(x))=x+2$, then we obtain $f^3(x)=f(x+2)=f(x)+2$.
+
+\item Isolated parts.
+
+When trying to obtain injective or surjective, watch for ``isolated'' variables or parts of the equation. For example, suppose you have a condition like
+\[ f(x+2xf(y)^2)=yf(x)+f(f(y)+1) \]
+(I made that up). Noting that $f\equiv0$ works, assume $f$ is not zero everywhere. Then by taking $x_0$ with $f(x_0)\neq0$, one obtains $f$ is injective. (Try putting in $y_1$ and $y_2$.)
+
+Proving surjectivity can often be done in similar spirit. For example, suppose
+\[ f(f(y)+xf(x))=y+f(x)^2. \]
+By varying $y$ with $x$ fixed we get that $f$ is surjective, and thus we can pick $x_0$ so that $f(x_0)=0$ and go from there. Surjectivity can be especially nice if every y is
+wrapped in an f, say; then each f(y) just becomes replace by an arbitrary real.
+
+\item Exploiting ``bumps'' in symmetry.
+
+If some parts of an equation are symmetric and others are not, swapping $x$ and $y$ can often be helpful. For example, suppose you have a condition like
+\[ f(x+f(y))+f(xy)=f(x+1)f(y+1)-1 \]
+(again I made that up). This equation is ``almost symmetric'', except for a ``bump'' on the far left where $f(x+f(y))$ is asymmetric. So if we take the equation with $x$ and $y$ flipped and then eliminate the common terms, we manage to obtain
+\[ f(x+f(y))=f(y+f(x)). \]
+If we have shown $f$ is injective, we are even done! So often these “bumps” are what let you solve a problem. (In particular, don’t get rid of the bumps!)
+\end{itemize}
+
+Some other small tricks I should mention:
+\begin{itemize}
+\item Often, you’ll get something like $f(x)^2=x^2$. When this happens, make sure you do not automatically assume $f(x)=x$ for each $x$; this type of equality holds only for each individual $x$.
+\item Check the solutions work! Don’t get a 6 unnecessarily after solving the problem just because you forget this trivial step.
+\end{itemize}
+
+\begin{exercise}
+If $f\brac{x^2f(y)}=x^2y$, find $f(2000)$.
+\end{exercise}
+\begin{solution}
+We guess $f(x)=x$, which in fact works. Hence $f(2000)=\boxed{2000}$.
+\end{solution}
+
+\begin{exercise} 
+Let $a \neq 1$. Solve the equation 
+\[ a f(x)+f\left(\frac{1}{x}\right)=ax \] 
+where the domain of $f$ is the set of all non-zero real numbers. 
+\end{exercise} 
+
+\begin{solution}
+Replacing $x$ by $x^{-1}$, we get \[ a f\brac{\frac{1}{x}}+f(x)=\frac{a}{x} \] We therefore have \[ (a^2-1)f(x)=a^2 x-\frac{a}{x} \] and hence \[ \boxed{f(x)=\frac{a^2 x-\frac{a}{x}}{a^2-1}}. \]
+\end{solution}
+
+\section{Cauchy's Functional Equation Over $\QQ$}
+For this section, all functions are $f:\QQ\to\QQ$.
+\begin{exercise}[Cauchy's functional equation]
+Find all functions $f:\QQ\to\QQ$ such that
+\[ f(x+y)=f(x)+f(y) \]
+holds for each $x,y \in \QQ$.
+\end{exercise}
+\begin{solution}
+First put $y=0$:
+\[ f(x+0)=f(x)+f(0) \implies f(0)=0 \]
+Then put $y=-x$:
+\[ f(x-x)=f(x)+f(-x) \implies f(-x)=-f(x) \quad \forall x \in \QQ \]
+Then, by repeated application of the original equation to expand the right side of $f(nx)=f(x+x+\cdots+x)$ we get
+\[ f(nx)=nf(x) \quad \forall x \in \QQ, \forall n \in \NN \]
+By substituting $x=\frac{1}{n}$:
+\[ f\brac{\frac{1}{n}}=\frac{1}{n}f(1) \quad \forall n \in \NN \]
+Combining the two equations above with $x=\frac{1}{m}$, we get:
+\[ f\brac{\frac{n}{m}}=nf\brac{\frac{1}{m}}=\frac{n}{m}f(1) \quad \forall m,n \in \NN \]
+Using $f(-x)=-f(x$) and multiplying the equation above by $-1$, we get
+\begin{align*}
+-f\brac{\frac{n}{m}} &= -\frac{n}{m}f(1) \\
+f\brac{-\frac{n}{m}} &= \brac{-\frac{n}{m}}f(1) \quad \forall m,n \in \NN \\
+f(q) &= qf(1) \quad \forall q \in \QQ
+\end{align*}
+Thus, we have found that $f(x)=cx \forall x \in \QQ$ and some constant $c \in \RR$. It is obvious that this family of functions is indeed a solution of $f(x+y)=f(x)+f(y)$ for rational $x$ and $y$. More generally, it is easy to show that $\boxed{f(\alpha q)=qf(\alpha) \forall q \in \QQ, \alpha \in \RR}$.
+\end{solution}
+
+\section{Cauchy's Functional Equation Over $\RR$}
+\pagebreak
+
+\section*{Exercises}
+% https://imomath.com/index.cgi?page=functionalEquationsProblemsWithSolutions
+\begin{prbm}[\acrshort{smo} Open 2005 Q9]
+The function $f(n)$ is defined for all positive integer $n$ and take on non-negative integer values such that $f(2)=0$, $f(3)>0$ and $f(9999)=3333$. Also, for all $m$ and $n$,
+\[ f(m+n)-f(m)-f(n)=0 \text{ or } 1. \]
+Determine $f(2005)$.
+\end{prbm}
+
+\begin{solution}
+The given relation implies that 
+\[ f(m+n)\ge f(m)+f(n). \]
+Putting $m=n=1$ we obtain $0=f(2)\ge2f(1)\ge0$. Thus $f(1)=0$. Next,
+\[ f(3)=f(2+1)=f(2)+f(1)+x=x, \quad \text{where $x=0$ or $1$}. \]
+Since $f(3)>0$, it follows that $f(3)=1$. Since
+\[ f(\brac{3(m+1)}\ge f(3m)+f(3), \]
+it follows, by induction, that $f(3n)\ge n$ for all $n$. Also, it follows that $f(3k)>k$ for some $k$, then $f(3m)>m$ for all $m\ge k$.
+
+So since $f(3\times3333)=f(9999)=3333$, it follows that $f(3n)=n$ for $n\le 3333$. In particular $f(3\times2005)=2005$. Consequently, 
+\[ 2005=f(3\times2005)\ge f(2\times2005)+f(2005)\ge3f(2005) \]
+and so $f(2005)\le\frac{2005}{3}<669$. On the other hand.
+\[ f(2005)\ge f(2004)+f(1)=f(3\times668)=668. \]
+Therefore $f(2005)=668$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q12]
+A function $f:\NN\to\NN$ satisfies
+\[ f(m+n)=f\brac{f(m)+n} \]
+for all $m,n\in\NN$, and $f(6)=2$. Also, no two of the values $f(6)$, $f(9)$, $f(12)$ and $f(15)$ coincide. How many three-digit positive integers $n$ satisfy $f(n)=f(2005)$?
+\end{prbm}
+
+\begin{solution}
+Since 
+\[ f(6+n)=f\brac{f(6)+n}=f(2+n) \quad \text{for all $n$}, \]
+the function $f$ is periodic with period $4$ starting from $3$ onwards.
+
+Now $f(6),f(5),f(4),f(3)$ are four distinct values. Thus in every group of $4$ consecutive positive integers greater than 3, there is exactly one that is mapped by $f$ to $f(2005)$.
+
+Since the collection of three-digit positive integers can be divided into exactly $225$ groups of $4$ consecutive integers each, there are $225$ three-digit positive integer $n$ that satisfies $f(n)=f(2005)$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2005 Q13]
+Let $f$ be a real-valued function so that
+\[ f(x,y)=f(x,z)-2f(y,z)-2z \]
+for all real numbers $x$, $y$ and $z$. Find $f(2005,1000)$.
+\end{prbm}
+
+\begin{solution}
+Setting $x=y=z$, we see that
+\[ f(x,x)=f(x,x)-2f(x,x)-2x \implies f(x,x)=-x\quad\forall x. \]
+Setting $y=x$ gives
+\[ f(x,x)=f(x,z)-2f(x,z)-2x \implies f(x,z)=x-2z\quad\forall x,z. \]
+Therefore, $f(2005,1000)=5$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q3]
+A function $f$ is such that $f:\RR\to\RR$ where
+\[ f(xy+1)=f(x)f(y)-f(y)-x+2 \]
+for all $x,y\in\RR$. Find $10f(2006)+f(0)$.
+\end{prbm}
+
+\begin{solution}
+By interchanging $x$ and $y$, we have
+\[ f(yx+1)=f(y)f(x)-y+2 \implies f(x)=y=f(y)+x. \]
+Let $y=0$. Then $f(x)=f(0)+x$. Putting $x=y=0$, we get
+\[ f(0)+1=f(1)=f(0)f(0)-f(0)+2 \implies \brac{f(0)-1}^2=0 \implies f(0)=1. \]
+Thus $100f(2006)+f(0)=20071$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2006 Q9]
+Suppose $f$ is a function satisfying $f(x+x^{-1})=x^6+x^{-6}$, for all $x\neq0$. Determine $f(3)$.
+\end{prbm}
+
+\begin{solution}
+Let $y=x+x^{-1}$. Factoring the RHS,
+\begin{align*}
+f(y) &= x^6+\frac{1}{x^6} \\
+&= \brac{x^2+\frac{1}{x^2}}\brac{x^4-1+\frac{1}{x^4}} \\
+&= \brac{\brac{x+\frac{1}{x}}^2-2}\brac{\brac{x^2+\frac{1}{x^2}}^2-3} \\
+&= \brac{\brac{x+\frac{1}{x}}^2-2}\brac{\brac{\brac{x+\frac{1}{x}}^2-2}^2-3} \\
+&= (y^2-2)\brac{(y^2-2)^2-3}
+\end{align*}
+Therefore $f(3)=322$.
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2020 Q7]
+Given that $f:\RR\to\RR$ such that
+\[ f(a^2-b^2)=(a-b)\brac{f(a)+f(b)}. \]
+For all numbers $a$ and $b$ and that $f(1)=\dfrac{1}{101}$. Find the value of $\sum_{k=1}^{100}f(k)$.
+\end{prbm}
+\begin{solution}
+Our first guess is $f(x)$, since $a^2-b^2=(a-b)(a+b)$. But upon looking at $f(1)=\dfrac{1}{101}$, we have $f(x)=\dfrac{x}{101}$.
+
+Hence we evaluate
+\[ \sum_{k=1}^{100}f(k)=\frac{1}{101}+\frac{2}{101}+\cdots+\frac{100}{101}=\frac{1}{101}\brac{\frac{100\times101}{2}}=\boxed{50}. \]
+\end{solution}
+
+\begin{prbm}[\acrshort{smo} Open 2021 Q6]
+Consider all the polynomials $P(x,y)$ in two variables such that $P(0,0)=2020$ and for all $x$ and $y$, $P(x,y)=P(x+y,y-x)$. Find the largest possible value of $P(1,1)$.
+\end{prbm}
+
+\begin{solution}
+Starting with $P(x,y)=P(x+y,y-x)$, $P(0,1)=P(1,1)$.
+
+Then $P(0,1)=P\brac{-\frac{1}{2},\frac{1}{2}}$ and $P\brac{-\frac{1}{2},\frac{1}{2}}=P\brac{-\frac{1}{2},0}$ and $P\brac{-\frac{1}{2},0}=P\brac{-\frac{1}{4},-\frac{1}{4}}$.
+
+Then $P\brac{-\frac{1}{4},-\frac{1}{4}}=P\brac{-\frac{1}{4},0}$ and $P\brac{-\frac{1}{4},0}=P\brac{-\frac{1}{8},-\frac{1}{8}}$ and it will converge to $P(0,0)$. Thus $P(1,1)=P(0,0)=\boxed{2020}$.
+\end{solution}
+\pagebreak
+
+\begin{prbm}[\acrshort{imo} 2019 Shortlist A1]
+Determine all functions $f:\ZZ\to\ZZ$ such that, for all integers $a$ and $b$, 
+\[ f(2a)+2f(b)=f(f(a+b)).\]
+\end{prbm}
+
+Most solutions to this problem first prove that $f$ must be linear, before determining all linear functions satisfying the above equation.
+
+\begin{solution}
+First, we substitute $a=0$ to get$$f(0)+2f(b)=f(f(b)).$$It follows that$$f(f(a+b))=2f(a+b)+f(0),$$so we have$$2f(a+b)+f(0)=f(2a)+2f(b).$$Substituting $a=1$ (the motivation is that, since $f(x)$ takes the integers to the integers, it might be useful to relate $f(x+1)$ with $f(x)$) yields$$2f(b+1)+f(0)=f(2)+2f(b).$$Rearranging this a little bit, we get$$f(b+1)-f(b)=\frac{f(2)-f(0)}{2}.$$Clearly, $\frac{f(2)-f(0)}{2}$ is constant, so it follows that $f(x)$ is linear.
+
+Now, we let $f(x)=gx+h.$ Substituting this back, we find that either $g=h=0$ or $g=2.$
+
+Hence, we have $\boxed{f(x)=2x+h,h\in\ZZ}$, or $\boxed{f \equiv 0}.$
+\end{solution}
+
+\begin{prbm}[\acrshort{imo} 2015]
+Solve the functional equation
+\[ f(x+f(x+y))+f(xy)=x+f(x+y)+yf(x)\]
+for $f:\RR\to\RR$.
+\end{prbm}
+
+\begin{solution}
+Let $P(x,y)$ denote the assertion. Then, $P(0,y)$ gives $f(f(y))+f(0)=f(y)+yf(0)$. Therefore, $y=0$ gives $f(f(0))=0$ and $y=f(0)$ gives $2f(0)=f(0)^2$. This implies $f(0)=0$ or $f(0)=2$.
+
+Case 1: $f(0)=2$
+
+Then, $f(2)=0$ and $f(f(y))=f(y)+2y-2$. This implies $f$ is injective and $f(y)=y$ if and only if $y=1$. Now, $P(x,1)$ gives $f(x+f(x+1))=x+f(x+1)$, so $f(x+1)=1-x$. Therefore, $f(x)=2-x$. This works because both sides are equal to $y+2-xy$.
+
+Case 2: $f(0)=0$
+
+Then, $f(f(y))=f(y)$. Now, $P(f(k),k-f(k))$ gives$$f(2f(k))+f(f(k)(k-f(k)))=2f(k)+(k-f(k))f(k)$$and $P(f(k),0)$ gives
+$$f(2f(k))=2f(k).$$This means that $f(f(k)(k-f(k)))=(k-f(k))f(k)$. Therefore, $P(k-f(k),f(k))$ gives
+$$f(k)+f(f(k)(k-f(k)))=f(k)+(k-f(k))f(k)=k-f(k)f(k-f(k)),$$so$$(k-f(k))(f(k)-1)=-f(k-f(k)).$$Therefore, if $f(a)-a=f(b)-b\neq0$, then $f(a)=f(b)$, so $a=b$. Since $P(1,-1)$ gives $f(1)+f(-1)=1-f(1)$ and $P(-1,1)$ gives $f(-1)+f(-1)=-1+f(-1)$, we get $f(-1)=-1$ and $f(1)=1$. Now, $P(1,y)$ gives $f(1+f(1+y))-(1+f(1+y))+f(y)-y=0$, so if $g(x)=f(x)-x$, then $g(y)=-g(1+f(1+y))$. If $g(y)\neq0$, then $g(y)=-g(1+f(1+y))=g(1+f(1+1+f(1+y)))$, so $y-1=f(f(y+1)+2)$. Therefore, $f(y-1)=y-1$. If $f(y+1)\neq y+1$, then $f(y)=y$, contradiction. Therefore, $f(y+1)=y+1$, so $f(y+3)=y-1$, which implies $f(y+2)=y+2$. However, $P(1,y+2)$ gives $f(y)-y+f(y+2)-(y+2)=0$, contradiction since $f(y+2)=y+2$ but $f(y)\neq y$. Therefore, we must have $f(y)=y$ for all $y$, which works since both sides are equal to $2x+y+xy$.
+
+Therefore, the only solutions are $\boxed{f(x)=x}$ and $\boxed{f(x)=2-x}$.
+\end{solution}
+
+\begin{prbm}[China 2016]
+Find all functions $f:\ZZ\to\ZZ,$ such that for $\forall m,n\in\ZZ$,
+\[ f(f(m+n))=f(m)+f(n).\]
+\end{prbm}
+
+\begin{solution}
+Let $a=f(0)$ and $c=f(1)-f(0)$
+$f(m)+f(1)=f(f(m+1))=f(m+1)+f(0)$ and so $f(m+1)=f(m)+c$ and so $f(x)=cx+a$
+
+Plugging this back into the original equation, we get
+$\boxed{\text{S1: }f(x)=0\quad\forall x\in\ZZ}$, which indeed fits
+
+$\boxed{\text{S2: }f(x)=x+a\quad\forall x\in\ZZ}$, which indeed fits, whatever is $a\in\ZZ$
+\end{solution}
+
+\begin{prbm}[\acrshort{vietnam} 2006 B]
+Find all real continuous functions $f(x)$ satisfying
+\[f(x-y)f(y-z)f(z-x)+8=0,\]
+for all real $x,y,z$.
+\end{prbm}
+
+\begin{solution}
+Let $P(x,y,z):f(x-y)f(y-z)f(z-x)+8=0$.
+
+\[P\brac{\frac{t}{2},-\frac{t}{2},0}:f(t)\cdot f\brac{-\frac{t}{2}}^2+8=0\]
+shows that $f(t)<0$ for all $t$. Then we can write $f(x)=-2^{g(x)}$, where $g(x)$ is a function we have to find.
+
+Now the given equation becomes
+\begin{equation*}\tag{1}
+g(x-y)+g(y-z)+g(z-x)=3.
+\end{equation*}
+Put $u=x-y$, $v=y-z$, then $z-x=-(u+v)$. Also denoting $h(x)=g(x)-1$ we get
+\begin{equation*}\tag{2}
+h(u)+h(v)=-h(-u-v).
+\end{equation*}
+Note that for $u=v=0$ and $u=x,v=0$ we have $h(0)=0$ and $h(-x)=-h(x)$, respectively, and hence (2) can be written as
+\[h(u)+h(v)=h(u+v)\]
+which is the Cauchy equation, which has all solutions $h(t)=Ct$ with $C\in\RR$. Then $g(x)=Ct+1$ and $f(x)=-2^{Cx+1}$.
+
+Conversely, by direct verification we see that the obtained functions satisfy the requirement of the problem. Thus the solutions are
+\[f(x)=-2^{Cx+1},\]
+where $C$ is an arbitrary real constant.
+\end{solution}
+
+\chapter{Sequences and Series}
+\section{Summation Series}
+\begin{equation} \sum_{i=1}^{n} i=\frac{n(n+1)}{2} \end{equation}
+\begin{equation} \sum_{i=1}^{n} i^2=\frac{n(n+1)(2n+1)}{6} \end{equation}
+\begin{equation} \sum_{i=1}^{n} i^3=\left[\frac{n(n+1)}{2}\right]^2 \end{equation}
+\begin{proof}
+These can be proven using mathematical induction.
+\end{proof}
+
+\section{Arithmetic and Geometric Progressions}
+\subsection{Arithmetic Progression}
+An \vocab{arithmetic progression} (AP) is a sequence where the next term is a constant addition/subtraction of the previous term.
+
+For a particular term,
+\[ a_n=a+(n-1)d \]
+where $a$ is the first term, $d$ is the common difference.
+
+The series is given by
+\[ S_n=\frac{[a+a+(n-1)d]n}{2}=\frac{n}{2}[2a+(n-1)d]. \]
+
+\subsection{Geometric Progression}
+A \vocab{geometric progression} (GP) is a sequence where the next term is a constant product of the previous term.
+
+For a particular term,
+\[ a_n=ar^{n-1} \]
+where $a$ is the first term, $r$ is the common ratio.
+
+The series is given by
+\[ S_n=\frac{a\brac{1-r^n}}{1-r} \quad \text{or} \quad \frac{a\brac{r^n-1}}{r-1} \]
+where the former formula is preferred for $|r|<1$, and the latter for $|r|>1$.
+
+If the sequence is convergent with $|r|<1$, then the sum to infinity exists, given by
+\[ S_\infty=\frac{a}{1-r}. \]
+
+\section{Telescoping Sums}
+A \emph{telescoping sum} is a sum in which subsequent terms cancel each other, leaving only initial and final terms. For example,
+\begin{align*}
+S &= \sum_{i=1}^{n-1} (a_i-a_{i+1})	
+\\&= (a_1-a_2)+(a_2-a_3)+...+(a_{n-2}-a_{n-1})+(a_{n-1}-a_n)	
+\\&= a_1-a_n	
+\end{align*}
+
+\begin{exercise}
+Evaluate the following sum: 
+\[ \frac{1}{\sqrt{1}+\sqrt{2}}+\frac{1}{\sqrt{2}+\sqrt{3}}+\cdots+\frac{1}{\sqrt{99}+\sqrt{100}}. \] 
+\end{exercise}
+
+\begin{solution}
+\begin{align*} \frac{1}{\sqrt{n+1}+\sqrt{n}} &= \frac{\sqrt{n+1}-\sqrt{n}}{(\sqrt{n+1}+\sqrt{n})(\sqrt{n+1}-\sqrt{n})} \\&= \sqrt{n+1}-\sqrt{n} \end{align*}
+Doing this for each fraction gives us \[ (\sqrt{2}-\sqrt{1})+(\sqrt{3}-\sqrt{2})+\cdots+(\sqrt{100}-\sqrt{99})=\sqrt{100}-\sqrt{1}=9 \]
+\end{solution}
+
+\begin{exercise} 
+Evaluate the following sum:
+\[ \sum_{n=1}^{2015} \frac{1}{n^2+3n+2}. \] 
+\end{exercise}
+
+\begin{solution}
+A common method is to use partial fractions which will cancel each other out.
+\[ \frac{1}{n^2+3n+2}=\frac{1}{n+1}-\frac{1}{n+2} \]
+\begin{align*}
+\sum_{n=1}^{2015} \left( \frac{1}{n+1}-\frac{1}{n+2} \right)
+&= \left(\frac{1}{2}-\frac{1}{3}\right)+\left(\frac{1}{3}-\frac{1}{4}\right)+\cdots+\left(\frac{1}{2016}-\frac{1}{2017}\right) \\
+&= \frac{1}{2}-\frac{1}{2017}=\frac{2015}{4034}
+\end{align*}
+\end{solution}
+
+\section{Power Series}
+The \vocab{Taylor series} is given by 
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n
+\end{equation} 
+
+The \vocab{Maclaurin series} is a special case of Taylor Series, where $a=0$; that is, 
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n
+\end{equation}
+
+The power series below can be easily computed:
+\begin{equation} e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots \end{equation}
+\begin{equation} \sin x=x - \frac{x^3}{3!}+\frac{x^5}{5!} - \frac{x^7}{7!}+\cdots \end{equation}
+\begin{equation} \cos x=1 - \frac{x^2}{2!}+\frac{x^4}{4!} - \frac{x^6}{6!}+\cdots \end{equation}
+\begin{equation} \ln (1+x)=x - \frac{x^2}{2}+\frac{x^3}{3} - \frac{x^4}{4}+\cdots \end{equation}
+\begin{equation} \frac{1}{1-x}=1+x+x^2+x^3+\cdots \end{equation}
+\begin{equation} \frac{1}{(1-x)^2}=1+2x+3x^2+4x^3+\cdots \end{equation}
+
+\section*{Exercises}
+\begin{prbm}[\acrshort{smo} Open 2013 Q1]
+Evaluate the sum
+\[ \frac{1}{1\times2\times3}+\frac{1}{2\times3\times4}+\cdots+\frac{1}{100\times101\times102}. \]
+\end{prbm}
+
+\begin{solution}
+
+\end{solution}
+
+SMO Open 2011 Q25
